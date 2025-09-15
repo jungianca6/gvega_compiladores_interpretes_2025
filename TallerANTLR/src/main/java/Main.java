@@ -21,7 +21,7 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SimpleParser parser = new SimpleParser(tokens);
 
-        SimpleParser.StartContext tree = parser.start();
+        SimpleParser.ProgramContext tree = parser.program();
 
         SimpleBaseVisitor visitor = new SimpleBaseVisitor();
         visitor.visit(tree);
