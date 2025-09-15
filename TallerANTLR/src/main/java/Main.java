@@ -17,13 +17,13 @@ public class Main {
 
         System.out.println("Interpetando archivo " + program);
 
-        MiGramaticaLexer lexer = new MiGramaticaLexer(new ANTLRFileStream(program));
+        SimpleLexer lexer = new SimpleLexer(new ANTLRFileStream(program));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        MiGramaticaParser parser = new MiGramaticaParser(tokens);
+        SimpleParser parser = new SimpleParser(tokens);
 
-        MiGramaticaParser.StartContext tree = parser.start();
+        SimpleParser.StartContext tree = parser.start();
 
-        MiGramaticaBaseVisitor visitor = new MiGramaticaBaseVisitor();
+        SimpleBaseVisitor visitor = new SimpleBaseVisitor();
         visitor.visit(tree);
 
         System.out.println("Interpretacion terminada");

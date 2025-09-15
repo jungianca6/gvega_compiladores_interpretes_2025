@@ -1,4 +1,4 @@
-grammar MiGramatica;
+grammar Simple;
 
 prog:   'hola' ID ;
 ID:     [a-zA-Z]+ ;
