@@ -27,6 +27,6 @@ public class Main {
         SimpleBaseVisitor visitor = new SimpleBaseVisitor();
         visitor.visit(tree);
 
-        System.out.println("Interpretacion terminada");
+        System.out.println("\nInterpretacion terminada");
     }
 }

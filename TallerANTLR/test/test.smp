@@ -1,5 +1,10 @@
 program miprograma {
+    var x;
+    x = 5;
+    if (false){
 
     println (2+2)*4;
-
+         } else {
+            println x;
+    }
 }
