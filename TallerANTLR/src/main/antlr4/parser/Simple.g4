@@ -68,6 +68,19 @@ var_assign returns [ASTNode node]
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
+      (AND t3=factor { $node = new And($node, $t3.node); })*
+      (POW2ADD t2=factor { $node = new Pow2Add($node, $t2.node); })*
+      (FIBSUM t2=factor { $node = new FibSum($node, $t2.node); })*
+    ;
+
+logic_expr returns [ASTNode node]
+    : t1=factor { $node = $t1.node; }
+      (AND t2=factor { $node = new And($node, $t2.node); })*
+    ;
+
+arithExpr returns [ASTNode node]
+    : t1=factor { $node = $t1.node; }
+      (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
     ;
 
 factor returns [ASTNode node]
@@ -94,6 +107,9 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+POW2ADD: '**+';
+FIBSUM: 'fibsum';
+
 
 AND: '&&';
 OR: '||';
