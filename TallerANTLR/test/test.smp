@@ -1,16 +1,5 @@
 program miprograma {
 
-    var x;
-    x = 5;
-
-    println 6;
-
-    println x;
-
-    var y;
-
-    y = x;
-
-    println y;
+    println (2+2)*4;
 
 }
