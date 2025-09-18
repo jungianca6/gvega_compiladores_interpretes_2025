@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String program = args.length > 1 ? args[1] : "C:./TallerANTLR/test/test." + EXTENSION;
+        String program = args.length > 1 ? args[1] : "C:./TallerInterprete/TallerANTLR/test/test." + EXTENSION;
 
         System.out.println("Interpretando archivo " + program);
 
