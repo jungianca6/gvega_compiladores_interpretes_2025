@@ -1,5 +1,0 @@
-program miprograma {
-    var a;
-    a = 5 fibsum 2;
-    println a;
-}

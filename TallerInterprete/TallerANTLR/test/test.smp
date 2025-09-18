@@ -1,0 +1,7 @@
+program miprograma {
+    var a;
+    a = 5 fibsum 5;
+    println a;
+    println false;
+    println 7;
+}
