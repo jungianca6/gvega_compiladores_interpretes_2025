@@ -3,6 +3,7 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import ast.*;
 import parser.*;
 
 import java.util.*;
@@ -14,9 +15,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String program = args.length > 1 ? args[1] : "test/test." + EXTENSION;
+        String program = args.length > 1 ? args[1] : "C:./TallerANTLR/test/test." + EXTENSION;
 
-        System.out.println("Interpetando archivo " + program);
+        System.out.println("Interpretando archivo " + program);
 
         SimpleLexer lexer = new SimpleLexer(new ANTLRFileStream(program));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
