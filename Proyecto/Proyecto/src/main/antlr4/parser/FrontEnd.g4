@@ -32,6 +32,7 @@ sentence returns [ASTNode node]
     | conditional { $node = $conditional.node; }
     | var_decl    { $node = $var_decl.node; }
     | var_assign  { $node = $var_assign.node; }
+    | suma_expr   { $node = $suma_expr.node; }
     ;
 
 println returns [ASTNode node]
@@ -65,6 +66,18 @@ var_assign returns [ASTNode node]
         { $node = new VarAssign($ID.text, $expression.node); }
     ;
 
+suma_expr  returns [ASTNode node]
+    : SUMA
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Suma(args);   // instancia tu AST Suma con lista de operandos
+        }
+    ;
+
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
@@ -89,6 +102,7 @@ VAR: 'var';
 PRINTLN: 'println';
 IF: 'if';
 ELSE: 'else';
+SUMA: 'suma';
 
 PLUS: '+';
 MINUS: '-';
