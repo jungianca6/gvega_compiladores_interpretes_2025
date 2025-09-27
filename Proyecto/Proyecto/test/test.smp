@@ -5,4 +5,12 @@ program miprograma {
 
     println 6;
 
+    println x;
+
+    var y;
+
+    y = x;
+
+    println y;
+
 }
