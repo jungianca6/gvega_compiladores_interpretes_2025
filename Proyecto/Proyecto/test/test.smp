@@ -1,10 +1,8 @@
 program miprograma {
     var x;
     var y;
-    x = 5;
-    y = 8;
-    z = y;
-    println x;
-    println y;
-    suma x y z;
+    println 6-3;
+    x = 2;
+    y = 1;
+    println x-y;
 }

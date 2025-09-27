@@ -81,6 +81,7 @@ suma_expr  returns [ASTNode node]
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
+      (MINUS t2=factor { $node = new Substraction($node, $t2.node); })*
     ;
 
 factor returns [ASTNode node]
