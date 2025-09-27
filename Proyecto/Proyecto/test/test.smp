@@ -1,8 +1,8 @@
 program miprograma {
     var x;
     var y;
-    println 6-3;
-    x = 2;
-    y = 1;
-    println x-y;
+    println 7/3;
+    x=4;
+    y=2;
+    println x/y;
 }
