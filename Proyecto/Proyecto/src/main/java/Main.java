@@ -25,6 +25,6 @@ public class Main {
         FrontEndBaseVisitor visitor = new FrontEndBaseVisitor();
         visitor.visit(tree);
 
-        System.out.println("Interpretacion terminada");
+        System.out.println("\nInterpretacion terminada");
     }
 }
