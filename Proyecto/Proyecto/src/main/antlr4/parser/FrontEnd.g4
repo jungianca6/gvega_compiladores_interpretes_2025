@@ -33,6 +33,10 @@ sentence returns [ASTNode node]
     | var_decl    { $node = $var_decl.node; }
     | var_assign  { $node = $var_assign.node; }
     | suma_expr   { $node = $suma_expr.node; }
+    | resta_expr  { $node = $resta_expr.node; }
+    | mult_expr   { $node = $mult_expr.node; }
+    | div_expr    { $node = $div_expr.node; }
+    | pot_expr    { $node = $pot_expr.node; }
     ;
 
 println returns [ASTNode node]
@@ -78,6 +82,56 @@ suma_expr  returns [ASTNode node]
         }
     ;
 
+resta_expr  returns [ASTNode node]
+    : RESTA
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Resta(args);
+        }
+    ;
+
+mult_expr  returns [ASTNode node]
+    : MULT
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Suma(args);
+        }
+    ;
+
+
+div_expr  returns [ASTNode node]
+    : DIVISION
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Suma(args);
+        }
+    ;
+
+
+pot_expr  returns [ASTNode node]
+    : POTENCIA
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Suma(args);
+        }
+    ;
+
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
@@ -105,6 +159,10 @@ PRINTLN: 'println';
 IF: 'if';
 ELSE: 'else';
 SUMA: 'suma';
+RESTA: 'diferencia';
+PROD: 'producto';
+DIVISION: 'división';
+POTENCIA: 'potencia';
 
 PLUS: '+';
 MINUS: '-';

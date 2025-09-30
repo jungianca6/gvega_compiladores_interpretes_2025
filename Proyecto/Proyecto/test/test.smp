@@ -1,8 +1,11 @@
 program miprograma {
+    diferencia 3 2 1;
     var x;
     var y;
-    println 7/3;
-    x=4;
-    y=2;
-    println x/y;
+    var z;
+    x = 7;
+    y = 4;
+    z = 1;
+    diferencia x y y;
+    suma x y z;
 }
