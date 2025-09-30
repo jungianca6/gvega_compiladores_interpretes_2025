@@ -128,7 +128,7 @@ pot_expr  returns [ASTNode node]
         e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
       SEMICOLON
         {
-            $node = new Suma(args);
+            $node = new Potencia(args);
         }
     ;
 

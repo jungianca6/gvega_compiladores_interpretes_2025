@@ -5,8 +5,7 @@ program miprograma {
     x = 7;
     y = 4;
     z = 1;
-    division x z;
-    division 6 4;
-    division 8 y;
-    division 20 5;
+    potencia y z;
+    potencia 2 3;
+    potencia 1 1;
 }
