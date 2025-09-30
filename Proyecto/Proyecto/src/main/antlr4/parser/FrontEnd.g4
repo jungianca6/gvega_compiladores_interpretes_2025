@@ -90,19 +90,19 @@ resta_expr  returns [ASTNode node]
         e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
       SEMICOLON
         {
-            $node = new Resta(args);
+            $node = new Diferencia(args);
         }
     ;
 
 mult_expr  returns [ASTNode node]
-    : MULT
+    : PROD
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
         }
         e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
       SEMICOLON
         {
-            $node = new Suma(args);
+            $node = new Producto(args);
         }
     ;
 
@@ -115,7 +115,7 @@ div_expr  returns [ASTNode node]
         e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
       SEMICOLON
         {
-            $node = new Suma(args);
+            $node = new Division(args);
         }
     ;
 
@@ -161,7 +161,7 @@ ELSE: 'else';
 SUMA: 'suma';
 RESTA: 'diferencia';
 PROD: 'producto';
-DIVISION: 'división';
+DIVISION: 'division';
 POTENCIA: 'potencia';
 
 PLUS: '+';

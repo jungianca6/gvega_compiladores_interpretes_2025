@@ -1,11 +1,12 @@
 program miprograma {
-    diferencia 3 2 1;
     var x;
     var y;
     var z;
     x = 7;
     y = 4;
     z = 1;
-    diferencia x y y;
-    suma x y z;
+    division x z;
+    division 6 4;
+    division 8 y;
+    division 20 5;
 }
