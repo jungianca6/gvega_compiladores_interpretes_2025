@@ -5,6 +5,7 @@ grammar FrontEnd;
     import java.util.HashMap;
     import java.util.List;
     import java.util.ArrayList;
+    import java.util.Random;
     import ast.*;
 }
 
@@ -37,6 +38,7 @@ sentence returns [ASTNode node]
     | mult_expr   { $node = $mult_expr.node; }
     | div_expr    { $node = $div_expr.node; }
     | pot_expr    { $node = $pot_expr.node; }
+    | random      { $node = $random.node; }
     ;
 
 println returns [ASTNode node]
@@ -132,6 +134,13 @@ pot_expr  returns [ASTNode node]
         }
     ;
 
+random  returns [ASTNode node]
+    : AZAR e=expression
+      SEMICOLON
+        {
+            $node = new Rand($e.node);
+        }
+    ;
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
@@ -169,6 +178,7 @@ RESTA: 'diferencia';
 PROD: 'producto';
 DIVISION: 'division';
 POTENCIA: 'potencia';
+AZAR: 'azar';
 
 PLUS: '+';
 MINUS: '-';
