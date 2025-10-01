@@ -2,10 +2,12 @@ program miprograma {
     var x;
     var y;
     var z;
-    x = 7;
+    x = 5;
     y = 4;
-    z = 1;
-    potencia y z;
-    potencia 2 3;
-    potencia 1 1;
+    z = 6;
+    if (x==7){
+        println x;
+    } else {
+        println y;
+    }
 }

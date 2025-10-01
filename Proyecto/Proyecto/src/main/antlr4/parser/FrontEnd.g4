@@ -136,6 +136,12 @@ expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
       (MINUS t3=factor { $node = new Substraction($node, $t3.node); })*
+      (GT t4=factor { $node = new GreaterThan($node, $t4.node); })*
+      (LT t5=factor { $node = new LessThan($node, $t5.node); })*
+      (EQ t6=factor { $node = new EqualThan($node, $t6.node); })*
+      (GEQ t7=factor { $node = new GreaterEqualThan($node, $t7.node); })*
+      (LEQ t8=factor { $node = new LessEqualThan($node, $t8.node); })*
+      (NEQ t9=factor { $node = new NotEqual($node, $t9.node); })*
     ;
 
 factor returns [ASTNode node]
