@@ -39,6 +39,8 @@ sentence returns [ASTNode node]
     | div_expr    { $node = $div_expr.node; }
     | pot_expr    { $node = $pot_expr.node; }
     | random      { $node = $random.node; }
+    | menor       { $node = $menor.node; }
+    | mayor       { $node = $mayor.node; }
     ;
 
 println returns [ASTNode node]
@@ -141,6 +143,31 @@ random  returns [ASTNode node]
             $node = new Rand($e.node);
         }
     ;
+
+menor  returns [ASTNode node]
+    : MENOR
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Menor(args);
+        }
+    ;
+
+mayor  returns [ASTNode node]
+    : MAYOR
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Mayor(args);
+        }
+    ;
+
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
@@ -179,6 +206,8 @@ PROD: 'producto';
 DIVISION: 'division';
 POTENCIA: 'potencia';
 AZAR: 'azar';
+MENOR: 'menorque?';
+MAYOR: 'mayorque?';
 
 PLUS: '+';
 MINUS: '-';
