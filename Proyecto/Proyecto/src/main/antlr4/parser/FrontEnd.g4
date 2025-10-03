@@ -41,6 +41,9 @@ sentence returns [ASTNode node]
     | random      { $node = $random.node; }
     | menor       { $node = $menor.node; }
     | mayor       { $node = $mayor.node; }
+    | and         { $node = $and.node; }
+    | or          { $node = $or.node; }
+    | iguales     { $node = $iguales.node; }
     ;
 
 println returns [ASTNode node]
@@ -168,6 +171,43 @@ mayor  returns [ASTNode node]
         }
     ;
 
+and  returns [ASTNode node]
+    : Y
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new AndAST(args);
+        }
+    ;
+
+or  returns [ASTNode node]
+    : O
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new OrAST(args);
+        }
+    ;
+
+iguales  returns [ASTNode node]
+    : IGUALES
+        {
+            List<ASTNode> args = new ArrayList<ASTNode>();
+        }
+        e=expression { args.add($e.node); } (e=expression { args.add($e.node); })*
+      SEMICOLON
+        {
+            $node = new Iguales(args);
+        }
+    ;
+
+
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
       (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
@@ -178,6 +218,8 @@ expression returns [ASTNode node]
       (GEQ t7=factor { $node = new GreaterEqualThan($node, $t7.node); })*
       (LEQ t8=factor { $node = new LessEqualThan($node, $t8.node); })*
       (NEQ t9=factor { $node = new NotEqual($node, $t9.node); })*
+      (AND t9=factor { $node = new And($node, $t9.node); })*
+      (OR t9=factor  { $node = new Or($node, $t9.node); })*
     ;
 
 factor returns [ASTNode node]
@@ -208,6 +250,9 @@ POTENCIA: 'potencia';
 AZAR: 'azar';
 MENOR: 'menorque?';
 MAYOR: 'mayorque?';
+Y: 'Y';
+O: 'O';
+IGUALES: 'iguales?';
 
 PLUS: '+';
 MINUS: '-';
