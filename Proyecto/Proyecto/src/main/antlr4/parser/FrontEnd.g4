@@ -9,6 +9,7 @@ grammar FrontEnd;
     import ast.*;
     import ast.Aritmeticos.*;
     import ast.Logicos.*;
+    import ast.Instrucciones.*;
 }
 
 // Tabla de símbolos global al parser
@@ -36,6 +37,7 @@ instrucciones returns [ASTNode node]
     | conditional { $node = $conditional.node; }
     | var_decl    { $node = $var_decl.node; }
     | var_assign  { $node = $var_assign.node; }
+    | inic        { $node = $inic.node; }
     | suma_expr   { $node = $suma_expr.node; }
     | resta_expr  { $node = $resta_expr.node; }
     | mult_expr   { $node = $mult_expr.node; }
@@ -53,6 +55,12 @@ println returns [ASTNode node]
     : PRINTLN expression SEMICOLON
         { $node = new Println($expression.node); }
     ;
+
+inic returns [ASTNode node]
+    : 'INIC' ID ASSIGN e=expression SEMICOLON
+      { $node = new Inic($ID.text, $e.node); }
+    ;
+
 
 conditional returns [ASTNode node]
     : SI PAR_OPEN expression PAR_CLOSE

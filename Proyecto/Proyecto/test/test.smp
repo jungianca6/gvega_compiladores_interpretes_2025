@@ -7,4 +7,11 @@ program miprograma {
     SI (x<y)
     [println x;]
     [println y;]
+    INIC mivar = 100;
+    println mivar;
+    INIC mivar = 100 + 45;
+    println mivar;
+
+
+
 }
