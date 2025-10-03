@@ -2,8 +2,8 @@ program miprograma {
     var x;
     var y;
     var z;
-    x = true;
-    y = true;
+    haz x true;
+    haz y true;
     Y x y;
     O x y;
     iguales? (6+2) 8;

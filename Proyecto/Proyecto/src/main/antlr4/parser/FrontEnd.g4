@@ -73,7 +73,7 @@ var_decl returns [ASTNode node]
     ;
 
 var_assign returns [ASTNode node]
-    : ID ASSIGN expression SEMICOLON
+    : HAZ ID expression SEMICOLON
         { $node = new VarAssign($ID.text, $expression.node); }
     ;
 
@@ -239,6 +239,7 @@ term returns [ASTNode node]
 
 PROGRAM: 'program';
 VAR: 'var';
+HAZ: 'haz';
 PRINTLN: 'println';
 IF: 'if';
 ELSE: 'else';
