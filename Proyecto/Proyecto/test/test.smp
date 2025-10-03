@@ -11,6 +11,14 @@ program miprograma {
     println mivar;
     INIC mivar = 100 + 45;
     println mivar;
+    INIC var = 10;
+    INC [var];
+    println var;   // 11
+
+    INIC var2 = 5;
+    INC [var var2];
+    println var;   // 16
+
 
 
 
