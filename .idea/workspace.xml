@@ -7,29 +7,8 @@
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Addition.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Addition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/And.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/And.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/AndAST.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/AndAST.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Diferencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Diferencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Divide.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Divide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Division.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Division.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/EqualThan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/EqualThan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/GreaterEqualThan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/GreaterEqualThan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/GreaterThan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/GreaterThan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Iguales.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/Iguales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/LessEqualThan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/LessEqualThan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/LessThan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/LessThan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Mayor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/Mayor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Menor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/Menor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Multiplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Multiplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/NotEqual.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/NotEqual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Or.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/Or.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/OrAST.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Logicos/OrAST.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Potencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Potencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Rand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Rand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Substraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Substraction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Suma.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Aritmeticos/Suma.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/If.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Si.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,37 +34,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.Proyecto [clean].executor": "Run",
-    "Maven.Proyecto [compile].executor": "Run",
-    "Maven.Proyecto [validate].executor": "Run",
-    "Maven.TallerANTLR [clean].executor": "Run",
-    "Maven.TallerANTLR [compile].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "development",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/PC/Desktop/gvega_compiladores_interpretes_2025",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [compile].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/Desktop/gvega_compiladores_interpretes_2025&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Dell\Desktop\gvega_compiladores_interpretes_2025\Proyecto\Proyecto\src\main\java\ast" />
@@ -122,7 +101,8 @@
       <workItem from="1759286832394" duration="5294000" />
       <workItem from="1759374491174" duration="2170000" />
       <workItem from="1759455206586" duration="4517000" />
-      <workItem from="1759462595244" duration="1766000" />
+      <workItem from="1759462595244" duration="2903000" />
+      <workItem from="1759466003189" duration="4118000" />
     </task>
     <servers />
   </component>

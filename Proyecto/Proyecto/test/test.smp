@@ -2,9 +2,9 @@ program miprograma {
     var x;
     var y;
     var z;
-    haz x true;
-    haz y true;
-    Y x y;
-    O x y;
-    iguales? (6+2) 8;
+    haz x 6;
+    haz y 2;
+    SI (x<y)
+    [println x;]
+    [println y;]
 }

@@ -21,7 +21,7 @@ program
         {
             List<ASTNode> body = new ArrayList<ASTNode>();
         }
-        (s=sentence { body.add($s.node); })*
+        (i=instrucciones { body.add($i.node); })*
       BRACKET_CLOSE
         {
             for (ASTNode n : body) {
@@ -30,7 +30,8 @@ program
         }
     ;
 
-sentence returns [ASTNode node]
+//Instrucciones
+instrucciones returns [ASTNode node]
     : println     { $node = $println.node; }
     | conditional { $node = $conditional.node; }
     | var_decl    { $node = $var_decl.node; }
@@ -54,18 +55,17 @@ println returns [ASTNode node]
     ;
 
 conditional returns [ASTNode node]
-    : IF PAR_OPEN expression PAR_CLOSE
+    : SI PAR_OPEN expression PAR_CLOSE
         {
-            List<ASTNode> body = new ArrayList<ASTNode>();
-        }
-        BRACKET_OPEN (s1=sentence { body.add($s1.node); })* BRACKET_CLOSE
-        ELSE
-        {
+            List<ASTNode> ifBody = new ArrayList<ASTNode>();
             List<ASTNode> elseBody = new ArrayList<ASTNode>();
         }
-        BRACKET_OPEN (s2=sentence { elseBody.add($s2.node); })* BRACKET_CLOSE
+        SQUARE_PAR_OPEN (s1=instrucciones { ifBody.add($s1.node); })* SQUARE_PAR_CLOSE
+        (
+            SQUARE_PAR_OPEN (s2=instrucciones { elseBody.add($s2.node); })* SQUARE_PAR_CLOSE
+        )?
         {
-            $node = new If($expression.node, body, elseBody);
+            $node = new Si($expression.node, ifBody, elseBody);
         }
     ;
 
@@ -244,7 +244,7 @@ VAR: 'var';
 HAZ: 'haz';
 PRINTLN: 'println';
 
-IF: 'if';
+SI: 'SI';
 ELSE: 'else';
 
 SUMA: 'suma';
@@ -284,6 +284,9 @@ BRACKET_CLOSE: '}';
 
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
+
+SQUARE_PAR_OPEN: '[';
+SQUARE_PAR_CLOSE: ']';
 
 SEMICOLON: ';';
 
