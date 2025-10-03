@@ -1,4 +1,6 @@
-package ast;
+package ast.Aritmeticos;
+
+import ast.ASTNode;
 
 import java.util.List;
 import java.util.Map;

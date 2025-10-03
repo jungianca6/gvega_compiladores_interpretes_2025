@@ -1,4 +1,6 @@
-package ast;
+package ast.Logicos;
+
+import ast.ASTNode;
 
 import java.util.Map;
 

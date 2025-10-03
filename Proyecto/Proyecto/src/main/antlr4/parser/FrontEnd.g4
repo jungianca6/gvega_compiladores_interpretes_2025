@@ -7,6 +7,8 @@ grammar FrontEnd;
     import java.util.ArrayList;
     import java.util.Random;
     import ast.*;
+    import ast.Aritmeticos.*;
+    import ast.Logicos.*;
 }
 
 // Tabla de símbolos global al parser

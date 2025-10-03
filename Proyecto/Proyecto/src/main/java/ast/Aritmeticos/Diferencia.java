@@ -1,12 +1,14 @@
-package ast;
+package ast.Aritmeticos;
+
+import ast.ASTNode;
 
 import java.util.List;
 import java.util.Map;
 
-public class Producto implements ASTNode {
+public class Diferencia implements ASTNode {
     private List<ASTNode> operands;
 
-    public Producto(List<ASTNode> operands) {
+    public Diferencia(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -26,10 +28,10 @@ public class Producto implements ASTNode {
                     result = (int) value;  // Primer operando se asigna directamente
                     first = false;
                 } else {
-                    result *= (int) value;  // Los siguientes se multiplican
+                    result -= (int) value;  // Los siguientes se restan
                 }
             } else {
-                throw new RuntimeException("Producto solo puede operar con números enteros");
+                throw new RuntimeException("Diferencia solo puede operar con números enteros");
             }
         }
         System.out.println(result);

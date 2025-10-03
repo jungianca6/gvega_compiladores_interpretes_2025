@@ -1,12 +1,14 @@
-package ast;
+package ast.Logicos;
+
+import ast.ASTNode;
 
 import java.util.List;
 import java.util.Map;
 
-public class OrAST implements ASTNode {
+public class Menor implements ASTNode {
     private List<ASTNode> operands;
 
-    public OrAST(List<ASTNode> operands) {
+    public Menor(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -19,17 +21,17 @@ public class OrAST implements ASTNode {
         }
 
         // Obtener los valores de los operandos
-        Object cond1 = operands.get(0).execute(symbolTable);
-        Object cond2 = operands.get(1).execute(symbolTable);
+        Object num1 = operands.get(0).execute(symbolTable);
+        Object num2 = operands.get(1).execute(symbolTable);
 
         // Validar que ambos son enteros
-        if (!(cond1 instanceof Boolean) || !(cond2 instanceof Boolean)) {
+        if (!(num1 instanceof Integer) || !(num2 instanceof Integer)) {
             throw new RuntimeException("Potencia solo puede operar con números enteros");
         }
 
         boolean result;
 
-        result = (boolean) cond1 || (boolean)  cond2;
+        result = (int) num1 < (int)  num2;
 
         System.out.println(result);
         return result;

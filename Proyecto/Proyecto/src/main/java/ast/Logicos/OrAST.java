@@ -1,12 +1,14 @@
-package ast;
+package ast.Logicos;
+
+import ast.ASTNode;
 
 import java.util.List;
 import java.util.Map;
 
-public class AndAST implements ASTNode {
+public class OrAST implements ASTNode {
     private List<ASTNode> operands;
 
-    public AndAST(List<ASTNode> operands) {
+    public OrAST(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -29,7 +31,7 @@ public class AndAST implements ASTNode {
 
         boolean result;
 
-        result = (boolean) cond1 && (boolean)  cond2;
+        result = (boolean) cond1 || (boolean)  cond2;
 
         System.out.println(result);
         return result;

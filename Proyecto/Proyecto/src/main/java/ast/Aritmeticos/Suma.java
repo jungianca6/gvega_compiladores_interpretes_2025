@@ -1,12 +1,13 @@
-package ast;
+package ast.Aritmeticos;
+import ast.ASTNode;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
-public class Diferencia implements ASTNode {
+public class Suma implements ASTNode {
     private List<ASTNode> operands;
 
-    public Diferencia(List<ASTNode> operands) {
+    public Suma(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -26,10 +27,10 @@ public class Diferencia implements ASTNode {
                     result = (int) value;  // Primer operando se asigna directamente
                     first = false;
                 } else {
-                    result -= (int) value;  // Los siguientes se restan
+                    result += (int) value;  // Los siguientes se suman
                 }
             } else {
-                throw new RuntimeException("Diferencia solo puede operar con números enteros");
+                throw new RuntimeException("Suma solo puede operar con números enteros");
             }
         }
         System.out.println(result);

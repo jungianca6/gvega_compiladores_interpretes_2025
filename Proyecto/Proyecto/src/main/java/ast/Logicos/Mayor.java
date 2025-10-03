@@ -1,12 +1,14 @@
-package ast;
+package ast.Logicos;
+
+import ast.ASTNode;
 
 import java.util.List;
 import java.util.Map;
 
-public class Iguales implements ASTNode {
+public class Mayor implements ASTNode {
     private List<ASTNode> operands;
 
-    public Iguales(List<ASTNode> operands) {
+    public Mayor(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -29,7 +31,7 @@ public class Iguales implements ASTNode {
 
         boolean result;
 
-        result = (int) num1 == (int)  num2;
+        result = (int) num1 > (int)  num2;
 
         System.out.println(result);
         return result;

@@ -1,4 +1,6 @@
-package ast;
+package ast.Aritmeticos;
+import ast.ASTNode;
+
 import java.util.Map;
 import java.util.Random;
 public class Rand implements ASTNode {

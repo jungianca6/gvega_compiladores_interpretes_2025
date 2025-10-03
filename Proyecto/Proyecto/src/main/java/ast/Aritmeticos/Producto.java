@@ -1,11 +1,14 @@
-package ast;
-import java.util.Map;
-import java.util.List;
+package ast.Aritmeticos;
 
-public class Suma implements ASTNode {
+import ast.ASTNode;
+
+import java.util.List;
+import java.util.Map;
+
+public class Producto implements ASTNode {
     private List<ASTNode> operands;
 
-    public Suma(List<ASTNode> operands) {
+    public Producto(List<ASTNode> operands) {
         super();
         this.operands = operands;
     }
@@ -25,10 +28,10 @@ public class Suma implements ASTNode {
                     result = (int) value;  // Primer operando se asigna directamente
                     first = false;
                 } else {
-                    result += (int) value;  // Los siguientes se suman
+                    result *= (int) value;  // Los siguientes se multiplican
                 }
             } else {
-                throw new RuntimeException("Suma solo puede operar con números enteros");
+                throw new RuntimeException("Producto solo puede operar con números enteros");
             }
         }
         System.out.println(result);
