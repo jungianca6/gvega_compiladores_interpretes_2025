@@ -241,16 +241,20 @@ PROGRAM: 'program';
 VAR: 'var';
 HAZ: 'haz';
 PRINTLN: 'println';
+
 IF: 'if';
 ELSE: 'else';
+
 SUMA: 'suma';
 RESTA: 'diferencia';
 PROD: 'producto';
 DIVISION: 'division';
 POTENCIA: 'potencia';
 AZAR: 'azar';
+
 MENOR: 'menorque?';
 MAYOR: 'mayorque?';
+
 Y: 'Y';
 O: 'O';
 IGUALES: 'iguales?';
