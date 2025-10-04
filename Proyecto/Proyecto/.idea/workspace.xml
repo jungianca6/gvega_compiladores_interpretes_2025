@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b74fdeb3-9cd5-4aeb-8792-f827b65b4cc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/HazMientras.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/Avanza.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/GiraDerecha.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/GiraIzquierda.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/MostrarRumbo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/OcultaTortuga.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonPos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonRumbo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonX.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonY.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/Retrocede.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />

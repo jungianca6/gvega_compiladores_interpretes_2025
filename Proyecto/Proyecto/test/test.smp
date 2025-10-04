@@ -1,10 +1,24 @@
-program miprograma {
-    var x;
+program TestTortuga {
 
-    haz x 0;
+    AVANZA 10;
+    AV 5*3;
 
-    HAZ.MIENTRAS [
-        println x;
-        INC [x];
-    ] [x < 5]
+    RETROCEDE 8;
+    RE 2*4;
+
+    GIRADERECHA 90;
+    GD 45;
+    GIRAIzquierda 90;
+    GI 30;
+
+    OT;
+
+    PONPOS [100 200];
+    PONXY [50 75];
+
+    PONX 150;
+    PONY 300;
+
+    PONRUMBO 180;
+    RUMBO;
 }

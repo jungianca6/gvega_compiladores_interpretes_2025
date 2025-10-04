@@ -1,0 +1,32 @@
+package ast.Instrucciones;
+
+import ast.ASTNode;
+import java.util.Map;
+
+public class PonRumbo implements ASTNode {
+
+    private ASTNode expr; // expresión que determina el ángulo
+
+    public PonRumbo(ASTNode expr) {
+        this.expr = expr;
+    }
+
+    @Override
+    public Object execute(Map<String, Object> symbolTable) {
+        // Evaluar la expresión para obtener el ángulo
+        Object value = expr.execute(symbolTable);
+
+        int angulo = 0;
+        if (value instanceof Integer) {
+            angulo = (Integer) value;
+        } else {
+            throw new RuntimeException("PonRumbo espera un número entero, pero recibió: " + value);
+        }
+
+        // Lógica para colocar la tortuga en el ángulo especificado
+        // Por ejemplo: Turtle.getInstance().setDirection(angulo);
+        System.out.println("Colocando tortuga en dirección " + angulo + " grados");
+
+        return null; // no produce valor
+    }
+}

@@ -33,27 +33,89 @@ program
 
 //Instrucciones
 instrucciones returns [ASTNode node]
-    : println     { $node = $println.node; }
-    | conditional { $node = $conditional.node; }
-    | var_decl    { $node = $var_decl.node; }
-    | var_assign  { $node = $var_assign.node; }
-    | inic        { $node = $inic.node; }
-    | inc         { $node = $inc.node; }
-    | suma_expr   { $node = $suma_expr.node; }
-    | resta_expr  { $node = $resta_expr.node; }
-    | mult_expr   { $node = $mult_expr.node; }
-    | div_expr    { $node = $div_expr.node; }
-    | pot_expr    { $node = $pot_expr.node; }
-    | mientras    { $node = $mientras.node; }
-    | haz_mientras { $node = $haz_mientras.node; }
-    | random      { $node = $random.node; }
-    | menor       { $node = $menor.node; }
-    | mayor       { $node = $mayor.node; }
-    | and         { $node = $and.node; }
-    | or          { $node = $or.node; }
-    | iguales     { $node = $iguales.node; }
-    | hasta       { $node = $hasta.node; }
+    : println         { $node = $println.node; }
+    | conditional     { $node = $conditional.node; }
+    | var_decl        { $node = $var_decl.node; }
+    | var_assign      { $node = $var_assign.node; }
+    | inic            { $node = $inic.node; }
+    | inc             { $node = $inc.node; }
+    | suma_expr       { $node = $suma_expr.node; }
+    | resta_expr      { $node = $resta_expr.node; }
+    | mult_expr       { $node = $mult_expr.node; }
+    | div_expr        { $node = $div_expr.node; }
+    | pot_expr        { $node = $pot_expr.node; }
+    | mientras        { $node = $mientras.node; }
+    | haz_mientras    { $node = $haz_mientras.node; }
+    | random          { $node = $random.node; }
+    | menor           { $node = $menor.node; }
+    | mayor           { $node = $mayor.node; }
+    | and             { $node = $and.node; }
+    | or              { $node = $or.node; }
+    | iguales         { $node = $iguales.node; }
+    | hasta           { $node = $hasta.node; }
+    // ---------------- Tortuga -----------------
+    | avanza          { $node = $avanza.node; }
+    | retrocede       { $node = $retrocede.node; }
+    | giraDerecha     { $node = $giraDerecha.node; }
+    | giraIzquierda   { $node = $giraIzquierda.node; }
+    | ocultaTortuga   { $node = $ocultaTortuga.node; }
+    | ponPos          { $node = $ponPos.node; }
+    | ponX            { $node = $ponX.node; }
+    | ponY            { $node = $ponY.node; }
+    | ponRumbo        { $node = $ponRumbo.node; }
+    | mostrarRumbo    { $node = $mostrarRumbo.node; }
     ;
+
+avanza returns [ASTNode node]
+    : (AVANZA | AV) e=expression SEMICOLON
+      { $node = new Avanza($e.node); }
+    ;
+
+retrocede returns [ASTNode node]
+    : (RE | RETROCEDE) e=expression SEMICOLON
+      { $node = new Retrocede($e.node); }
+    ;
+
+giraDerecha returns [ASTNode node]
+    : (GD | GIRADERECHA) e=expression SEMICOLON
+      { $node = new GiraDerecha($e.node); }
+    ;
+
+giraIzquierda returns [ASTNode node]
+    : (GI | GIRAIzquierda) e=expression SEMICOLON
+      { $node = new GiraIzquierda($e.node); }
+    ;
+
+ocultaTortuga returns [ASTNode node]
+    : (OT | OCULTATORTUGA) SEMICOLON
+      { $node = new OcultaTortuga(); }
+    ;
+
+ponPos returns [ASTNode node]
+    : (PONPOS | PONXY) SQUARE_PAR_OPEN x=expression y=expression SQUARE_PAR_CLOSE SEMICOLON
+      { $node = new PonPos($x.node, $y.node); }
+    ;
+
+ponX returns [ASTNode node]
+    : PONX e=expression SEMICOLON
+      { $node = new PonX($e.node); }
+    ;
+
+ponY returns [ASTNode node]
+    : PONY e=expression SEMICOLON
+      { $node = new PonY($e.node); }
+    ;
+
+ponRumbo returns [ASTNode node]
+    : PONRUMBO e=expression SEMICOLON
+      { $node = new PonRumbo($e.node); }
+    ;
+
+mostrarRumbo returns [ASTNode node]
+    : RUMBO SEMICOLON
+      { $node = new MostrarRumbo(); }
+    ;
+
 
 println returns [ASTNode node]
     : PRINTLN expression SEMICOLON
@@ -335,6 +397,8 @@ MIENTRAS: 'MIENTRAS';
 HAZ_MIENTRAS : 'HAZ.MIENTRAS';
 
 
+
+
 AND: '&&';
 OR: '||';
 NOT: '!';
@@ -348,11 +412,23 @@ NEQ: '!=';
 
 ASSIGN: '=';
 
+AVANZA: 'AVANZA' | 'AV';
+RE: 'RETROCEDE' | 'RE';
+GD: 'GIRADERECHA' | 'GD';
+GI: 'GIRAIzquierda' | 'GI';
+OT: 'OCULTATORTUGA' | 'OT';
+PONPOS: 'PONPOS' | 'PONXY';
+PONX: 'PONX';
+PONY: 'PONY';
+PONRUMBO: 'PONRUMBO';
+RUMBO: 'RUMBO';
+
 BRACKET_OPEN: '{';
 BRACKET_CLOSE: '}';
 
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
+
 
 SQUARE_PAR_OPEN: '[';
 SQUARE_PAR_CLOSE: ']';
