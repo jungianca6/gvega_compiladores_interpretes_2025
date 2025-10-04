@@ -44,6 +44,7 @@ instrucciones returns [ASTNode node]
     | mult_expr   { $node = $mult_expr.node; }
     | div_expr    { $node = $div_expr.node; }
     | pot_expr    { $node = $pot_expr.node; }
+    | mientras    { $node = $mientras.node; }
     | random      { $node = $random.node; }
     | menor       { $node = $menor.node; }
     | mayor       { $node = $mayor.node; }
@@ -231,6 +232,18 @@ iguales  returns [ASTNode node]
       SEMICOLON
         {
             $node = new Iguales(args);
+        }
+    ;
+mientras returns [ASTNode node]
+    : 'MIENTRAS' PAR_OPEN condition=expression PAR_CLOSE
+      SQUARE_PAR_OPEN
+        {
+            List<ASTNode> body = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { body.add($i.node); })*
+      SQUARE_PAR_CLOSE
+        {
+            $node = new Mientras($condition.node, body);
         }
     ;
 

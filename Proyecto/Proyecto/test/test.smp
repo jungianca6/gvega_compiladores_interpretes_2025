@@ -1,44 +1,18 @@
-program complejo {
-    var a;
-    var b;
-    var c;
-    var contador;
-    var i;
+program miprograma {
+    var x;
+    var y;
 
-    haz a 5;
-    haz b 3;
-    haz c 0;
+    haz x 0;
+    haz y 5;
 
-    INC [a 2];
-    INC [b];
-    INC [c a];
-
-    SI (a > b)
+    MIENTRAS (x < y)
     [
-        haz c c + b;
-        INC [b 2];
+        println x;
+        INC [x];
     ]
+    MIENTRAS (y > 0)
     [
-        haz c c - b;
-        INC [a];
+        println y;
+        haz y y - 1;
     ]
-
-    haz contador 0;
-    HAZ.HASTA (contador < 4) [
-        println contador;
-        haz contador contador + 1;
-        INC [a];
-        INC [b 2];
-    ]
-
-    haz i 7;
-    HAZ.HASTA (i > 0) [
-        println i;
-        haz i i - 2;
-        INC [c 3];
-    ]
-
-    println a;
-    println b;
-    println c;
 }
