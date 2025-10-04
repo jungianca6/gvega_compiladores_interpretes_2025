@@ -16,17 +16,22 @@ public class Retrocede implements ASTNode {
         // Evaluar la expresión para obtener la cantidad de unidades a mover
         Object value = expr.execute(symbolTable);
 
-        int pasos = 0;
-        if (value instanceof Integer) {
-            pasos = (Integer) value;
-        } else {
+        if (!(value instanceof Integer)) {
             throw new RuntimeException("RETROCEDE espera un número entero, pero recibió: " + value);
         }
 
-        // Lógica de mover la tortuga hacia atrás
-        // Por ejemplo: Turtle.getInstance().moveBackward(pasos);
+        int pasos = (Integer) value;
+
+
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.moveBackward(pasos);
+
         System.out.println("Moviendo avatar hacia atrás " + pasos + " unidades");
 
-        return null; // RETROCEDE no produce valor
+        return null;
     }
 }

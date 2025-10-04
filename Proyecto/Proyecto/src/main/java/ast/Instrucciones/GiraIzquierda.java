@@ -23,8 +23,11 @@ public class GiraIzquierda implements ASTNode {
             throw new RuntimeException("GIRA.IZQUIERDA espera un número entero (grados), pero recibió: " + value);
         }
 
-        // Lógica de girar la tortuga a la izquierda
-        // Por ejemplo: Turtle.getInstance().turnLeft(angulo);
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+        t.turnLeft(angulo);
         System.out.println("Girando avatar a la izquierda " + angulo + " grados");
 
         return null; // no produce valor

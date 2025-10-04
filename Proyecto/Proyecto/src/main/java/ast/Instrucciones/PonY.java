@@ -16,15 +16,20 @@ public class PonY implements ASTNode {
         // Evaluar la expresión para obtener la coordenada Y
         Object value = expr.execute(symbolTable);
 
-        int y = 0;
+        int y;
         if (value instanceof Integer) {
             y = (Integer) value;
         } else {
             throw new RuntimeException("PonY espera un número entero, pero recibió: " + value);
         }
 
-        // Lógica para mover la tortuga a la coordenada Y
-        // Por ejemplo: Turtle.getInstance().setY(y);
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.setX(y);
+
         System.out.println("Moviendo tortuga a la coordenada Y = " + y);
 
         return null; // no produce valor

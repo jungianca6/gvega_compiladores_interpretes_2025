@@ -15,6 +15,12 @@ grammar FrontEnd;
 // Tabla de símbolos global al parser
 @parser::members {
     Map<String, Object> symbolTable = new HashMap<String, Object>();
+    // INICIALIZAR LA TORTUGA AL CREAR EL PARSER
+    {
+        // Posición inicial (por ejemplo, centro de la pantalla)
+        Turtle turtle = new Turtle(0, 0, 0); // x=0, y=0, ángulo=0 (derecha)
+        symbolTable.put("turtle", turtle);
+    }
 }
 
 program

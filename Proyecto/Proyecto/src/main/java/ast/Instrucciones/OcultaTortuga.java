@@ -11,10 +11,16 @@ public class OcultaTortuga implements ASTNode {
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Lógica para colocar la tortuga en la posición inicial (superior izquierda)
-        // Por ejemplo: Turtle.getInstance().resetPosition();
-        System.out.println("Colocando la tortuga en la posición inicial y ocultándola");
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
 
-        return null; // no produce valor
+        // COLOCAR EN POSICIÓN INICIAL Y OCULTAR
+        t.resetToInitialPosition();
+
+        System.out.println("Tortuga colocada en posición inicial (0, 0) y ocultada");
+
+        return null;
     }
 }

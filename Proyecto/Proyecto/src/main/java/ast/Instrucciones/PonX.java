@@ -16,15 +16,19 @@ public class PonX implements ASTNode {
         // Evaluar la expresión para obtener la coordenada X
         Object value = expr.execute(symbolTable);
 
-        int x = 0;
+        int x;
         if (value instanceof Integer) {
             x = (Integer) value;
         } else {
             throw new RuntimeException("PonX espera un número entero, pero recibió: " + value);
         }
 
-        // Lógica para mover la tortuga a la coordenada X
-        // Por ejemplo: Turtle.getInstance().setX(x);
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.setX(x);
         System.out.println("Moviendo tortuga a la coordenada X = " + x);
 
         return null; // no produce valor

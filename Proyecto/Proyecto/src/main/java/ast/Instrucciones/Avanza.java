@@ -2,7 +2,6 @@ package ast.Instrucciones;
 
 import ast.ASTNode;
 import java.util.Map;
-import java.util.List;
 
 public class Avanza implements ASTNode {
 
@@ -14,21 +13,24 @@ public class Avanza implements ASTNode {
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Evaluar la expresión para obtener la cantidad de unidades a mover
         Object value = expr.execute(symbolTable);
 
-        int pasos = 0;
-        if (value instanceof Integer) {
-            pasos = (Integer) value;
-        } else {
+        if (!(value instanceof Integer)) {
             throw new RuntimeException("AVANZA espera un número entero, pero recibió: " + value);
         }
 
-        // Aquí llamamos a la lógica de mover la tortuga
-        // Por ejemplo: Turtle.moveForward(pasos);
+        int pasos = (Integer) value;
+
+        // Llamar al motor de tortuga
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.moveForward(pasos);
+
         System.out.println("Moviendo avatar hacia adelante " + pasos + " unidades");
 
-        // Retornar null porque AVANZA no produce valor
         return null;
     }
 }

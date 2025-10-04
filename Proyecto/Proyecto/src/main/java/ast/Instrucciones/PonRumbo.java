@@ -16,15 +16,19 @@ public class PonRumbo implements ASTNode {
         // Evaluar la expresión para obtener el ángulo
         Object value = expr.execute(symbolTable);
 
-        int angulo = 0;
+        int angulo;
         if (value instanceof Integer) {
             angulo = (Integer) value;
         } else {
             throw new RuntimeException("PonRumbo espera un número entero, pero recibió: " + value);
         }
 
-        // Lógica para colocar la tortuga en el ángulo especificado
-        // Por ejemplo: Turtle.getInstance().setDirection(angulo);
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.setAngle(angulo);
         System.out.println("Colocando tortuga en dirección " + angulo + " grados");
 
         return null; // no produce valor

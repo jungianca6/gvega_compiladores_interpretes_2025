@@ -19,7 +19,7 @@ public class PonPos implements ASTNode {
         Object xValue = xExpr.execute(symbolTable);
         Object yValue = yExpr.execute(symbolTable);
 
-        int x = 0, y = 0;
+        int x,y;
         if (xValue instanceof Integer) {
             x = (Integer) xValue;
         } else {
@@ -32,8 +32,13 @@ public class PonPos implements ASTNode {
             throw new RuntimeException("PonPos espera un número entero para Y, pero recibió: " + yValue);
         }
 
-        // Mover la tortuga a la posición (x, y) sin dibujar
-        // Por ejemplo: Turtle.getInstance().moveTo(x, y, false);
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        t.setPosition(x,y);
+
         System.out.println("Moviendo tortuga a posición (" + x + ", " + y + ") sin dibujar");
 
         return null; // no produce valor

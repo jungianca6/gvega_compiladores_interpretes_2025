@@ -10,9 +10,14 @@ public class MostrarRumbo implements ASTNode {
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Aquí se imprime el rumbo actual del avatar
-        // Por ahora solo simulamos
-        System.out.println("Mostrando rumbo actual del avatar");
+        Turtle t = (Turtle) symbolTable.get("turtle");
+        if (t == null) {
+            throw new RuntimeException("No se inicializó la tortuga");
+        }
+
+        int rumbo = t.getAngle();
+        System.out.println("Rumbo actual: " + rumbo + " grados");
+
         return null;
     }
 }
