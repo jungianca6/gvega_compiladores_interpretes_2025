@@ -37,8 +37,6 @@ instrucciones returns [ASTNode node]
     | conditional { $node = $conditional.node; }
     | var_decl    { $node = $var_decl.node; }
     | var_assign  { $node = $var_assign.node; }
-    | inic        { $node = $inic.node; }
-    | inc        { $node = $inc.node; }
     | suma_expr   { $node = $suma_expr.node; }
     | resta_expr  { $node = $resta_expr.node; }
     | mult_expr   { $node = $mult_expr.node; }
@@ -50,27 +48,13 @@ instrucciones returns [ASTNode node]
     | and         { $node = $and.node; }
     | or          { $node = $or.node; }
     | iguales     { $node = $iguales.node; }
+    | hasta       { $node = $hasta.node; }
     ;
 
 println returns [ASTNode node]
     : PRINTLN expression SEMICOLON
         { $node = new Println($expression.node); }
     ;
-
-inic returns [ASTNode node]
-    : 'INIC' ID ASSIGN e=expression SEMICOLON
-      { $node = new Inic($ID.text, $e.node); }
-    ;
-
-inc returns [ASTNode node]
-    : 'INC' SQUARE_PAR_OPEN ID (e=expression)? SQUARE_PAR_CLOSE
-      {
-        ASTNode incNode = $e != null ? $e.node : null;
-        $node = new Inc($ID.text, incNode);
-      }
-    ;
-
-
 
 conditional returns [ASTNode node]
     : SI PAR_OPEN expression PAR_CLOSE
@@ -227,6 +211,18 @@ iguales  returns [ASTNode node]
         }
     ;
 
+hasta returns [ASTNode node]
+    : 'HAZ.HASTA' PAR_OPEN expression PAR_CLOSE
+      SQUARE_PAR_OPEN
+        {
+            List<ASTNode> body = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { body.add($i.node); })*
+      SQUARE_PAR_CLOSE
+        {
+            $node = new Hasta($expression.node, body);
+        }
+    ;
 
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
@@ -278,6 +274,8 @@ MAYOR: 'mayorque?';
 Y: 'Y';
 O: 'O';
 IGUALES: 'iguales?';
+
+HASTA: 'haz.hasta';
 
 PLUS: '+';
 MINUS: '-';

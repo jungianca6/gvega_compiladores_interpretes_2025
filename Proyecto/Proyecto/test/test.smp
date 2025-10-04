@@ -2,24 +2,24 @@ program miprograma {
     var x;
     var y;
     var z;
+    var contador;
+    var i;
+
     haz x 6;
     haz y 2;
     SI (x<y)
     [println x;]
     [println y;]
-    INIC mivar = 100;
-    println mivar;
-    INIC mivar = 100 + 45;
-    println mivar;
-    INIC var = 10;
-    INC [var];
-    println var;   // 11
 
-    INIC var2 = 5;
-    INC [var var2];
-    println var;   // 16
+    haz contador 0;
+    HAZ.HASTA (contador < 3) [
+        println contador;
+        haz contador contador + 1;
+    ]
 
-
-
-
+    haz i 10;
+    HAZ.HASTA (i > 5) [
+        println i;
+        haz i i - 1;
+    ]
 }
