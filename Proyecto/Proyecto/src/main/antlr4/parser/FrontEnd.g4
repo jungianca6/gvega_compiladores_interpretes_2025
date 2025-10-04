@@ -45,6 +45,7 @@ instrucciones returns [ASTNode node]
     | div_expr    { $node = $div_expr.node; }
     | pot_expr    { $node = $pot_expr.node; }
     | mientras    { $node = $mientras.node; }
+    | haz_mientras { $node = $haz_mientras.node; }
     | random      { $node = $random.node; }
     | menor       { $node = $menor.node; }
     | mayor       { $node = $mayor.node; }
@@ -247,6 +248,19 @@ mientras returns [ASTNode node]
         }
     ;
 
+haz_mientras returns [ASTNode node]
+  : 'HAZ.MIENTRAS' SQUARE_PAR_OPEN
+      { List<ASTNode> body = new ArrayList<ASTNode>(); }
+      (i=instrucciones { body.add($i.node); })*
+    SQUARE_PAR_CLOSE
+    SQUARE_PAR_OPEN condition=expression SQUARE_PAR_CLOSE
+    {
+      $node = new HazMientras(body, $condition.node);
+    }
+  ;
+
+
+
 hasta returns [ASTNode node]
     : 'HAZ.HASTA' PAR_OPEN expression PAR_CLOSE
       SQUARE_PAR_OPEN
@@ -317,6 +331,9 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+MIENTRAS: 'MIENTRAS';
+HAZ_MIENTRAS : 'HAZ.MIENTRAS';
+
 
 AND: '&&';
 OR: '||';

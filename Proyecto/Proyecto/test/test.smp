@@ -1,18 +1,10 @@
 program miprograma {
     var x;
-    var y;
 
     haz x 0;
-    haz y 5;
 
-    MIENTRAS (x < y)
-    [
+    HAZ.MIENTRAS [
         println x;
         INC [x];
-    ]
-    MIENTRAS (y > 0)
-    [
-        println y;
-        haz y y - 1;
-    ]
+    ] [x < 5]
 }
