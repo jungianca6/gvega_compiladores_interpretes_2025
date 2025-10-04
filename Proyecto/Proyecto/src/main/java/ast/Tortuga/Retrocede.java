@@ -31,7 +31,7 @@ public class Retrocede implements ASTNode {
 
         System.out.println("Moviendo avatar hacia atrás " + pasos + " unidades");
         t.moveBackward(pasos);
-        
+
 
         return null;
     }

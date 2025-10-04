@@ -60,6 +60,8 @@ instrucciones returns [ASTNode node]
     | or              { $node = $or.node; }
     | iguales         { $node = $iguales.node; }
     | hasta           { $node = $hasta.node; }
+    | ejecuta         { $node = $ejecuta.node; }
+    | repite          { $node = $repite.node; }
     // ---------------- Tortuga -----------------
     | avanza          { $node = $avanza.node; }
     | retrocede       { $node = $retrocede.node; }
@@ -77,6 +79,8 @@ instrucciones returns [ASTNode node]
     | centro          { $node = $centro.node; }
     | espera          { $node = $espera.node; }
     ;
+
+// ---------------- Reglas de Tortuga -----------------
 
 avanza returns [ASTNode node]
     : (AVANZA) e=expression SEMICOLON
@@ -179,8 +183,6 @@ incOptional returns [ASTNode node]
     ;
 
 
-
-
 conditional returns [ASTNode node]
     : SI PAR_OPEN expression PAR_CLOSE
         {
@@ -201,10 +203,36 @@ var_decl returns [ASTNode node]
         { $node = new VarDecl($ID.text); }
     ;
 
-var_assign returns [ASTNode node]
-    : HAZ ID expression SEMICOLON
-        { $node = new VarAssign($ID.text, $expression.node); }
+
+ var_assign returns [ASTNode node]
+     : HAZ ID expression SEMICOLON
+         { $node = new VarAssign($ID.text, $expression.node); }
+     ;
+
+ejecuta returns [ASTNode node]
+    : EJECUTA SQUARE_PAR_OPEN
+        {
+            List<ASTNode> ordenes = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { ordenes.add($i.node); })*
+      SQUARE_PAR_CLOSE SEMICOLON
+        {
+            $node = new Ejecuta(ordenes);
+        }
     ;
+
+repite returns [ASTNode node]
+    : REPITE e=expression SQUARE_PAR_OPEN
+        {
+            List<ASTNode> ordenes = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { ordenes.add($i.node); })*
+      SQUARE_PAR_CLOSE SEMICOLON
+        {
+            $node = new Repite($e.node, ordenes);
+        }
+    ;
+
 
 suma_expr  returns [ASTNode node]
     : SUMA
@@ -407,6 +435,8 @@ PROGRAM: 'program';
 VAR: 'var';
 HAZ: 'haz';
 PRINTLN: 'println';
+EJECUTA: 'Ejecuta';
+REPITE: 'Repite';
 
 SI: 'SI';
 ELSE: 'else';
