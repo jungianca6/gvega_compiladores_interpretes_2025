@@ -67,32 +67,32 @@ instrucciones returns [ASTNode node]
     ;
 
 avanza returns [ASTNode node]
-    : (AVANZA | AV) e=expression SEMICOLON
+    : (AVANZA) e=expression SEMICOLON
       { $node = new Avanza($e.node); }
     ;
 
 retrocede returns [ASTNode node]
-    : (RE | RETROCEDE) e=expression SEMICOLON
+    : (RE) e=expression SEMICOLON
       { $node = new Retrocede($e.node); }
     ;
 
 giraDerecha returns [ASTNode node]
-    : (GD | GIRADERECHA) e=expression SEMICOLON
+    : (GD) e=expression SEMICOLON
       { $node = new GiraDerecha($e.node); }
     ;
 
 giraIzquierda returns [ASTNode node]
-    : (GI | GIRAIzquierda) e=expression SEMICOLON
+    : (GI) e=expression SEMICOLON
       { $node = new GiraIzquierda($e.node); }
     ;
 
 ocultaTortuga returns [ASTNode node]
-    : (OT | OCULTATORTUGA) SEMICOLON
+    : (OT) SEMICOLON
       { $node = new OcultaTortuga(); }
     ;
 
 ponPos returns [ASTNode node]
-    : (PONPOS | PONXY) SQUARE_PAR_OPEN x=expression y=expression SQUARE_PAR_CLOSE SEMICOLON
+    : (PONPOS) SQUARE_PAR_OPEN x=expression y=expression SQUARE_PAR_CLOSE SEMICOLON
       { $node = new PonPos($x.node, $y.node); }
     ;
 
@@ -123,14 +123,14 @@ println returns [ASTNode node]
     ;
 
 inic returns [ASTNode node]
-    : 'INIC' ID ASSIGN e=expression SEMICOLON
+    : INIC ID ASSIGN e=expression SEMICOLON
       { $node = new Inic($ID.text, $e.node); }
     ;
 
 inc returns [ASTNode node]
-    : 'INC' SQUARE_PAR_OPEN id=ID SQUARE_PAR_CLOSE SEMICOLON
+    : INC SQUARE_PAR_OPEN id=ID SQUARE_PAR_CLOSE SEMICOLON
       { $node = new Inc($id.text, null); }     // caso N1 solo
-    | 'INC' SQUARE_PAR_OPEN id=ID val=expression SQUARE_PAR_CLOSE SEMICOLON
+    | INC SQUARE_PAR_OPEN id=ID val=expression SQUARE_PAR_CLOSE SEMICOLON
       { $node = new Inc($id.text, $val.node); } // caso N1 + N2
     ;
 
@@ -298,7 +298,7 @@ iguales  returns [ASTNode node]
         }
     ;
 mientras returns [ASTNode node]
-    : 'MIENTRAS' PAR_OPEN condition=expression PAR_CLOSE
+    : MIENTRAS PAR_OPEN condition=expression PAR_CLOSE
       SQUARE_PAR_OPEN
         {
             List<ASTNode> body = new ArrayList<ASTNode>();
@@ -311,7 +311,7 @@ mientras returns [ASTNode node]
     ;
 
 haz_mientras returns [ASTNode node]
-  : 'HAZ.MIENTRAS' SQUARE_PAR_OPEN
+  : HAZ_MIENTRAS SQUARE_PAR_OPEN
       { List<ASTNode> body = new ArrayList<ASTNode>(); }
       (i=instrucciones { body.add($i.node); })*
     SQUARE_PAR_CLOSE
@@ -324,7 +324,7 @@ haz_mientras returns [ASTNode node]
 
 
 hasta returns [ASTNode node]
-    : 'HAZ.HASTA' PAR_OPEN expression PAR_CLOSE
+    : HASTA PAR_OPEN expression PAR_CLOSE
       SQUARE_PAR_OPEN
         {
             List<ASTNode> body = new ArrayList<ASTNode>();
@@ -387,14 +387,17 @@ Y: 'Y';
 O: 'O';
 IGUALES: 'iguales?';
 
-HASTA: 'haz.hasta';
+INIC: 'INIC';
+INC: 'INC';
 
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+
 MIENTRAS: 'MIENTRAS';
 HAZ_MIENTRAS : 'HAZ.MIENTRAS';
+HASTA: 'HAZ.HASTA';
 
 
 
