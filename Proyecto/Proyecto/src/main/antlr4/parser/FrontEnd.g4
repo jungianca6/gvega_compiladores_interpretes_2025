@@ -50,6 +50,7 @@ instrucciones returns [ASTNode node]
     | and         { $node = $and.node; }
     | or          { $node = $or.node; }
     | iguales     { $node = $iguales.node; }
+    | hasta       { $node = $hasta.node; }
     ;
 
 println returns [ASTNode node]
@@ -233,6 +234,18 @@ iguales  returns [ASTNode node]
         }
     ;
 
+hasta returns [ASTNode node]
+    : 'HAZ.HASTA' PAR_OPEN expression PAR_CLOSE
+      SQUARE_PAR_OPEN
+        {
+            List<ASTNode> body = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { body.add($i.node); })*
+      SQUARE_PAR_CLOSE
+        {
+            $node = new Hasta($expression.node, body);
+        }
+    ;
 
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
@@ -284,6 +297,8 @@ MAYOR: 'mayorque?';
 Y: 'Y';
 O: 'O';
 IGUALES: 'iguales?';
+
+HASTA: 'haz.hasta';
 
 PLUS: '+';
 MINUS: '-';

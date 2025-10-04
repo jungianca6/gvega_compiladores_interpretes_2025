@@ -1,17 +1,25 @@
 program miprograma {
     var x;
     var y;
+    var z;
+    var contador;
+    var i;
 
-    INIC x = 10;
-    INIC y = 3;
+    haz x 6;
+    haz y 2;
+    SI (x<y)
+    [println x;]
+    [println y;]
 
-    INC [x];
-    INC [y 5];
-    INC [x y];
+    haz contador 0;
+    HAZ.HASTA (contador < 3) [
+        println contador;
+        haz contador contador + 1;
+    ]
 
-    println x;
-    println y;
-
-    suma x y;
-    println x;
+    haz i 10;
+    HAZ.HASTA (i > 5) [
+        println i;
+        haz i i - 1;
+    ]
 }
