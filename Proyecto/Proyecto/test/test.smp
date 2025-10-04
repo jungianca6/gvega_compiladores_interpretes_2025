@@ -1,12 +1,18 @@
-program TestCompleto {
-    BL;
+PARA cuadrado [lado]
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+FIN
 
-    Repite 3 [
-        Ejecuta [
-            AVANZA 100;
+PARA figura []
+    cuadrado[50];
+    AVANZA 70;
+    cuadrado[30];
+FIN
 
-        ];
-    ];
-
-    SB;
-}
+figura[];

@@ -6,6 +6,7 @@ grammar FrontEnd;
     import java.util.List;
     import java.util.ArrayList;
     import java.util.Random;
+    import java.util.*;
     import ast.*;
     import ast.Aritmeticos.*;
     import ast.Logicos.*;
@@ -25,12 +26,11 @@ grammar FrontEnd;
 }
 
 program
-    : PROGRAM ID BRACKET_OPEN
+    :
         {
             List<ASTNode> body = new ArrayList<ASTNode>();
         }
         (i=instrucciones { body.add($i.node); })*
-      BRACKET_CLOSE
         {
             for (ASTNode n : body) {
                 n.execute(symbolTable);
@@ -38,9 +38,27 @@ program
         }
     ;
 
+
+funcion returns [ASTNode node]
+    : PARA name=ID SQUARE_PAR_OPEN
+        {
+            List<String> parametros = new ArrayList<String>();
+            List<ASTNode> cuerpo = new ArrayList<ASTNode>();
+        }
+        (p1=ID { parametros.add($p1.text); } (p2=ID { parametros.add($p2.text); })*)?
+      SQUARE_PAR_CLOSE
+        (i=instrucciones { cuerpo.add($i.node); })*
+      FIN
+        {
+            $node = new Funcion($name.text, parametros, cuerpo);
+        }
+    ;
+
 //Instrucciones
 instrucciones returns [ASTNode node]
-    : println         { $node = $println.node; }
+    : funcion         { $node = $funcion.node; }
+    | llamadaFuncion  { $node = $llamadaFuncion.node; }
+    | println         { $node = $println.node; }
     | conditional     { $node = $conditional.node; }
     | var_decl        { $node = $var_decl.node; }
     | var_assign      { $node = $var_assign.node; }
@@ -78,6 +96,19 @@ instrucciones returns [ASTNode node]
     | colorlapiz      { $node = $colorlapiz.node; }
     | centro          { $node = $centro.node; }
     | espera          { $node = $espera.node; }
+    ;
+
+llamadaFuncion returns [ASTNode node]
+    :
+        {
+            List<ASTNode> argumentos = new ArrayList<ASTNode>();
+        }
+        name=ID SQUARE_PAR_OPEN
+        (a1=expression { argumentos.add($a1.node); } (a2=expression { argumentos.add($a2.node); })*)?
+      SQUARE_PAR_CLOSE SEMICOLON
+        {
+            $node = new LlamadaFuncion($name.text, argumentos);
+        }
     ;
 
 // ---------------- Reglas de Tortuga -----------------
@@ -432,6 +463,8 @@ term returns [ASTNode node]
 // ---------- TOKENS ----------
 
 PROGRAM: 'program';
+PARA: 'PARA';
+FIN: 'FIN';
 VAR: 'var';
 HAZ: 'haz';
 PRINTLN: 'println';
