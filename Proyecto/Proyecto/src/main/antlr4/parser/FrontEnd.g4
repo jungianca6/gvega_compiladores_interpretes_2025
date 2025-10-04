@@ -38,7 +38,7 @@ instrucciones returns [ASTNode node]
     | var_decl    { $node = $var_decl.node; }
     | var_assign  { $node = $var_assign.node; }
     | inic        { $node = $inic.node; }
-    | inc        { $node = $inc.node; }
+    | inc         { $node = $inc.node; }
     | suma_expr   { $node = $suma_expr.node; }
     | resta_expr  { $node = $resta_expr.node; }
     | mult_expr   { $node = $mult_expr.node; }
@@ -63,12 +63,18 @@ inic returns [ASTNode node]
     ;
 
 inc returns [ASTNode node]
-    : 'INC' SQUARE_PAR_OPEN ID (e=expression)? SQUARE_PAR_CLOSE
-      {
-        ASTNode incNode = $e != null ? $e.node : null;
-        $node = new Inc($ID.text, incNode);
-      }
+    : 'INC' SQUARE_PAR_OPEN id=ID SQUARE_PAR_CLOSE SEMICOLON
+      { $node = new Inc($id.text, null); }     // caso N1 solo
+    | 'INC' SQUARE_PAR_OPEN id=ID val=expression SQUARE_PAR_CLOSE SEMICOLON
+      { $node = new Inc($id.text, $val.node); } // caso N1 + N2
     ;
+
+
+// regla auxiliar para manejar opcional
+incOptional returns [ASTNode node]
+    : e=expression { $node = $e.node; }
+    ;
+
 
 
 

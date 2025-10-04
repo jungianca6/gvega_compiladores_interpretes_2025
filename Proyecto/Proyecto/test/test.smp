@@ -1,25 +1,17 @@
 program miprograma {
     var x;
     var y;
-    var z;
-    haz x 6;
-    haz y 2;
-    SI (x<y)
-    [println x;]
-    [println y;]
-    INIC mivar = 100;
-    println mivar;
-    INIC mivar = 100 + 45;
-    println mivar;
-    INIC var = 10;
-    INC [var];
-    println var;   // 11
 
-    INIC var2 = 5;
-    INC [var var2];
-    println var;   // 16
+    INIC x = 10;
+    INIC y = 3;
 
+    INC [x];
+    INC [y 5];
+    INC [x y];
 
+    println x;
+    println y;
 
-
+    suma x y;
+    println x;
 }

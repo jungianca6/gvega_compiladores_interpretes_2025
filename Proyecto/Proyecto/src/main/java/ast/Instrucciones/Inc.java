@@ -4,38 +4,37 @@ import ast.ASTNode;
 import java.util.Map;
 
 public class Inc implements ASTNode {
-    private String varName;  // N1
-    private ASTNode increment; // N2 (opcional)
+    private String varName;
+    private ASTNode times; // Puede ser null si solo es "INC [N1]"
 
-    public Inc(String varName, ASTNode increment) {
+    public Inc(String varName, ASTNode times) {
         this.varName = varName;
-        this.increment = increment; // si es null, se incrementa en 1
+        this.times = times;
     }
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        if (!symbolTable.containsKey(varName)) {
+        // Verificar que la variable exista y sea numérica
+        Object currentValue = symbolTable.get(varName);
+        if (currentValue == null) {
             throw new RuntimeException("La variable '" + varName + "' no existe.");
         }
-
-        Object current = symbolTable.get(varName);
-
-        if (!(current instanceof Integer)) {
-            throw new RuntimeException("La variable '" + varName + "' no es numérica y no se puede incrementar.");
+        if (!(currentValue instanceof Number)) {
+            throw new RuntimeException("La variable '" + varName + "' no es numérica.");
         }
 
-        int incValue = 1; // valor por defecto
-        if (increment != null) {
-            Object val = increment.execute(symbolTable);
-            if (!(val instanceof Integer)) {
+        int increment = 1; // valor por defecto
+        if (times != null) {
+            Object t = times.execute(symbolTable);
+            if (t instanceof Number) {
+                increment = ((Number) t).intValue();
+            } else {
                 throw new RuntimeException("El valor de incremento debe ser numérico.");
             }
-            incValue = (Integer) val;
         }
 
-        int result = (Integer) current + incValue;
-        symbolTable.put(varName, result);
-
-        return result;
+        int newValue = ((Number) currentValue).intValue() + increment;
+        symbolTable.put(varName, newValue);
+        return newValue;
     }
 }
