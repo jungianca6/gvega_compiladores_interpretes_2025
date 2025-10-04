@@ -1,11 +1,15 @@
-package ast.Instrucciones;
+package ast.Tortuga;
 
 import ast.ASTNode;
 import java.util.Map;
 
-public class MostrarRumbo implements ASTNode {
 
-    public MostrarRumbo() {
+public class ColorLapiz implements ASTNode {
+
+    private String color;
+
+    public ColorLapiz(String color) {
+        this.color = color;
     }
 
     @Override
@@ -15,9 +19,8 @@ public class MostrarRumbo implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        int rumbo = t.getAngle();
-        System.out.println("Rumbo actual: " + rumbo + " grados");
-
+        t.setColorLapiz(color);
+        System.out.println("Color del lápiz cambiado a: " + color);
         return null;
     }
 }

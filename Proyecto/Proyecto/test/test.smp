@@ -1,24 +1,11 @@
-program TestTortuga {
-
-    AVANZA 10;
-    AV 5*3;
-
-    RETROCEDE 8;
-    RE 2*4;
-
+program TestLapiz {
+    BL;
+    AVANZA 50;
+    PonCL azul;
     GIRADERECHA 90;
-    GD 45;
-    GIRAIzquierda 90;
-    GI 30;
-
-    OT;
-
-    PONPOS [100 200];
-    PONXY [50 75];
-
-    PONX 150;
-    PONY 300;
-
-    PONRUMBO 180;
-    RUMBO;
+    AVANZA 30;
+    SB;
+    AVANZA 20;
+    centro;
+    espera 60;
 }

@@ -1,12 +1,11 @@
-package ast.Instrucciones;
+package ast.Tortuga;
 
 import ast.ASTNode;
 import java.util.Map;
 
-public class OcultaTortuga implements ASTNode {
+public class MostrarRumbo implements ASTNode {
 
-    public OcultaTortuga() {
-        // No necesita parámetros
+    public MostrarRumbo() {
     }
 
     @Override
@@ -16,10 +15,8 @@ public class OcultaTortuga implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        // COLOCAR EN POSICIÓN INICIAL Y OCULTAR
-        t.resetToInitialPosition();
-
-        System.out.println("Tortuga colocada en posición inicial (0, 0) y ocultada");
+        int rumbo = t.getAngle();
+        System.out.println("Rumbo actual: " + rumbo + " grados");
 
         return null;
     }

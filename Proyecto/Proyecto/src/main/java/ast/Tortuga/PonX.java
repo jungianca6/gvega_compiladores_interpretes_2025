@@ -1,26 +1,26 @@
-package ast.Instrucciones;
+package ast.Tortuga;
 
 import ast.ASTNode;
 import java.util.Map;
 
-public class PonY implements ASTNode {
+public class PonX implements ASTNode {
 
-    private ASTNode expr; // expresión que determina la coordenada Y
+    private ASTNode expr; // expresión que determina la coordenada X
 
-    public PonY(ASTNode expr) {
+    public PonX(ASTNode expr) {
         this.expr = expr;
     }
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Evaluar la expresión para obtener la coordenada Y
+        // Evaluar la expresión para obtener la coordenada X
         Object value = expr.execute(symbolTable);
 
-        int y;
+        int x;
         if (value instanceof Integer) {
-            y = (Integer) value;
+            x = (Integer) value;
         } else {
-            throw new RuntimeException("PonY espera un número entero, pero recibió: " + value);
+            throw new RuntimeException("PonX espera un número entero, pero recibió: " + value);
         }
 
         Turtle t = (Turtle) symbolTable.get("turtle");
@@ -28,9 +28,8 @@ public class PonY implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.setX(y);
-
-        System.out.println("Moviendo tortuga a la coordenada Y = " + y);
+        t.setX(x);
+        System.out.println("Moviendo tortuga a la coordenada X = " + x);
 
         return null; // no produce valor
     }

@@ -10,6 +10,7 @@ grammar FrontEnd;
     import ast.Aritmeticos.*;
     import ast.Logicos.*;
     import ast.Instrucciones.*;
+    import ast.Tortuga.*;
 }
 
 // Tabla de símbolos global al parser
@@ -70,6 +71,11 @@ instrucciones returns [ASTNode node]
     | ponY            { $node = $ponY.node; }
     | ponRumbo        { $node = $ponRumbo.node; }
     | mostrarRumbo    { $node = $mostrarRumbo.node; }
+    | bajalapiz       { $node = $bajalapiz.node; }
+    | subelapiz       { $node = $subelapiz.node; }
+    | colorlapiz      { $node = $colorlapiz.node; }
+    | centro          { $node = $centro.node; }
+    | espera          { $node = $espera.node; }
     ;
 
 avanza returns [ASTNode node]
@@ -121,6 +127,32 @@ mostrarRumbo returns [ASTNode node]
     : RUMBO SEMICOLON
       { $node = new MostrarRumbo(); }
     ;
+
+bajalapiz returns [ASTNode node]
+    : BAJALAPIZ SEMICOLON
+      { $node = new BajaLapiz(); }
+    ;
+
+subelapiz returns [ASTNode node]
+    : SUBELAPIZ SEMICOLON
+      { $node = new SubeLapiz(); }
+    ;
+
+colorlapiz returns [ASTNode node]
+    : COLOR color=COLORES SEMICOLON
+      { $node = new ColorLapiz($color.text); }
+    ;
+
+centro returns [ASTNode node]
+    : CENTRO SEMICOLON
+      { $node = new Centro(); }
+    ;
+
+espera returns [ASTNode node]
+    : ESPERA e=expression SEMICOLON
+      { $node = new Espera($e.node); }
+    ;
+
 
 
 println returns [ASTNode node]
@@ -421,6 +453,7 @@ NEQ: '!=';
 
 ASSIGN: '=';
 
+// ---------- TOKENS TORTUGA ----------
 AVANZA: 'AVANZA' | 'AV';
 RE: 'RETROCEDE' | 'RE';
 GD: 'GIRADERECHA' | 'GD';
@@ -430,7 +463,13 @@ PONPOS: 'PONPOS' | 'PONXY';
 PONX: 'PONX';
 PONY: 'PONY';
 PONRUMBO: 'PONRUMBO';
-RUMBO: 'RUMBO';
+RUMBO: 'Muestra RUMBO';
+BAJALAPIZ: 'BajaLapiz'|'BL';
+SUBELAPIZ: 'SubeLapiz'|'SB';
+COLOR: 'PonCL' | 'PonColorLapiz';
+CENTRO: 'centro';
+ESPERA: 'espera';
+COLORES: 'azul' | 'negro' | 'rojo';
 
 BRACKET_OPEN: '{';
 BRACKET_CLOSE: '}';

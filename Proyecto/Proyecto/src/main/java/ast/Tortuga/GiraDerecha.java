@@ -1,35 +1,34 @@
-package ast.Instrucciones;
+package ast.Tortuga;
 
 import ast.ASTNode;
 import java.util.Map;
 
-public class PonRumbo implements ASTNode {
+public class GiraDerecha implements ASTNode {
 
-    private ASTNode expr; // expresión que determina el ángulo
+    private ASTNode expr; // expresión que determina el ángulo de giro
 
-    public PonRumbo(ASTNode expr) {
+    public GiraDerecha(ASTNode expr) {
         this.expr = expr;
     }
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
-        // Evaluar la expresión para obtener el ángulo
+        // Evaluar la expresión para obtener el ángulo a girar
         Object value = expr.execute(symbolTable);
 
-        int angulo;
+        int angulo = 0;
         if (value instanceof Integer) {
             angulo = (Integer) value;
         } else {
-            throw new RuntimeException("PonRumbo espera un número entero, pero recibió: " + value);
+            throw new RuntimeException("GIRA.DERECHA espera un número entero (grados), pero recibió: " + value);
         }
 
         Turtle t = (Turtle) symbolTable.get("turtle");
         if (t == null) {
             throw new RuntimeException("No se inicializó la tortuga");
         }
-
-        t.setAngle(angulo);
-        System.out.println("Colocando tortuga en dirección " + angulo + " grados");
+        t.turnRight(angulo);
+        System.out.println("Girando avatar a la derecha " + angulo + " grados");
 
         return null; // no produce valor
     }
