@@ -1,11 +1,12 @@
 program TestLapiz {
     BL;
     AVANZA 50;
-    PonCL azul;
+    PonCL rojo;
     GIRADERECHA 90;
     AVANZA 30;
     SB;
     AVANZA 20;
     centro;
-    espera 60;
+    espera 120;
+    AVANZA 20;
 }

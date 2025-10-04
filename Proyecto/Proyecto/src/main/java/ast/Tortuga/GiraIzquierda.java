@@ -27,8 +27,9 @@ public class GiraIzquierda implements ASTNode {
         if (t == null) {
             throw new RuntimeException("No se inicializó la tortuga");
         }
-        t.turnLeft(angulo);
+
         System.out.println("Girando avatar a la izquierda " + angulo + " grados");
+        t.turnLeft(angulo);
 
         return null; // no produce valor
     }

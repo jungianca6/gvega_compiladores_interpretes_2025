@@ -29,8 +29,8 @@ public class Espera implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.esperar(tiempo);
         System.out.println("Esperando " + (tiempo/60.0) + " segundos");
+        t.esperar(tiempo);
         return null;
     }
 }

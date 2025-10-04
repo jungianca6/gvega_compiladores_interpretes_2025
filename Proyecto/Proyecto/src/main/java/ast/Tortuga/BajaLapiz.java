@@ -17,8 +17,9 @@ public class BajaLapiz implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.bajarLapiz();
         System.out.println("Lápiz bajado - ahora dibuja al moverse");
+        t.bajarLapiz();
+
         return null;
     }
 }

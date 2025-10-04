@@ -28,9 +28,10 @@ public class Retrocede implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.moveBackward(pasos);
 
         System.out.println("Moviendo avatar hacia atrás " + pasos + " unidades");
+        t.moveBackward(pasos);
+        
 
         return null;
     }

@@ -37,9 +37,9 @@ public class PonPos implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
+        System.out.println("Moviendo tortuga a posición (" + x + ", " + y + ") sin dibujar");
         t.setPosition(x,y);
 
-        System.out.println("Moviendo tortuga a posición (" + x + ", " + y + ") sin dibujar");
 
         return null; // no produce valor
     }

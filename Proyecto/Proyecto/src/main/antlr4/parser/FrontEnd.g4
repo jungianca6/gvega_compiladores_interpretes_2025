@@ -438,8 +438,6 @@ HAZ_MIENTRAS : 'HAZ.MIENTRAS';
 HASTA: 'HAZ.HASTA';
 
 
-
-
 AND: '&&';
 OR: '||';
 NOT: '!';

@@ -15,8 +15,8 @@ public class Centro implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.moverCentro();
         System.out.println("Tortuga movida al centro");
+        t.moverCentro();
         return null;
     }
 }

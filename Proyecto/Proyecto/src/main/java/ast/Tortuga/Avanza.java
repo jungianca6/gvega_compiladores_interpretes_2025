@@ -27,9 +27,9 @@ public class Avanza implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
+        System.out.println("Moviendo avatar hacia adelante " + pasos + " unidades");
         t.moveForward(pasos);
 
-        System.out.println("Moviendo avatar hacia adelante " + pasos + " unidades");
 
         return null;
     }

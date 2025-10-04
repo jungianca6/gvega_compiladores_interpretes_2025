@@ -28,8 +28,8 @@ public class PonRumbo implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.setAngle(angulo);
         System.out.println("Colocando tortuga en dirección " + angulo + " grados");
+        t.setAngle(angulo);
 
         return null; // no produce valor
     }

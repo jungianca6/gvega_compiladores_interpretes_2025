@@ -28,8 +28,9 @@ public class PonX implements ASTNode {
             throw new RuntimeException("No se inicializó la tortuga");
         }
 
-        t.setX(x);
         System.out.println("Moviendo tortuga a la coordenada X = " + x);
+        t.setX(x);
+
 
         return null; // no produce valor
     }
