@@ -483,6 +483,7 @@ REPITE: 'Repite';
 SI: 'SI';
 ELSE: 'else';
 
+ARITMETICAS: SUMA | RESTA | PROD | DIVISION | POTENCIA | AZAR ;
 SUMA: 'suma';
 RESTA: 'diferencia';
 PROD: 'producto';
@@ -567,3 +568,5 @@ LINE_COMMENT
 ;
 
 WS: [ \t\n\r]+ -> skip;
+
+//(ARITMETICAS)* (e=expression)+
