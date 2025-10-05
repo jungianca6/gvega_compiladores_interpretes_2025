@@ -7,6 +7,14 @@ import java.util.Map;
 public class VarDecl implements ASTNode {
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public VarDecl(String name) {
         super();
         this.name = name;

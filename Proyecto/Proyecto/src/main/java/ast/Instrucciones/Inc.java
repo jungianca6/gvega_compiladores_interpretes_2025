@@ -12,6 +12,22 @@ public class Inc implements ASTNode {
         this.times = times;
     }
 
+    public ASTNode getTimes() {
+        return times;
+    }
+
+    public void setTimes(ASTNode times) {
+        this.times = times;
+    }
+
+    public String getVarName() {
+        return varName;
+    }
+
+    public void setVarName(String varName) {
+        this.varName = varName;
+    }
+
     @Override
     public Object execute(Map<String, Object> symbolTable) {
         // Verificar que la variable exista y sea numérica
