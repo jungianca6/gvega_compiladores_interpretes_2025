@@ -112,7 +112,7 @@ llamadaFuncion returns [ASTNode node]
         }
     ;
 
-// ---------------- Reglas de Tortuga -----------------
+// ---------------- Reglas de Tortuga -----------------//
 
 avanza returns [ASTNode node]
     : (AVANZA) e=expression SEMICOLON
@@ -190,7 +190,7 @@ espera returns [ASTNode node]
     ;
 
 
-
+// ---------------- Funcion -----------------//
 println returns [ASTNode node]
     : PRINTLN expression SEMICOLON
         { $node = new Println($expression.node); }
@@ -273,7 +273,48 @@ repite returns [ASTNode node]
         }
     ;
 
+mientras returns [ASTNode node]
+    : MIENTRAS PAR_OPEN condition=expression PAR_CLOSE
+      SQUARE_PAR_OPEN
+        {
+            List<ASTNode> body = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { body.add($i.node); })*
+      SQUARE_PAR_CLOSE
+        {
+            $node = new Mientras($condition.node, body);
+        }
+    ;
 
+haz_mientras returns [ASTNode node]
+  : HAZ_MIENTRAS SQUARE_PAR_OPEN
+      { List<ASTNode> body = new ArrayList<ASTNode>(); }
+      (i=instrucciones { body.add($i.node); })*
+    SQUARE_PAR_CLOSE
+    SQUARE_PAR_OPEN condition=expression SQUARE_PAR_CLOSE
+    {
+      $node = new HazMientras(body, $condition.node);
+    }
+  ;
+
+
+
+hasta returns [ASTNode node]
+    : HASTA PAR_OPEN expression PAR_CLOSE
+      SQUARE_PAR_OPEN
+        {
+            List<ASTNode> body = new ArrayList<ASTNode>();
+        }
+        (i=instrucciones { body.add($i.node); })*
+      SQUARE_PAR_CLOSE
+        {
+            $node = new Hasta($expression.node, body);
+        }
+    ;
+
+
+
+// ---------------- Aritméticas -----------------//
 suma_expr  returns [ASTNode node]
     : SUMA
         {
@@ -344,6 +385,7 @@ random  returns [ASTNode node]
         }
     ;
 
+// ---------------- Lógicas -----------------//
 menor  returns [ASTNode node]
     : MENOR
         {
@@ -403,44 +445,6 @@ iguales  returns [ASTNode node]
             $node = new Iguales(args);
         }
     ;
-mientras returns [ASTNode node]
-    : MIENTRAS PAR_OPEN condition=expression PAR_CLOSE
-      SQUARE_PAR_OPEN
-        {
-            List<ASTNode> body = new ArrayList<ASTNode>();
-        }
-        (i=instrucciones { body.add($i.node); })*
-      SQUARE_PAR_CLOSE
-        {
-            $node = new Mientras($condition.node, body);
-        }
-    ;
-
-haz_mientras returns [ASTNode node]
-  : HAZ_MIENTRAS SQUARE_PAR_OPEN
-      { List<ASTNode> body = new ArrayList<ASTNode>(); }
-      (i=instrucciones { body.add($i.node); })*
-    SQUARE_PAR_CLOSE
-    SQUARE_PAR_OPEN condition=expression SQUARE_PAR_CLOSE
-    {
-      $node = new HazMientras(body, $condition.node);
-    }
-  ;
-
-
-
-hasta returns [ASTNode node]
-    : HASTA PAR_OPEN expression PAR_CLOSE
-      SQUARE_PAR_OPEN
-        {
-            List<ASTNode> body = new ArrayList<ASTNode>();
-        }
-        (i=instrucciones { body.add($i.node); })*
-      SQUARE_PAR_CLOSE
-        {
-            $node = new Hasta($expression.node, body);
-        }
-    ;
 
 expression returns [ASTNode node]
     : t1=factor { $node = $t1.node; }
@@ -469,7 +473,9 @@ term returns [ASTNode node]
     | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
     ;
 
-// ---------- TOKENS ----------
+
+
+// ---------- TOKENS BASICOS ----------
 
 PROGRAM: 'program';
 PARA: 'PARA';
@@ -479,9 +485,19 @@ HAZ: 'haz';
 PRINTLN: 'println';
 EJECUTA: 'Ejecuta';
 REPITE: 'Repite';
+INIC: 'INIC';
+INC: 'INC';
+ASSIGN: '=';
 
+// ---------- TOKENS CONTROL FLOW ----------
 SI: 'SI';
-ELSE: 'else';
+MIENTRAS: 'MIENTRAS';
+HAZ_MIENTRAS : 'HAZ.MIENTRAS';
+HASTA: 'HAZ.HASTA';
+
+
+
+// ---------- TOKENS ARITMETICOS ----------
 
 ARITMETICAS: SUMA | RESTA | PROD | DIVISION | POTENCIA | AZAR ;
 SUMA: 'suma';
@@ -491,25 +507,20 @@ DIVISION: 'division';
 POTENCIA: 'potencia';
 AZAR: 'azar';
 
-MENOR: 'menorque?';
-MAYOR: 'mayorque?';
-
-Y: 'Y';
-O: 'O';
-IGUALES: 'iguales?';
-
-INIC: 'INIC';
-INC: 'INC';
-
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
 
-MIENTRAS: 'MIENTRAS';
-HAZ_MIENTRAS : 'HAZ.MIENTRAS';
-HASTA: 'HAZ.HASTA';
 
+// ---------- TOKENS LOGICOS----------
+
+MENOR: 'menorque?';
+MAYOR: 'mayorque?';
+Y: 'Y';
+O: 'O';
+IGUALES: 'iguales?';
+BOOLEAN: 'true' | 'false';
 
 AND: '&&';
 OR: '||';
@@ -522,7 +533,7 @@ LEQ: '<=';
 EQ: '==';
 NEQ: '!=';
 
-ASSIGN: '=';
+
 
 // ---------- TOKENS TORTUGA ----------
 AVANZA: 'AVANZA' | 'AV';
@@ -542,6 +553,9 @@ CENTRO: 'centro';
 ESPERA: 'espera';
 COLORES: 'azul' | 'negro' | 'rojo';
 
+
+// ---------- TOKENS ESTRUCTURA ----------
+
 BRACKET_OPEN: '{';
 BRACKET_CLOSE: '}';
 
@@ -554,12 +568,13 @@ SQUARE_PAR_CLOSE: ']';
 
 SEMICOLON: ';';
 
-BOOLEAN: 'true' | 'false';
+// ---------- TOKENS IDENTIFICADORES Y VALORES ----------
 
 ID: [a-zA-Z_][a-zA-Z0-9_]*;
 
 NUMBER: [0-9]+;
 
+// ---------- TOKENS COMENTARIOS ----------
 COMMENT
 : '/*' .*? '*/'
 ;
