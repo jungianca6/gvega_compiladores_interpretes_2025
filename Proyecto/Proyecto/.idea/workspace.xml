@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b74fdeb3-9cd5-4aeb-8792-f827b65b4cc5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/Avanza.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/GiraDerecha.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/GiraIzquierda.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/MostrarRumbo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/OcultaTortuga.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonPos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonRumbo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonX.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/PonY.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ast/Instrucciones/Retrocede.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.smp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="33Gr18z8vvLkwJqVyPYrPXM2bIh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [validate].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ayudapls/Documents/GitHub/gvega_compiladores_interpretes_2025/Proyecto/Proyecto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b74fdeb3-9cd5-4aeb-8792-f827b65b4cc5" name="Changes" comment="" />
+      <created>1758954041317</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758954041317</updated>
+      <workItem from="1758954042914" duration="845000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

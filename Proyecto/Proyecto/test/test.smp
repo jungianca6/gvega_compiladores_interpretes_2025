@@ -1,0 +1,18 @@
+PARA cuadrado [lado]
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+    AVANZA lado;
+    GD 90;
+FIN
+
+PARA figura []
+    cuadrado[50];
+    AVANZA 70;
+    cuadrado[30];
+FIN
+
+figura[];

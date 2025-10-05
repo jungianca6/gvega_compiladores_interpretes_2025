@@ -5,40 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gvega_compiladores_interpretes_2025.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/gvega_compiladores_interpretes_2025.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/antlr4/parser/Simple.g4" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/antlr4/parser/Simple.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/ASTNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/Addition.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/Addition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/And.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/And.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/FibSum.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/FibSum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/If.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/If.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/Multiplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/Multiplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/Pow2Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/Pow2Add.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/Println.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/Println.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/VarAssign.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/VarAssign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/VarDecl.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/VarDecl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/src/main/java/ast/VarRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/src/main/java/ast/VarRef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TallerANTLR/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/TallerInterprete/TallerANTLR/test/test.smp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,34 +31,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.TallerANTLR [clean].executor": "Run",
-    "Maven.TallerANTLR [compile].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "development",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [compile].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Xpc/Documents/GitHub/Compi/proyecto1/gvega_compiladores_interpretes_2025/Proyecto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\Desktop\gvega_compiladores_interpretes_2025\Proyecto\Proyecto\src\main\java\ast" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ast" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
-        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -91,11 +89,39 @@
       <option name="presentableId" value="Default" />
       <updated>1758158738413</updated>
       <workItem from="1758158741524" duration="821000" />
-      <workItem from="1758159582211" duration="7671000" />
+      <workItem from="1758159582211" duration="8548000" />
+      <workItem from="1758953301153" duration="303000" />
+      <workItem from="1758953774100" duration="466000" />
+      <workItem from="1758954261255" duration="946000" />
+      <workItem from="1758955802668" duration="120000" />
+      <workItem from="1758956787003" duration="11427000" />
+      <workItem from="1759005539066" duration="1343000" />
+      <workItem from="1759203297205" duration="283000" />
+      <workItem from="1759203692518" duration="3672000" />
+      <workItem from="1759286832394" duration="5294000" />
+      <workItem from="1759374491174" duration="2170000" />
+      <workItem from="1759455206586" duration="4517000" />
+      <workItem from="1759462595244" duration="2903000" />
+      <workItem from="1759466003189" duration="4118000" />
+      <workItem from="1759561159720" duration="267000" />
+      <workItem from="1759561474185" duration="9650000" />
+      <workItem from="1759597911107" duration="13701000" />
+      <workItem from="1759624423740" duration="8152000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/ASTNode.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

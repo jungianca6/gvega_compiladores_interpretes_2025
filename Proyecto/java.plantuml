@@ -1,0 +1,403 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+interface ASTNode << interface >> {
+  + execute(Map<String, Object>): Object
+}
+class Addition {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class And {
+  - left: ASTNode
+  - right: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class AndAST {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Avanza {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class BajaLapiz {
+  + execute(Map<String, Object>): Object
+}
+class Centro {
+  + execute(Map<String, Object>): Object
+}
+class ColorLapiz {
+  - color: String
+  + execute(Map<String, Object>): Object
+}
+class Comment {
+  + execute(Map<String, Object>): Object
+}
+class Constant {
+  - value: Object
+  + execute(Map<String, Object>): Object
+}
+class Diferencia {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Divide {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Division {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Ejecuta {
+  - ordenes: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class EqualThan {
+  - operand2: ASTNode
+  - operand1: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Espera {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Funcion {
+  - nombre: String
+  - cuerpo: List<ASTNode>
+  - argumentos: List<String>
+  - symbolTable: Map<String, Object>
+  + execute(Map<String, Object>): Object
+  + getNombre(): String
+  + getCuerpo(): List<ASTNode>
+  + getParametros(): List<String>
+  + getSymbolTable(): Map<String, Object>
+}
+class GiraDerecha {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class GiraIzquierda {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class GreaterEqualThan {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class GreaterThan {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Hasta {
+  - condition: ASTNode
+  - body: List<ASTNode>
+  + toString(): String
+  + getBody(): List<ASTNode>
+  + getCondition(): ASTNode
+  + execute(Map<String, Object>): Object
+}
+class HazMientras {
+  - condition: ASTNode
+  - body: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Iguales {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Inc {
+  - varName: String
+  - times: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Inic {
+  - varName: String
+  - value: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class LessEqualThan {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class LessThan {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class LlamadaFuncion {
+  - nombre: String
+  - parametros: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Main {
+  - EXTENSION: String
+  + main(String[]): void
+}
+class Mayor {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Menor {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Mientras {
+  - condition: ASTNode
+  - body: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class MostrarRumbo {
+  + execute(Map<String, Object>): Object
+}
+class Multiplication {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class NotEqual {
+  - operand2: ASTNode
+  - operand1: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class OcultaTortuga {
+  + execute(Map<String, Object>): Object
+}
+class Or {
+  - right: ASTNode
+  - left: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class OrAST {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class PonPos {
+  - xExpr: ASTNode
+  - yExpr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class PonRumbo {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class PonX {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class PonY {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Potencia {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Println {
+  - data: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Producto {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Rand {
+  - number: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Repite {
+  - vecesExpr: ASTNode
+  - ordenes: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Retrocede {
+  - expr: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Si {
+  - ifBody: List<ASTNode>
+  - condition: ASTNode
+  - elseBody: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class SubeLapiz {
+  + execute(Map<String, Object>): Object
+}
+class Substraction {
+  - operand1: ASTNode
+  - operand2: ASTNode
+  + execute(Map<String, Object>): Object
+}
+class Suma {
+  - operands: List<ASTNode>
+  + execute(Map<String, Object>): Object
+}
+class Turtle {
+  - angle: int
+  - colorLapiz: String
+  - y: int
+  - x: int
+  - lapizAbajo: boolean
+  - visible: boolean
+  + turnLeft(int): void
+  + setColorLapiz(String): void
+  + hide(): void
+  + getY(): int
+  + bajarLapiz(): void
+  + setX(int): void
+  + show(): void
+  + setAngle(int): void
+  + getAngle(): int
+  + esperar(int): void
+  + moveBackward(int): void
+  + moverCentro(): void
+  + moveForward(int): void
+  + resetToInitialPosition(): void
+  + setPosition(int, int): void
+  + subirLapiz(): void
+  + getX(): int
+  + turnRight(int): void
+  + setY(int): void
+}
+class VarAssign {
+  - expression: ASTNode
+  - name: String
+  + execute(Map<String, Object>): Object
+}
+class VarDecl {
+  - name: String
+  + execute(Map<String, Object>): Object
+}
+class VarRef {
+  - name: String
+  + execute(Map<String, Object>): Object
+}
+
+Addition          -[#008200,dashed]-^  ASTNode
+And               -[#008200,dashed]-^  ASTNode
+AndAST            -[#008200,dashed]-^  ASTNode
+Avanza            -[#008200,dashed]-^  ASTNode
+BajaLapiz         -[#008200,dashed]-^  ASTNode
+Centro            -[#008200,dashed]-^  ASTNode
+ColorLapiz        -[#008200,dashed]-^  ASTNode
+Comment           -[#008200,dashed]-^  ASTNode
+Constant          -[#008200,dashed]-^  ASTNode
+Diferencia        -[#008200,dashed]-^  ASTNode
+Divide            -[#008200,dashed]-^  ASTNode
+Division          -[#008200,dashed]-^  ASTNode
+Ejecuta           -[#008200,dashed]-^  ASTNode
+EqualThan         -[#008200,dashed]-^  ASTNode
+Espera            -[#008200,dashed]-^  ASTNode
+Funcion           -[#008200,dashed]-^  ASTNode
+GiraDerecha       -[#008200,dashed]-^  ASTNode
+GiraIzquierda     -[#008200,dashed]-^  ASTNode
+GreaterEqualThan  -[#008200,dashed]-^  ASTNode
+GreaterThan       -[#008200,dashed]-^  ASTNode
+Hasta             -[#008200,dashed]-^  ASTNode
+HazMientras       -[#008200,dashed]-^  ASTNode
+Iguales           -[#008200,dashed]-^  ASTNode
+Inc               -[#008200,dashed]-^  ASTNode
+Inic              -[#008200,dashed]-^  ASTNode
+LessEqualThan     -[#008200,dashed]-^  ASTNode
+LessThan          -[#008200,dashed]-^  ASTNode
+LlamadaFuncion    -[#008200,dashed]-^  ASTNode
+Mayor             -[#008200,dashed]-^  ASTNode
+Menor             -[#008200,dashed]-^  ASTNode
+Mientras          -[#008200,dashed]-^  ASTNode
+MostrarRumbo      -[#008200,dashed]-^  ASTNode
+Multiplication    -[#008200,dashed]-^  ASTNode
+NotEqual          -[#008200,dashed]-^  ASTNode
+OcultaTortuga     -[#008200,dashed]-^  ASTNode
+Or                -[#008200,dashed]-^  ASTNode
+OrAST             -[#008200,dashed]-^  ASTNode
+PonPos            -[#008200,dashed]-^  ASTNode
+PonRumbo          -[#008200,dashed]-^  ASTNode
+PonX              -[#008200,dashed]-^  ASTNode
+PonY              -[#008200,dashed]-^  ASTNode
+Potencia          -[#008200,dashed]-^  ASTNode
+Println           -[#008200,dashed]-^  ASTNode
+Producto          -[#008200,dashed]-^  ASTNode
+Rand              -[#008200,dashed]-^  ASTNode
+Repite            -[#008200,dashed]-^  ASTNode
+Retrocede         -[#008200,dashed]-^  ASTNode
+Si                -[#008200,dashed]-^  ASTNode
+SubeLapiz         -[#008200,dashed]-^  ASTNode
+Substraction      -[#008200,dashed]-^  ASTNode
+Suma              -[#008200,dashed]-^  ASTNode
+VarAssign         -[#008200,dashed]-^  ASTNode
+VarDecl           -[#008200,dashed]-^  ASTNode
+VarRef            -[#008200,dashed]-^  ASTNode
+
+' ==== Mejora de vista interna: raíz AST, contexto y dependencias hacia Turtle ====
+
+' Estilo más legible para clases
+skinparam class {
+  RoundCorner 6
+  Shadowing false
+  AttributeIconSize 0
+}
+
+' Raíz del programa y bloques
+class Program {
+  + statements: List<ASTNode>
+  + execute(Map<String,Object>): Object
+}
+class Block {
+  + body: List<ASTNode>
+  + execute(Map<String,Object>): Object
+}
+
+' Contexto y tabla de símbolos (clarifican el Map dinámico)
+class Context {
+  + get(name): Object
+  + set(name, Object): void
+  + has(name): boolean
+}
+class SymbolTable {
+  + put(name, Object): void
+  + get(name): Object
+  + contains(name): boolean
+}
+
+' Relación de herencia con el nodo base
+Program -[#008200,dashed]-^ ASTNode
+Block   -[#008200,dashed]-^ ASTNode
+
+' Ámbitos/variables
+Context o-- SymbolTable
+Funcion  --> SymbolTable : captura/ámbito
+VarAssign ..> Context    : set/get
+VarRef    ..> Context    : get
+
+' Dependencias explícitas de comandos hacia la Tortuga en runtime/IO
+Avanza        ..> Turtle
+Retrocede     ..> Turtle
+GiraDerecha   ..> Turtle
+GiraIzquierda ..> Turtle
+PonPos        ..> Turtle
+PonX          ..> Turtle
+PonY          ..> Turtle
+PonRumbo      ..> Turtle
+ColorLapiz    ..> Turtle
+BajaLapiz     ..> Turtle
+SubeLapiz     ..> Turtle
+Centro        ..> Turtle
+MostrarRumbo  ..> Turtle
+Espera        ..> Turtle
+
+legend right
+  Verde punteado = implementación de ASTNode
+  Líneas grises = dependencias en ejecución (runtime)
+  Context/SymbolTable = gestión de variables y ámbitos
+endlegend
+
+@enduml
