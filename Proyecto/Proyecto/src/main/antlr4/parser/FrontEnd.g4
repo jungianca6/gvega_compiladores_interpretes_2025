@@ -47,7 +47,7 @@ funcion returns [ASTNode node]
         }
         (p1=ID { parametros.add($p1.text); } (p2=ID { parametros.add($p2.text); })*)?
       SQUARE_PAR_CLOSE
-        (i=instrucciones { cuerpo.add($i.node); })*
+        (i=instrucciones { cuerpo.add($i.node); } | comment { /* ignorar comentarios */ })*
       FIN
         {
             $node = new Funcion($name.text, parametros, cuerpo);
@@ -59,6 +59,7 @@ instrucciones returns [ASTNode node]
     : funcion         { $node = $funcion.node; }
     | llamadaFuncion  { $node = $llamadaFuncion.node; }
     | println         { $node = $println.node; }
+    | comment         { $node = $comment.node; }
     | conditional     { $node = $conditional.node; }
     | var_decl        { $node = $var_decl.node; }
     | var_assign      { $node = $var_assign.node; }
@@ -194,6 +195,14 @@ println returns [ASTNode node]
     : PRINTLN expression SEMICOLON
         { $node = new Println($expression.node); }
     ;
+
+comment returns [ASTNode node]:
+	(COMMENT
+	|
+	LINE_COMMENT){
+		$node = new Comment();
+	};
+
 
 inic returns [ASTNode node]
     : INIC ID ASSIGN e=expression SEMICOLON
@@ -549,5 +558,12 @@ BOOLEAN: 'true' | 'false';
 ID: [a-zA-Z_][a-zA-Z0-9_]*;
 
 NUMBER: [0-9]+;
+
+COMMENT
+: '/*' .*? '*/'
+;
+LINE_COMMENT
+: '//' ~[\r\n]*
+;
 
 WS: [ \t\n\r]+ -> skip;
