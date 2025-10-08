@@ -31,10 +31,10 @@ grammar FrontEnd;
     }
 
     // Métodos de ayuda para análisis semántico
-    private void semanticDeclareOrAssign(String name, Object value) {
+    private void semanticDeclareOrAssign(String name, Object value, boolean isHazAssignment) {
         if (semanticAnalyzer != null) {
-            semantic.SemanticAnalyzer.ValueType type = semanticAnalyzer.inferExpressionType(value);
-            semanticAnalyzer.declareOrAssign(name, type, value);
+            SemanticAnalyzer.ValueType type = semanticAnalyzer.inferExpressionType(value);
+            semanticAnalyzer.declareOrAssign(name, type, value, isHazAssignment);
         }
     }
 
@@ -236,7 +236,7 @@ comment returns [ASTNode node]:
 inic returns [ASTNode node]
     : INIC ID ASSIGN e=expression SEMICOLON
       {
-        semanticDeclareOrAssign($ID.text, $e.node);
+        semanticDeclareOrAssign($ID.text, $e.node,true);
         $node = new Inic($ID.text, $e.node);
       }
     ;
@@ -273,7 +273,7 @@ conditional returns [ASTNode node]
 var_decl returns [ASTNode node]
     : VAR ID SEMICOLON
         {
-            semanticDeclareOrAssign($ID.text, null);
+            semanticDeclareOrAssign($ID.text, null, false);
             $node = new VarDecl($ID.text);
         }
     ;
@@ -282,7 +282,7 @@ var_decl returns [ASTNode node]
  var_assign returns [ASTNode node]
      : HAZ ID expression SEMICOLON
          {
-            semanticCheckVariable($ID.text);
+            semanticDeclareOrAssign($ID.text, $expression.node, true);
             $node = new VarAssign($ID.text, $expression.node);
          }
      ;

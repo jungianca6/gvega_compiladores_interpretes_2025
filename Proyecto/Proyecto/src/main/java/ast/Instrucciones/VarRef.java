@@ -5,19 +5,19 @@ import ast.ASTNode;
 import java.util.Map;
 
 public class VarRef implements ASTNode {
-    private String name;
+    private static String name;
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        VarRef.name = name;
     }
 
     public VarRef(String name) {
         super();
-        this.name = name;
+        VarRef.name = name;
     }
 
     @Override

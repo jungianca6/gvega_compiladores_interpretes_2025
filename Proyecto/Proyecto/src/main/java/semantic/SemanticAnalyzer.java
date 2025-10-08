@@ -2,6 +2,9 @@ package semantic;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import ast.Instrucciones.*;
+import ast.Aritmeticos.*;
+import ast.Logicos.*;
 
 public class SemanticAnalyzer {
     private List<String> errors = new ArrayList<>();
@@ -53,7 +56,7 @@ public class SemanticAnalyzer {
         calledFunctions.add(functionName);
     }
 
-    public void declareOrAssign(String name, ValueType type, Object value) {
+    public void declareOrAssign(String name, ValueType type, Object value, boolean isHazAssignment) {
         if (!isValidVarName(name)) {
             addError("Error léxico: identificador inválido '" + name + "'.");
             return;
@@ -61,15 +64,17 @@ public class SemanticAnalyzer {
 
         Symbol existingSymbol = symbols.get(name);
         if (existingSymbol == null) {
-            // Nueva declaración
+            // ✅ NUEVA declaración con HAZ - establecer el tipo definitivo
             symbols.put(name, new Symbol(name, type, value));
             atLeastOneVariable = true;
+            System.out.println("DEBUG: Variable '" + name + "' creada con tipo: " + type);
         } else {
-            // Asignación a variable existente - verificar tipos
-            if (existingSymbol.type != type && type != ValueType.UNDEFINED) {
+            // ✅ ASIGNACIÓN a variable existente - verificar compatibilidad de tipos
+            if (existingSymbol.type != type) {
                 addError("Error semántico: intento de asignar " + type +
                         " a variable '" + name + "' de tipo " + existingSymbol.type + ".");
             } else {
+                // Tipos compatibles - actualizar valor
                 existingSymbol.value = value;
                 existingSymbol.initialized = true;
             }
@@ -112,18 +117,49 @@ public class SemanticAnalyzer {
     // ========== VERIFICACIÓN DE TIPOS ==========
 
     public ValueType inferExpressionType(Object expressionNode) {
-        // Aquí necesitarías analizar el nodo AST para inferir el tipo
-        // Por ahora retornamos un tipo básico
-        if (expressionNode instanceof Integer) {
-            return ValueType.NUMBER;
-        } else if (expressionNode instanceof Boolean) {
-            return ValueType.BOOLEAN;
-        } else if (expressionNode instanceof String) {
-            return ValueType.STRING;
+        if (expressionNode == null) {
+            return ValueType.UNDEFINED;
         }
-        return ValueType.ANY;
+
+        // Si es un nodo AST Constant, inspeccionar su valor
+        if (expressionNode instanceof ast.Instrucciones.Constant) {
+            try {
+                java.lang.reflect.Method getValueMethod = expressionNode.getClass().getMethod("getValue");
+                Object value = getValueMethod.invoke(expressionNode);
+
+                if (value instanceof Integer) return ValueType.NUMBER;
+                if (value instanceof Boolean) return ValueType.BOOLEAN;
+                if (value instanceof String) return ValueType.STRING;
+
+            } catch (Exception e) {
+                // Si no puede obtener el valor, usar lógica de respaldo
+                System.out.println("DEBUG: No se pudo obtener valor de Constant, usando respaldo");
+            }
+        }
+
+        // Lógica de respaldo basada en el tipo de nodo AST
+        String className = expressionNode.getClass().getSimpleName();
+        switch (className) {
+            case "Constant":
+                // Por contexto, asumir NUMBER (es lo más común)
+                return ValueType.NUMBER;
+            case "VarRef":
+                // Para referencias a variables, obtener el tipo de la tabla
+                //ast.Instrucciones.VarRef= (ast.Instrucciones.VarRef) expressionNode;
+                ast.Instrucciones.VarRef varRef = (ast.Instrucciones.VarRef) expressionNode;
+                return getVariableType(ast.Instrucciones.VarRef.getName());
+            default:
+                return ValueType.ANY;
+        }
     }
 
+    public void updateVariableType(String name, ValueType newType) {
+        Symbol symbol = symbols.get(name);
+        if (symbol != null) {
+            symbol.type = newType;
+            System.out.println("DEBUG: Variable '" + name + "' actualizada a tipo: " + newType);
+        }
+    }
     public boolean areTypesCompatible(ValueType type1, ValueType type2) {
         if (type1 == ValueType.ANY || type2 == ValueType.ANY) return true;
         if (type1 == ValueType.UNDEFINED || type2 == ValueType.UNDEFINED) return false;

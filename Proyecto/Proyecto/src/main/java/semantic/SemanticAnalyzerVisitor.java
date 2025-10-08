@@ -65,7 +65,8 @@ public class SemanticAnalyzerVisitor extends FrontEndBaseVisitor<Void> {
     @Override
     public Void visitVar_decl(FrontEndParser.Var_declContext ctx) {
         String varName = ctx.ID().getText();
-        analyzer.declareOrAssign(varName, SemanticAnalyzer.ValueType.UNDEFINED, null);
+        analyzer.declareOrAssign(varName, SemanticAnalyzer.ValueType.UNDEFINED,
+                null,false);
         return visitChildren(ctx);
     }
 
@@ -73,16 +74,33 @@ public class SemanticAnalyzerVisitor extends FrontEndBaseVisitor<Void> {
     public Void visitInic(FrontEndParser.InicContext ctx) {
         String varName = ctx.ID().getText();
         // Inferir tipo de la expresión (simplificado - asumimos NUMBER por ahora)
-        analyzer.declareOrAssign(varName, SemanticAnalyzer.ValueType.NUMBER, null);
+        analyzer.declareOrAssign(varName, SemanticAnalyzer.ValueType.NUMBER,
+                null,true);
         return visitChildren(ctx);
     }
 
     @Override
     public Void visitVar_assign(FrontEndParser.Var_assignContext ctx) {
         String varName = ctx.ID().getText();
+
         if (!analyzer.variableExists(varName)) {
             analyzer.addError("Variable no declarada: '" + varName + "'");
+        } else {
+            // ✅ IMPORTANTE: Actualizar el tipo basado en la expresión asignada
+            SemanticAnalyzer.ValueType expressionType = analyzer.inferExpressionType(ctx.expression().node);
+            SemanticAnalyzer.ValueType currentType = analyzer.getVariableType(varName);
+
+            // Verificar compatibilidad de tipos
+            if (currentType != SemanticAnalyzer.ValueType.UNDEFINED &&
+                    currentType != expressionType) {
+                analyzer.addError("Error semántico: intento de asignar " + expressionType +
+                        " a variable '" + varName + "' de tipo " + currentType + ".");
+            } else if (currentType == SemanticAnalyzer.ValueType.UNDEFINED) {
+                // Si la variable era UNDEFINED, actualizar al nuevo tipo
+                analyzer.updateVariableType(varName, expressionType);
+            }
         }
+
         return visitChildren(ctx);
     }
 
@@ -90,7 +108,13 @@ public class SemanticAnalyzerVisitor extends FrontEndBaseVisitor<Void> {
     public Void visitFuncion(FrontEndParser.FuncionContext ctx) {
         String funcName = ctx.name.getText();
         analyzer.declareFunction(funcName);
-        return visitChildren(ctx);
+        // ✅ IMPORTANTE: Visitar el cuerpo de la función para analizar sus variables
+        if (ctx.instrucciones() != null) {
+            for (FrontEndParser.InstruccionesContext instr : ctx.instrucciones()) {
+                visit(instr);
+            }
+        }
+        return null;
     }
 
     @Override
