@@ -12,22 +12,51 @@ grammar FrontEnd;
     import ast.Logicos.*;
     import ast.Instrucciones.*;
     import ast.Tortuga.*;
+    import semantic.*;
 }
 
 // Tabla de símbolos global al parser
 @parser::members {
     Map<String, Object> symbolTable = new HashMap<String, Object>();
-    // INICIALIZAR LA TORTUGA AL CREAR EL PARSER
     {
-        // Posición inicial (por ejemplo, centro de la pantalla)
-        Turtle turtle = new Turtle(0, 0, 0); // x=0, y=0, ángulo=0 (derecha)
+        Turtle turtle = new Turtle(0, 0, 0);
         symbolTable.put("turtle", turtle);
+    }
+
+    // ANALIZADOR SEMÁNTICO
+    private semantic.SemanticAnalyzer semanticAnalyzer;
+
+    public void setSemanticAnalyzer(semantic.SemanticAnalyzer analyzer) {
+        this.semanticAnalyzer = analyzer;
+    }
+
+    // Métodos de ayuda para análisis semántico
+    private void semanticDeclareOrAssign(String name, Object value) {
+        if (semanticAnalyzer != null) {
+            semantic.SemanticAnalyzer.ValueType type = semanticAnalyzer.inferExpressionType(value);
+            semanticAnalyzer.declareOrAssign(name, type, value);
+        }
+    }
+
+    private void semanticCheckVariable(String name) {
+        if (semanticAnalyzer != null && !semanticAnalyzer.variableExists(name)) {
+            semanticAnalyzer.addError("Variable no declarada: '" + name + "'");
+        }
+    }
+
+    // MÉTODO PARA VERIFICAR COMENTARIOS EN PRIMERA LÍNEA
+    private void checkFirstLineForComment(Token startToken) {
+        if (semanticAnalyzer != null && startToken != null) {
+            // Esta verificación se hará en el Visitor, pero podemos hacer una básica aquí
+            // El visitor hará la verificación completa
+        }
     }
 }
 
 program
     :
         {
+            checkFirstLineForComment(_input.LT(1)); // Verificar primer token
             List<ASTNode> body = new ArrayList<ASTNode>();
         }
         (i=instrucciones { body.add($i.node); })*
@@ -206,7 +235,10 @@ comment returns [ASTNode node]:
 
 inic returns [ASTNode node]
     : INIC ID ASSIGN e=expression SEMICOLON
-      { $node = new Inic($ID.text, $e.node); }
+      {
+        semanticDeclareOrAssign($ID.text, $e.node);
+        $node = new Inic($ID.text, $e.node);
+      }
     ;
 
 inc returns [ASTNode node]
@@ -240,13 +272,19 @@ conditional returns [ASTNode node]
 
 var_decl returns [ASTNode node]
     : VAR ID SEMICOLON
-        { $node = new VarDecl($ID.text); }
+        {
+            semanticDeclareOrAssign($ID.text, null);
+            $node = new VarDecl($ID.text);
+        }
     ;
 
 
  var_assign returns [ASTNode node]
      : HAZ ID expression SEMICOLON
-         { $node = new VarAssign($ID.text, $expression.node); }
+         {
+            semanticCheckVariable($ID.text);
+            $node = new VarAssign($ID.text, $expression.node);
+         }
      ;
 
 ejecuta returns [ASTNode node]

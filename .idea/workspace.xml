@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="" />
+    <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/SemanticVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +50,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "development",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Xpc/Documents/GitHub/Compi/proyecto1/gvega_compiladores_interpretes_2025/Proyecto",
