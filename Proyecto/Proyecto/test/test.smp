@@ -3,9 +3,10 @@
 PARA figura []
     var x;
     var y;
+    var z;
     haz x 6;
     haz y 7;
-    haz x true;
+    haz z true;
 FIN
 
 figura[];

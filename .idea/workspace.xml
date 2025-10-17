@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/VarRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/VarRef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzerVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,37 +32,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.Proyecto [clean].executor": "Run",
-    "Maven.Proyecto [compile].executor": "Run",
-    "Maven.Proyecto [validate].executor": "Run",
-    "Maven.TallerANTLR [clean].executor": "Run",
-    "Maven.TallerANTLR [compile].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "development",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Xpc/Documents/GitHub/Compi/proyecto1/gvega_compiladores_interpretes_2025/Proyecto",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.TallerANTLR [compile].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Xpc/Documents/GitHub/Compi/proyecto1/gvega_compiladores_interpretes_2025/Proyecto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Dell/Desktop/gvega_compiladores_interpretes_2025/Proyecto/Proyecto/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Dell\Desktop\gvega_compiladores_interpretes_2025\Proyecto\Proyecto\src\main\java\ast" />
@@ -113,6 +108,8 @@
       <workItem from="1759561474185" duration="9650000" />
       <workItem from="1759597911107" duration="13701000" />
       <workItem from="1759624423740" duration="8152000" />
+      <workItem from="1760682316460" duration="29000" />
+      <workItem from="1760682367012" duration="301000" />
     </task>
     <servers />
   </component>
