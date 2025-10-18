@@ -1,0 +1,9 @@
+// Test simple para verificar el compilador
+
+var x;
+var y;
+
+inic x = 10;
+inic y = 20;
+println x;
+println y;

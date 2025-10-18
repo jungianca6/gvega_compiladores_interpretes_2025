@@ -1,0 +1,18 @@
+// Programa de prueba 2: Funciones
+// Este programa demuestra el uso de funciones con parámetros
+
+var resultado;
+
+para cuadrado [x]
+  haz resultado producto x x;
+  escribe resultado;
+fin
+
+para sumar [a b]
+  haz resultado suma a b;
+  escribe resultado;
+fin
+
+// Llamadas a funciones
+cuadrado[5];
+sumar[10 20];
