@@ -30,6 +30,10 @@ grammar FrontEnd;
         this.semanticAnalyzer = analyzer;
     }
 
+    // COMPILACIÓN: captura del cuerpo del programa sin ejecutar
+    public boolean captureProgramBody = false;
+    public List<ASTNode> lastProgramBody = null;
+
     // Métodos de ayuda para análisis semántico
     private void semanticDeclareOrAssign(String name, Object value, boolean isHazAssignment) {
         if (semanticAnalyzer != null) {
@@ -61,8 +65,14 @@ program
         }
         (i=instrucciones { body.add($i.node); })*
         {
-            for (ASTNode n : body) {
-                n.execute(symbolTable);
+            if (captureProgramBody) {
+                // Modo compilación: capturar el AST sin ejecutar
+                lastProgramBody = body;
+            } else {
+                // Modo interpretación: ejecutar directamente
+                for (ASTNode n : body) {
+                    n.execute(symbolTable);
+                }
             }
         }
     ;
@@ -335,8 +345,6 @@ haz_mientras returns [ASTNode node]
     }
   ;
 
-
-
 hasta returns [ASTNode node]
     : HASTA PAR_OPEN expression PAR_CLOSE
       SQUARE_PAR_OPEN
@@ -424,7 +432,7 @@ random  returns [ASTNode node]
     ;
 
 // ---------------- Lógicas -----------------//
-menor  returns [ASTNode node]
+menor returns [ASTNode node]
     : MENOR
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -436,7 +444,7 @@ menor  returns [ASTNode node]
         }
     ;
 
-mayor  returns [ASTNode node]
+mayor returns [ASTNode node]
     : MAYOR
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -448,7 +456,7 @@ mayor  returns [ASTNode node]
         }
     ;
 
-and  returns [ASTNode node]
+and returns [ASTNode node]
     : Y
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -460,7 +468,7 @@ and  returns [ASTNode node]
         }
     ;
 
-or  returns [ASTNode node]
+or returns [ASTNode node]
     : O
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -472,7 +480,7 @@ or  returns [ASTNode node]
         }
     ;
 
-iguales  returns [ASTNode node]
+iguales returns [ASTNode node]
     : IGUALES
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -484,142 +492,112 @@ iguales  returns [ASTNode node]
         }
     ;
 
+// ---------------- Expressions -----------------//
 expression returns [ASTNode node]
-    : t1=factor { $node = $t1.node; }
-      (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
-      (MINUS t3=factor { $node = new Substraction($node, $t3.node); })*
-      (GT t4=factor { $node = new GreaterThan($node, $t4.node); })*
-      (LT t5=factor { $node = new LessThan($node, $t5.node); })*
-      (EQ t6=factor { $node = new EqualThan($node, $t6.node); })*
-      (GEQ t7=factor { $node = new GreaterEqualThan($node, $t7.node); })*
-      (LEQ t8=factor { $node = new LessEqualThan($node, $t8.node); })*
-      (NEQ t9=factor { $node = new NotEqual($node, $t9.node); })*
-      (AND t9=factor { $node = new And($node, $t9.node); })*
-      (OR t9=factor  { $node = new Or($node, $t9.node); })*
-    ;
-
-factor returns [ASTNode node]
     : t1=term { $node = $t1.node; }
-      (MULT t2=term { $node = new Multiplication($node, $t2.node); })*
-      (DIV t3=term { $node = new Divide($node, $t3.node); })*
+      (PLUS t2=term { $node = new Addition($node, $t2.node); })*
+      (MINUS t2=term { $node = new Substraction($node, $t2.node); })*
     ;
 
 term returns [ASTNode node]
-    : NUMBER  { $node = new Constant(Integer.parseInt($NUMBER.text)); }
-    | BOOLEAN { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
-    | ID      { $node = new VarRef($ID.text); }
-    | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
+    : f1=factor { $node = $f1.node; }
+      (TIMES f2=factor { $node = new Multiplication($node, $f2.node); })*
     ;
 
+factor returns [ASTNode node]
+    : NUMBER { $node = new Constant(Integer.parseInt($NUMBER.text)); }
+    | BOOLEAN { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
+    | ID { semanticCheckVariable($ID.text); $node = new VarRef($ID.text); }
+    | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
+    | suma_expr { $node = $suma_expr.node; }
+    | resta_expr { $node = $resta_expr.node; }
+    | mult_expr { $node = $mult_expr.node; }
+    | div_expr { $node = $div_expr.node; }
+    | pot_expr { $node = $pot_expr.node; }
+    | random { $node = $random.node; }
+    | menor { $node = $menor.node; }
+    | mayor { $node = $mayor.node; }
+    | and { $node = $and.node; }
+    | or { $node = $or.node; }
+    | iguales { $node = $iguales.node; }
+    ;
 
+// ---------- TOKENS ----------
 
-// ---------- TOKENS BASICOS ----------
+// Palabras reservadas
+PRINTLN: 'escribe' | 'ESCRIBE';
+VAR: 'var' | 'VAR';
+SI: 'si' | 'SI';
+PARA: 'para' | 'PARA';
+FIN: 'fin' | 'FIN';
+HAZ: 'haz' | 'HAZ';
+INIC: 'inic' | 'INIC';
+INC: 'inc' | 'INC';
+MIENTRAS: 'mientras' | 'MIENTRAS';
+HAZ_MIENTRAS: 'hazmientras' | 'HAZMIENTRAS';
+HASTA: 'hasta' | 'HASTA';
+EJECUTA: 'ejecuta' | 'EJECUTA';
+REPITE: 'repite' | 'REPITE';
 
-PROGRAM: 'program';
-PARA: 'PARA';
-FIN: 'FIN';
-VAR: 'var';
-HAZ: 'haz';
-PRINTLN: 'println';
-EJECUTA: 'Ejecuta';
-REPITE: 'Repite';
-INIC: 'INIC';
-INC: 'INC';
-ASSIGN: '=';
+// Operadores aritméticos
+SUMA: 'suma' | 'SUMA';
+RESTA: 'diferencia' | 'DIFERENCIA';
+PROD: 'producto' | 'PRODUCTO';
+DIVISION: 'division' | 'DIVISION';
+POTENCIA: 'potencia' | 'POTENCIA';
+AZAR: 'azar' | 'AZAR';
 
-// ---------- TOKENS CONTROL FLOW ----------
-SI: 'SI';
-MIENTRAS: 'MIENTRAS';
-HAZ_MIENTRAS : 'HAZ.MIENTRAS';
-HASTA: 'HAZ.HASTA';
+// Operadores lógicos
+MENOR: 'menorque' | 'MENORQUE';
+MAYOR: 'mayorque' | 'MAYORQUE';
+Y: 'y' | 'Y';
+O: 'o' | 'O';
+IGUALES: 'iguales' | 'IGUALES';
 
+// Comandos de tortuga
+AVANZA: 'avanza' | 'AVANZA';
+RE: 'retrocede' | 'RETROCEDE';
+GD: 'giraderecha' | 'GIRADERECHA' | 'gd' | 'GD';
+GI: 'giraizquierda' | 'GIRAIZQUIERDA' | 'gi' | 'GI';
+OT: 'ocultatortuga' | 'OCULTATORTUGA' | 'ot' | 'OT';
+PONPOS: 'ponpos' | 'PONPOS';
+PONX: 'ponx' | 'PONX';
+PONY: 'pony' | 'PONY';
+PONRUMBO: 'ponrumbo' | 'PONRUMBO';
+RUMBO: 'rumbo' | 'RUMBO';
+BAJALAPIZ: 'bajalapiz' | 'BAJALAPIZ';
+SUBELAPIZ: 'subelapiz' | 'SUBELAPIZ';
+COLOR: 'colorlapiz' | 'COLORLAPIZ';
+CENTRO: 'centro' | 'CENTRO';
+ESPERA: 'espera' | 'ESPERA';
 
+// Colores
+COLORES: 'negro' | 'azul' | 'rojo' | 'NEGRO' | 'AZUL' | 'ROJO';
 
-// ---------- TOKENS ARITMETICOS ----------
-
-ARITMETICAS: SUMA | RESTA | PROD | DIVISION | POTENCIA | AZAR ;
-SUMA: 'suma';
-RESTA: 'diferencia';
-PROD: 'producto';
-DIVISION: 'division';
-POTENCIA: 'potencia';
-AZAR: 'azar';
-
+// Operadores simples
 PLUS: '+';
 MINUS: '-';
-MULT: '*';
-DIV: '/';
+TIMES: '*';
+DIVIDE: '/';
+ASSIGN: '=';
 
-
-// ---------- TOKENS LOGICOS----------
-
-MENOR: 'menorque?';
-MAYOR: 'mayorque?';
-Y: 'Y';
-O: 'O';
-IGUALES: 'iguales?';
-BOOLEAN: 'true' | 'false';
-
-AND: '&&';
-OR: '||';
-NOT: '!';
-
-GT: '>';
-LT: '<';
-GEQ: '>=';
-LEQ: '<=';
-EQ: '==';
-NEQ: '!=';
-
-
-
-// ---------- TOKENS TORTUGA ----------
-AVANZA: 'AVANZA' | 'AV';
-RE: 'RETROCEDE' | 'RE';
-GD: 'GIRADERECHA' | 'GD';
-GI: 'GIRAIzquierda' | 'GI';
-OT: 'OCULTATORTUGA' | 'OT';
-PONPOS: 'PONPOS' | 'PONXY';
-PONX: 'PONX';
-PONY: 'PONY';
-PONRUMBO: 'PONRUMBO';
-RUMBO: 'Muestra RUMBO';
-BAJALAPIZ: 'BajaLapiz'|'BL';
-SUBELAPIZ: 'SubeLapiz'|'SB';
-COLOR: 'PonCL' | 'PonColorLapiz';
-CENTRO: 'centro';
-ESPERA: 'espera';
-COLORES: 'azul' | 'negro' | 'rojo';
-
-
-// ---------- TOKENS ESTRUCTURA ----------
-
-BRACKET_OPEN: '{';
-BRACKET_CLOSE: '}';
-
+// Paréntesis y corchetes
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
-
-
 SQUARE_PAR_OPEN: '[';
 SQUARE_PAR_CLOSE: ']';
 
+// Punto y coma
 SEMICOLON: ';';
 
-// ---------- TOKENS IDENTIFICADORES Y VALORES ----------
-
+// Literales
+BOOLEAN: 'verdadero' | 'falso' | 'true' | 'false';
+NUMBER: [0-9]+;
 ID: [a-zA-Z_][a-zA-Z0-9_]*;
 
-NUMBER: [0-9]+;
+// Comentarios
+COMMENT: '/*' .*? '*/';
+LINE_COMMENT: '//' ~[\r\n]*;
 
-// ---------- TOKENS COMENTARIOS ----------
-COMMENT
-: '/*' .*? '*/'
-;
-LINE_COMMENT
-: '//' ~[\r\n]*
-;
-
-WS: [ \t\n\r]+ -> skip;
-
-//(ARITMETICAS)* (e=expression)+
+// Espacios en blanco
+WS: [ \t\r\n]+ -> skip;
