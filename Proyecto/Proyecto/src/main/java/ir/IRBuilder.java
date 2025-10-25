@@ -352,7 +352,7 @@ public class IRBuilder {
     }
 
     private void translateRepite(Repite node, List<Instr> instrs) {
-        ASTNode count = getFieldValue(node, "count");
+        ASTNode count = getFieldValue(node, "vecesExpr");
         List<ASTNode> body = getFieldValue(node, "ordenes");
 
         String countTemp = translateExpression(count, instrs);
