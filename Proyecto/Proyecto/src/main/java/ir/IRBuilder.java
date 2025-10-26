@@ -54,15 +54,24 @@ public class IRBuilder {
             translateLlamadaFuncion((LlamadaFuncion) node, instrs);
         } else if (node instanceof Suma) {
             String temp = translateExpression(node, instrs);
-            // Statement-level suma is evaluated but not assigned
+            instrs.add(new Param(temp));
+            instrs.add(new Call(null, "println", 1));
         } else if (node instanceof Diferencia) {
             String temp = translateExpression(node, instrs);
+            instrs.add(new Param(temp));
+            instrs.add(new Call(null, "println", 1));
         } else if (node instanceof Producto) {
             String temp = translateExpression(node, instrs);
+            instrs.add(new Param(temp));
+            instrs.add(new Call(null, "println", 1));
         } else if (node instanceof Division) {
             String temp = translateExpression(node, instrs);
+            instrs.add(new Param(temp));
+            instrs.add(new Call(null, "println", 1));
         } else if (node instanceof Potencia) {
             String temp = translateExpression(node, instrs);
+            instrs.add(new Param(temp));
+            instrs.add(new Call(null, "println", 1));
         } else if (node instanceof Rand) {
             String temp = translateExpression(node, instrs);
         } else if (node instanceof Menor) {
@@ -192,6 +201,7 @@ public class IRBuilder {
     private String translateMultiOperand(ASTNode node, Op op, List<Instr> instrs) {
         List<ASTNode> operands = getFieldValue(node, "operandos");
         if (operands == null) operands = getFieldValue(node, "args");
+        if (operands == null) operands = getFieldValue(node, "operands");
 
         if (operands == null || operands.isEmpty()) {
             return "0";
