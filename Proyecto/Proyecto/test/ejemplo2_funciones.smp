@@ -2,7 +2,7 @@
 // Este programa demuestra el uso de funciones con parámetros
 
 var z;
-haz z 6;
+haz z 17;
 
 para prod [x]
   producto x z;
@@ -13,5 +13,5 @@ para sumar [a b]
 fin
 
 // Llamadas a funciones
-prod[1];
-sumar[10 20];
+prod[3];
+sumar[10 90];
