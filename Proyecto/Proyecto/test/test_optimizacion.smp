@@ -1,8 +1,6 @@
 // Test completo del compilador Sprint 2
 // Verificación de optimizaciones
 
-var x;
-var y;
 var resultado;
 
 inic x = 10;

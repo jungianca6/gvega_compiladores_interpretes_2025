@@ -5,21 +5,20 @@ var x;
 var y;
 var resultado;
 
-inic x = 10;
-inic y = 5;
+haz x 10;
+haz y 5;
 
 // Operaciones aritméticas
 suma 2 3;
 producto x y;
-inic resultado = 15;
+haz resultado 15;
+
+mayorque? 6 8;
+
+
 
 // Condicional simple
-si (mayorque x y) [
-  escribe 100;
-] [
-  escribe 200;
-]
+si (mayorque x y;)
+[escribe x;]
+[escribe y;]
 
-// Operación con variables
-haz resultado suma x y;
-escribe resultado;

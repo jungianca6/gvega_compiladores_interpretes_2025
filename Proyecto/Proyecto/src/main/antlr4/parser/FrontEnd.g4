@@ -497,6 +497,14 @@ expression returns [ASTNode node]
     : t1=term { $node = $t1.node; }
       (PLUS t2=term { $node = new Addition($node, $t2.node); })*
       (MINUS t2=term { $node = new Substraction($node, $t2.node); })*
+      (GT t4=factor { $node = new GreaterThan($node, $t4.node); })*
+      (LT t5=factor { $node = new LessThan($node, $t5.node); })*
+      (EQ t6=factor { $node = new EqualThan($node, $t6.node); })*
+      (GEQ t7=factor { $node = new GreaterEqualThan($node, $t7.node); })*
+      (LEQ t8=factor { $node = new LessEqualThan($node, $t8.node); })*
+      (NEQ t9=factor { $node = new NotEqual($node, $t9.node); })*
+      (AND t9=factor { $node = new And($node, $t9.node); })*
+      (OR t9=factor  { $node = new Or($node, $t9.node); })*
     ;
 
 term returns [ASTNode node]
@@ -525,7 +533,7 @@ factor returns [ASTNode node]
 // ---------- TOKENS ----------
 
 // Palabras reservadas
-PRINTLN: 'escribe' | 'ESCRIBE';
+PRINTLN: 'escribe' | 'ESCRIBE'| 'println';
 VAR: 'var' | 'VAR';
 SI: 'si' | 'SI';
 PARA: 'para' | 'PARA';
@@ -548,11 +556,11 @@ POTENCIA: 'potencia' | 'POTENCIA';
 AZAR: 'azar' | 'AZAR';
 
 // Operadores lógicos
-MENOR: 'menorque' | 'MENORQUE';
-MAYOR: 'mayorque' | 'MAYORQUE';
-Y: 'y' | 'Y';
+MENOR: 'menorque' | 'MENORQUE'| 'menorque?';
+MAYOR: 'mayorque' | 'MAYORQUE' | 'mayorque?' ;
+Y: 'Y';
 O: 'o' | 'O';
-IGUALES: 'iguales' | 'IGUALES';
+IGUALES: 'iguales' | 'IGUALES'| 'iguales?';
 
 // Comandos de tortuga
 AVANZA: 'avanza' | 'AVANZA';
@@ -580,6 +588,17 @@ MINUS: '-';
 TIMES: '*';
 DIVIDE: '/';
 ASSIGN: '=';
+
+AND: '&&';
+OR: '||';
+NOT: '!';
+
+GT: '>';
+LT: '<';
+GEQ: '>=';
+LEQ: '<=';
+EQ: '==';
+NEQ: '!=';
 
 // Paréntesis y corchetes
 PAR_OPEN: '(';
