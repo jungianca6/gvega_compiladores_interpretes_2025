@@ -408,7 +408,7 @@ public class RuntimePlayer {
             // Show turtle viewer if there were drawing commands
             if (player.getTurtle().hasDrawn()) {
                 TurtleViewer viewer = new TurtleViewer(player.getTurtle());
-                viewer.show();
+                viewer.display();
             }
 
         } catch (IOException e) {

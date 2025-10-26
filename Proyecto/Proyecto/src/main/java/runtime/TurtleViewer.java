@@ -17,7 +17,7 @@ public class TurtleViewer extends JFrame {
         add(canvas);
     }
 
-    public void show() {
+    public void display() {
         setVisible(true);
     }
 

@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="Modificaciones minimas en el FrontEnd.g4">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/optimizer/ConstantFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/optimizer/ConstantFolder.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="Modificaciones minimas en el FrontEnd.g4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +124,7 @@
       <workItem from="1760729952595" duration="684000" />
       <workItem from="1760743510249" duration="6869000" />
       <workItem from="1760754103713" duration="335000" />
-      <workItem from="1761432021360" duration="4271000" />
+      <workItem from="1761432021360" duration="4584000" />
     </task>
     <task id="LOCAL-00001" summary="Se agrega el Enunciado Proyecto II Sem 2025.pdf al proyecto">
       <option name="closed" value="true" />
