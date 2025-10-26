@@ -146,8 +146,9 @@ public class SemanticAnalyzer {
             case "VarRef":
                 // Para referencias a variables, obtener el tipo de la tabla
                 //ast.Instrucciones.VarRef= (ast.Instrucciones.VarRef) expressionNode;
+                assert expressionNode instanceof VarRef;
                 ast.Instrucciones.VarRef varRef = (ast.Instrucciones.VarRef) expressionNode;
-                return getVariableType(ast.Instrucciones.VarRef.getName());
+                return getVariableType(varRef.getName());
             default:
                 return ValueType.ANY;
         }

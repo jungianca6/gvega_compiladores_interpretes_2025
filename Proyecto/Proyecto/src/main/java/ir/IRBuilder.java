@@ -406,7 +406,8 @@ public class IRBuilder {
 
     private void translateLlamadaFuncion(LlamadaFuncion node, List<Instr> instrs) {
         String name = getFieldValue(node, "nombre");
-        List<ASTNode> args = getFieldValue(node, "argumentos");
+        List<ASTNode> args = getFieldValue(node, "parametros");
+        if (args == null) args = getFieldValue(node, "argumentos");
 
         for (ASTNode arg : args) {
             String argTemp = translateExpression(arg, instrs);

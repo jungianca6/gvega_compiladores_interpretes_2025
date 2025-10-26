@@ -20,25 +20,27 @@ public class LlamadaFuncion implements ASTNode {
     {
 
         Funcion func = (Funcion)symbolTable.get(nombre);
-
-        Map<String, Object>  local_context = func.getSymbolTable();
-
-        List<String> arguments_list = func.getParametros();
-
-        for(int i=0;i<arguments_list.size();++i)
-        {
-            local_context.put(arguments_list.get(i) ,parametros.get(i).execute(symbolTable));
+        if (func == null) {
+            throw new RuntimeException("La función '" + nombre + "' no está definida");
         }
 
-        for(ASTNode n:func.getCuerpo())
-        {
-            Object task = n.execute(local_context);
+        Map<String, Object> local_context = new HashMap<>(symbolTable);
 
-            if(task!=null) {
-                return task;
-            }
+        // Vincular parámetros formales con valores reales
+        List<String> formalParams = func.getParametros();
+        List<ASTNode> actualParams = this.parametros;
+
+
+        for (int i = 0; i < formalParams.size(); i++) {
+            Object value = actualParams.get(i).execute(symbolTable);
+            local_context.put(formalParams.get(i), value);
         }
-        return null;
+
+        Object result = null;
+        for (ASTNode n : func.getCuerpo()) {
+            result = n.execute(local_context);
+        }
+        return result;
     }
 
 }

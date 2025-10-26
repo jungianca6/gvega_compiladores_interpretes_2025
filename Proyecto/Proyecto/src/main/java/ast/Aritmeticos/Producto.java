@@ -23,6 +23,7 @@ public class Producto implements ASTNode {
 
         for (ASTNode operand : operands) {
             Object value = operand.execute(symbolTable);
+            System.out.println("DEBUG Producto: valor de operando = " + value + " (" + value.getClass().getSimpleName() + ")");
             if (value instanceof Integer) {
                 if (first) {
                     result = (int) value;  // Primer operando se asigna directamente
