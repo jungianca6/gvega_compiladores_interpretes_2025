@@ -39,7 +39,10 @@ public class ConstantFolder {
                 Object left = tryEvaluate(binOp.left, constants);
                 Object right = tryEvaluate(binOp.right, constants);
 
-                if (left != null && right != null) {
+                boolean leftIsLiteral = isLiteral(binOp.left);
+                boolean rightIsLiteral = isLiteral(binOp.right);
+
+                if (leftIsLiteral && rightIsLiteral && left != null && right != null) {
                     Object result = evaluateBinOp(left, binOp.op, right);
                     if (result != null) {
                         instrs.set(i, new Assign(binOp.dest, String.valueOf(result)));
@@ -82,6 +85,15 @@ public class ConstantFolder {
 
         return null;
     }
+
+
+    private boolean isLiteral(String operand) {
+        if (operand == null) return false;
+        if (operand.matches("\\d+")) return true;
+        if ("true".equals(operand) || "false".equals(operand)) return true;
+        return false;
+    }
+
 
     private Object evaluateBinOp(Object left, Op op, Object right) {
         try {
