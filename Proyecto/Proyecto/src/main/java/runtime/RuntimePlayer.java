@@ -10,6 +10,8 @@ public class RuntimePlayer {
     private Map<String, Integer> labels;
     private List<String> instructions;
     private int pc; // Program counter
+    private final List<String> globalInstructions = new ArrayList<>();
+    private final Map<String, List<String>> functions = new HashMap<>();
 
     public RuntimePlayer() {
         this.memory = new HashMap<>();
@@ -23,10 +25,12 @@ public class RuntimePlayer {
     public void loadFromFile(String path) throws IOException {
         instructions.clear();
         labels.clear();
+        globalInstructions.clear();
+        functions.clear();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
-            int lineNum = 0;
+            List<String> currentFunc = null;
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
@@ -37,12 +41,19 @@ public class RuntimePlayer {
                 }
 
                 // Handle labels
-                if (line.startsWith("label ")) {
+                if (line.startsWith("label func_")) {
                     String labelName = line.substring(6).trim();
-                    labels.put(labelName, lineNum);
+                    currentFunc = new ArrayList<>();
+                    functions.put(labelName, currentFunc);
+                    continue;
+                }
+
+                if (currentFunc != null) {
+                    // Estamos dentro de una función
+                    currentFunc.add(line);
                 } else {
-                    instructions.add(line);
-                    lineNum++;
+                    // Parte global
+                    globalInstructions.add(line);
                 }
             }
         }
@@ -51,8 +62,8 @@ public class RuntimePlayer {
     public void execute() {
         pc = 0;
 
-        while (pc < instructions.size()) {
-            String instr = instructions.get(pc);
+        while (pc < globalInstructions.size()) {
+            String instr = globalInstructions.get(pc);
             executeInstruction(instr);
             pc++;
         }
@@ -187,9 +198,145 @@ public class RuntimePlayer {
 
         // Execute built-in functions
         Object result = executeBuiltinFunction(funcName, args);
-        if (result != null) {
-            stack.push(result);
+        if (result != null || isBuiltin(funcName)) {
+            if (result != null)
+                stack.push(result);
+            return;
         }
+
+        String labelName = "func_" + funcName;
+        List<String> funcBody = functions.get(labelName);
+        if (funcBody == null) {
+            System.err.println("Runtime error: función '" + funcName + "' no encontrada.");
+            return;
+        }
+
+        // Frame local: guarda el entorno anterior y usa uno nuevo
+        Map<String, Object> prevMemory = memory;
+        memory = new HashMap<>();
+
+        List<String> paramNames = extractParamNames(labelName);
+
+        for (int i = 0; i < numArgs && i < paramNames.size(); i++) {
+            memory.put(paramNames.get(i), args.get(i));
+        }
+
+        for (String line : funcBody) {
+            String op = line.split("\\s+", 2)[0];
+            if ("RET".equals(op)) {
+                break;
+            }
+            executeInstruction(line);
+        }
+
+        // Restaura entorno anterior
+        memory = prevMemory;
+    }
+
+    private boolean isBuiltin(String name) {
+        switch (name) {
+            case "println": case "random":
+            case "turtle_avanza": case "turtle_retrocede":
+            case "turtle_giraderecha": case "turtle_giraizquierda":
+            case "turtle_oculta": case "turtle_ponpos": case "turtle_ponx":
+            case "turtle_pony": case "turtle_ponrumbo": case "turtle_rumbo":
+            case "turtle_bajalapiz": case "turtle_subelapiz":
+            case "turtle_colorlapiz": case "turtle_centro": case "turtle_espera":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private List<String> extractParamNames(String funcLabel) {
+        List<String> funcBody = functions.get(funcLabel);
+        if (funcBody == null) return Collections.emptyList();
+
+        Set<String> assigned = new HashSet<>();
+        Set<String> used = new LinkedHashSet<>(); // preserva orden de aparición
+
+        for (String line : funcBody) {
+            // Tokeniza separando por comas y espacios
+            String[] parts = line.split("[,\\s]+");
+            if (parts.length == 0) continue;
+
+            String op = parts[0];
+
+            switch (op) {
+                case "MOV": {
+                    // MOV dest, src
+                    // parts: [0]=MOV, [1]=dest, [2]=src
+                    if (parts.length >= 2 && isIdentifier(parts[1])) {
+                        assigned.add(parts[1]); // dest es local
+                    }
+                    if (parts.length >= 3 && isIdentifier(parts[2])) {
+                        used.add(parts[2]); // src puede ser param u otra var
+                    }
+                    break;
+                }
+
+                case "BIN": {
+                    // BIN dest, left, OP, right
+                    // parts: [0]=BIN, [1]=dest, [2]=left, [3]=OP, [4]=right
+                    if (parts.length >= 2 && isIdentifier(parts[1])) {
+                        assigned.add(parts[1]); // dest (t0 normalmente) no es param
+                    }
+                    if (parts.length >= 3 && isIdentifier(parts[2])) {
+                        used.add(parts[2]); // left
+                    }
+                    // parts[3] es el opcode (ADD/SUB/POW/...), ignorar
+                    if (parts.length >= 5 && isIdentifier(parts[4])) {
+                        used.add(parts[4]); // right (aquí entra 'a')
+                    }
+                    break;
+                }
+
+                case "UN": {
+                    // UN dest, OP, operand
+                    // parts: [0]=UN, [1]=dest, [2]=OP, [3]=operand
+                    if (parts.length >= 2 && isIdentifier(parts[1])) {
+                        assigned.add(parts[1]); // dest
+                    }
+                    if (parts.length >= 4 && isIdentifier(parts[3])) {
+                        used.add(parts[3]); // operand
+                    }
+                    break;
+                }
+
+                case "PUSH": {
+                    // PUSH value
+                    // parts: [0]=PUSH, [1]=value
+                    if (parts.length >= 2 && isIdentifier(parts[1])) {
+                        used.add(parts[1]);
+                    }
+                    break;
+                }
+
+                // Otros opcodes que no afectan: CALL, JMP, JMPT, JMPTF, RET...
+                default:
+                    break;
+            }
+        }
+
+        // Parámetros = usados pero no asignados dentro de la función
+        used.removeAll(assigned);
+        return new ArrayList<>(used);
+    }
+
+    // Helpers:
+    private static final Set<String> OP_TOKENS = new HashSet<>(
+            Arrays.asList("ADD","SUB","MUL","DIV","POW","EQ","NE","LT","LE","GT","GE","AND","OR","NOT")
+    );
+
+    private boolean isIdentifier(String s) {
+        // identificador simple tipo [a-zA-Z_][a-zA-Z0-9_]*
+        if (s == null) return false;
+        if (!s.matches("[a-zA-Z_][a-zA-Z0-9_]*")) return false;
+        // excluir opcodes (POW, ADD, etc.)
+        if (OP_TOKENS.contains(s)) return false;
+        // excluir temporales tipo t0, t1, t23...
+        if (s.startsWith("t") && s.substring(1).matches("\\d+")) return false;
+        return true;
     }
 
     private void executePop(String dest) {
@@ -198,11 +345,31 @@ public class RuntimePlayer {
     }
 
     private void executeRet(String value) {
+        Object retVal = null;
         if (!value.isEmpty()) {
-            Object val = getValue(value.trim());
-            stack.push(val);
+            retVal = getValue(value.trim());
+            stack.push(retVal);
         }
-        // For now, just continue
+
+        // Recuperar entorno previo y dirección de retorno
+        if (!stack.isEmpty()) {
+            Object oldMemObj = stack.pop();
+            if (oldMemObj instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> oldMemory = (Map<String, Object>) oldMemObj;
+                memory = oldMemory;
+            }
+        }
+
+        if (!stack.isEmpty()) {
+            Object retAddrObj = stack.pop();
+            if (retAddrObj instanceof Integer) {
+                pc = (Integer) retAddrObj;
+            }
+        }
+
+        if (retVal != null)
+            stack.push(retVal);
     }
 
     private Object getValue(String operand) {
