@@ -408,7 +408,26 @@ public class RuntimePlayer {
             // Show turtle viewer if there were drawing commands
             if (player.getTurtle().hasDrawn()) {
                 TurtleViewer viewer = new TurtleViewer(player.getTurtle());
+
+                // Muestra la ventana (opcional)
                 viewer.display();
+
+                // ** MODIFICACIÓN PARA GENERAR NOMBRE DE ARCHIVO ÚNICO **
+                // Genera un timestamp para asegurar un nombre único
+                long timestamp = System.currentTimeMillis();
+
+                // Crea el path con la marca de tiempo (timestamp)
+                String imagePath = "IMGResultados/Dibujo" + timestamp + ".png";
+                boolean success = viewer.saveImage(imagePath);
+
+                if (success) {
+                    System.out.println("IMAGEN GUARDADA EXITOSAMENTE:");
+                    System.out.println("   → Ruta: " + new File(imagePath).getAbsolutePath());
+                } else {
+                    System.err.println("ERROR al guardar la imagen. Revisa si tienes permisos de escritura.");
+                }
+            } else {
+                System.out.println("El programa no generó comandos de dibujo de tortuga.");
             }
 
         } catch (IOException e) {
@@ -419,4 +438,3 @@ public class RuntimePlayer {
         }
     }
 }
-

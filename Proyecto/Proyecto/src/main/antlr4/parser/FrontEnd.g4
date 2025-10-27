@@ -580,7 +580,7 @@ CENTRO: 'centro' | 'CENTRO';
 ESPERA: 'espera' | 'ESPERA';
 
 // Colores
-COLORES: 'negro' | 'azul' | 'rojo' | 'NEGRO' | 'AZUL' | 'ROJO';
+COLORES: 'negro' | 'azul' | 'rojo' | 'NEGRO' | 'AZUL' | 'ROJO' | 'verde' | 'VERDE' | 'amarillo' | 'AMARILLO' | 'naranja' | 'NARANJA';
 
 // Operadores simples
 PLUS: '+';

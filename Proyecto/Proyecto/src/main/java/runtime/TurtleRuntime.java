@@ -21,13 +21,15 @@ public class TurtleRuntime {
 
     public void avanza(int pasos) {
         int oldX = x, oldY = y;
+        // El cálculo de Y es NEGATIVO porque en coordenadas de pantalla,
+        // la dirección positiva es hacia abajo. Asumimos que 0° es Este.
         x += (int)(pasos * Math.cos(Math.toRadians(angle)));
-        y -= (int)(pasos * Math.sin(Math.toRadians(angle)));
+        y -= (int)(pasos * Math.sin(Math.toRadians(angle))); // Invertir Y para simular coordenadas cartesianas
 
         if (lapizAbajo) {
             commands.add(new DrawCommand("line", oldX, oldY, x, y, color));
             System.out.println("Dibujando línea desde (" + oldX + "," + oldY +
-                             ") hasta (" + x + "," + y + ") con color " + color);
+                    ") hasta (" + x + "," + y + ") con color " + color);
         } else {
             System.out.println("Moviendo sin dibujar a (" + x + ", " + y + ")");
         }
@@ -38,17 +40,21 @@ public class TurtleRuntime {
     }
 
     public void giraDerecha(int grados) {
+        // Restar grados para girar a la derecha
         angle = (angle - grados + 360) % 360;
         System.out.println("Girando derecha " + grados + "°, rumbo actual: " + angle + "°");
     }
 
     public void giraIzquierda(int grados) {
+        // Sumar grados para girar a la izquierda
         angle = (angle + grados) % 360;
         System.out.println("Girando izquierda " + grados + "°, rumbo actual: " + angle + "°");
     }
 
     public void oculta() {
-        System.out.println("Tortuga ocultada");
+        // No hay funcionalidad visual de ocultar/mostrar en este motor de runtime,
+        // solo se registra la acción.
+        System.out.println("Tortuga ocultada (solo registro de comando)");
     }
 
     public void ponPos(int newX, int newY) {
@@ -91,10 +97,15 @@ public class TurtleRuntime {
         System.out.println("Color establecido: " + color);
     }
 
+    /**
+     * Mueve la tortuga al centro del sistema de coordenadas del modelo (0, 0).
+     * El TurtleViewer se encarga de centrar esta posición en la pantalla.
+     */
     public void centro() {
-        this.x = 400;
-        this.y = 300;
-        System.out.println("Tortuga en el centro: (400, 300)");
+        this.x = 0; // Se cambia a 0, ya que el modelo usa (0,0) como centro
+        this.y = 0; // Se cambia a 0
+        this.angle = 0; // Restablecer el ángulo a 0 (Este)
+        System.out.println("Tortuga en el centro: (0, 0). Rumbo restablecido a 0°.");
     }
 
     public void espera(int ticks) {
@@ -115,6 +126,9 @@ public class TurtleRuntime {
         return commands;
     }
 
+    /**
+     * Clase interna para registrar comandos de dibujo.
+     */
     public static class DrawCommand {
         public String type;
         public int x1, y1, x2, y2;
@@ -130,4 +144,3 @@ public class TurtleRuntime {
         }
     }
 }
-

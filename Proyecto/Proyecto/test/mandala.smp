@@ -1,0 +1,66 @@
+// Mandala Geométrico: Dibujado de estrellas superpuestas
+inic lado = 150;
+inic rotacion = 72; // Ángulo simétrico para repeticiones (360 / 5)
+
+// === CAPA 1: AZUL (Estrellas de 5 puntas grandes) ===
+centro;
+bajalapiz;
+colorlapiz azul;
+repite 5 [
+  // Dibuja una estrella de 5 puntas (Giro de 144 grados)
+  repite 5 [
+    avanza lado;
+    gd 144;
+  ];
+
+  // ROTACIÓN SIMÉTRICA: Gira 72 grados para que las 5 estrellas se superpongan uniformemente.
+  gd rotacion;
+];
+subelapiz;
+
+
+// === CAPA 2: VERDE (Estrellas de 5 puntas medianas, entrelazadas) ===
+inic ladoint = 100;
+centro;
+bajalapiz;
+colorlapiz verde;
+
+// Gira 36 grados (la mitad de 72) antes de empezar para entrelazar visualmente con la Capa 1.
+gd 36;
+
+repite 5 [
+  // Dibuja una estrella de 5 puntas
+  repite 5 [
+    avanza ladoint;
+    gd 144;
+  ];
+
+  // ROTACIÓN SIMÉTRICA: Gira 72 grados.
+  gd 72;
+];
+subelapiz;
+
+
+// === CAPA 3: ROJO (Forma central con simetría de 5 puntas) ===
+// Se cambia el cuadrado por una estrella más pequeña para un diseño más armónico.
+inic ladocent = 50;
+
+centro;
+bajalapiz;
+colorlapiz rojo; // Usamos rojo para un mejor contraste.
+
+// Damos una rotación inicial de 36 grados para alinearla.
+gd 36;
+
+repite 5 [
+  // Dibuja una estrella de 5 puntas pequeña
+  repite 5 [
+    avanza ladocent;
+    gd 144;
+  ];
+
+  // ROTACIÓN SIMÉTRICA: Gira 72 grados
+  gd 72;
+];
+
+subelapiz;
