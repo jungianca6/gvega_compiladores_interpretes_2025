@@ -172,11 +172,20 @@ public class IRBuilder {
             return translateMultiOperand((Iguales) node, Op.EQ, instrs);
         } else if (node instanceof Rand) {
             Rand r = (Rand) node;
-            ASTNode expr = getFieldValue(r, "expr");
-            String arg = translateExpression(expr, instrs);
+            ASTNode num = getFieldValue(r, "number"); // campo real de Rand
+            if (num == null && r != null) {
+                // por si acaso, usa el getter directamente
+                try { num = (ASTNode) r.getClass().getMethod("getNumber").invoke(r); } catch (Exception ignored) {}
+            }
+
+            String arg = "0";
+            if (num != null) arg = translateExpression(num, instrs);
+
             instrs.add(new Param(arg));
             String temp = ir.newTemp();
             instrs.add(new Call(temp, "random", 1));
+            instrs.add(new Param(temp));              // <-- opcional, si querés imprimirlo
+            instrs.add(new Call(null, "println", 1)); // <-- opcional, para ver el resultado
             return temp;
         } else {
             // Unknown expression type
@@ -246,17 +255,17 @@ public class IRBuilder {
     }
 
     private void translateInc(Inc node, List<Instr> instrs) {
-        String name = getFieldValue(node, "nombre");
-        ASTNode valNode = getFieldValue(node, "valor");
+        String name = node.getVarName();
+        ASTNode timesNode = node.getTimes();
 
-        if (valNode == null) {
+        if (timesNode == null) {
             // INC[N1] -> N1 = N1 + 1
             String temp = ir.newTemp();
             instrs.add(new BinOp(temp, name, Op.ADD, "1"));
             instrs.add(new Assign(name, temp));
         } else {
             // INC[N1 N2] -> N1 = N1 + N2
-            String val = translateExpression(valNode, instrs);
+            String val = translateExpression(timesNode, instrs);
             String temp = ir.newTemp();
             instrs.add(new BinOp(temp, name, Op.ADD, val));
             instrs.add(new Assign(name, temp));
@@ -337,7 +346,7 @@ public class IRBuilder {
     }
 
     private void translateHasta(Hasta node, List<Instr> instrs) {
-        ASTNode condition = getFieldValue(node, "expression");
+        ASTNode condition = getFieldValue(node, "condition");
         List<ASTNode> body = getFieldValue(node, "body");
 
         String labelStart = ir.newLabel();

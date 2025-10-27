@@ -3,9 +3,18 @@
 PARA figura []
     var x;
     var y;
-    haz x 6;
+    var contador;
+    haz x 2;
     haz y 7;
-    haz x true;
+    escribe x;
+    escribe y;
+
+    haz contador 0;
+    MIENTRAS (contador < 3) [
+        escribe contador;
+        inc[contador];
+    ]
+
 FIN
 
 figura[];
