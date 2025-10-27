@@ -346,7 +346,7 @@ public class IRBuilder {
     }
 
     private void translateHasta(Hasta node, List<Instr> instrs) {
-        ASTNode condition = getFieldValue(node, "expression");
+        ASTNode condition = getFieldValue(node, "condition");
         List<ASTNode> body = getFieldValue(node, "body");
 
         String labelStart = ir.newLabel();

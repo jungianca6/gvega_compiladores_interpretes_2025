@@ -256,8 +256,14 @@ public class RuntimePlayer {
     }
 
     private Object evaluateUnOp(String op, Object operand) {
-        if ("NOT".equals(op) && operand instanceof Boolean)
-            return !(Boolean) operand;
+        if ("NOT".equals(op)) {
+            if (operand instanceof Boolean) {
+                return !(Boolean) operand;
+            }
+            if (operand instanceof Integer) {
+                return ((Integer) operand == 0) ? 1 : 0; // invierte 0↔1
+            }
+        }
         return operand;
     }
 

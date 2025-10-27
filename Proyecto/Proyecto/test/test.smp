@@ -3,12 +3,17 @@
 PARA figura []
     var x;
     var y;
+    var contador;
     haz x 2;
     haz y 7;
     escribe x;
     escribe y;
 
-    azar 20;
+    haz contador 0;
+    MIENTRAS (contador < 3) [
+        escribe contador;
+        inc[contador];
+    ]
 
 FIN
 
