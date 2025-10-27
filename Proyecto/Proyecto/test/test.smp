@@ -7,7 +7,12 @@ PARA figura []
     haz y 7;
     escribe x;
     escribe y;
-    potencia x y;
+
+    mientras (y>x)
+    [inc[x];
+    escribe x;
+    ]
+
 FIN
 
 figura[];

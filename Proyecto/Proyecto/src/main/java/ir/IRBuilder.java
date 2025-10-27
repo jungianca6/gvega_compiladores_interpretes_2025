@@ -246,17 +246,17 @@ public class IRBuilder {
     }
 
     private void translateInc(Inc node, List<Instr> instrs) {
-        String name = getFieldValue(node, "nombre");
-        ASTNode valNode = getFieldValue(node, "valor");
+        String name = node.getVarName();
+        ASTNode timesNode = node.getTimes();
 
-        if (valNode == null) {
+        if (timesNode == null) {
             // INC[N1] -> N1 = N1 + 1
             String temp = ir.newTemp();
             instrs.add(new BinOp(temp, name, Op.ADD, "1"));
             instrs.add(new Assign(name, temp));
         } else {
             // INC[N1 N2] -> N1 = N1 + N2
-            String val = translateExpression(valNode, instrs);
+            String val = translateExpression(timesNode, instrs);
             String temp = ir.newTemp();
             instrs.add(new BinOp(temp, name, Op.ADD, val));
             instrs.add(new Assign(name, temp));
