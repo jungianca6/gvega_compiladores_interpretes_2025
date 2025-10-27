@@ -1,17 +1,13 @@
 // Este es un comentario de primera línea
 
+PARA figura []
+    var x;
+    var y;
+    haz x 2;
+    haz y 7;
+    escribe x;
+    escribe y;
+    potencia x y;
+FIN
 
-inic lado = 100;
-
-centro;
-bajalapiz;
-colorlapiz negro;
-
-// Dibujar cuadrado usando repite
-repite 4 [
-  avanza lado;
-  gd 90;
-];
-
-subelapiz;
-escribe 1;
+figura[];
