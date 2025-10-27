@@ -8,10 +8,7 @@ PARA figura []
     escribe x;
     escribe y;
 
-    mientras (y>x)
-    [inc[x];
-    escribe x;
-    ]
+    azar 20;
 
 FIN
 

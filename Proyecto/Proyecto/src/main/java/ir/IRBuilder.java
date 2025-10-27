@@ -172,11 +172,20 @@ public class IRBuilder {
             return translateMultiOperand((Iguales) node, Op.EQ, instrs);
         } else if (node instanceof Rand) {
             Rand r = (Rand) node;
-            ASTNode expr = getFieldValue(r, "expr");
-            String arg = translateExpression(expr, instrs);
+            ASTNode num = getFieldValue(r, "number"); // campo real de Rand
+            if (num == null && r != null) {
+                // por si acaso, usa el getter directamente
+                try { num = (ASTNode) r.getClass().getMethod("getNumber").invoke(r); } catch (Exception ignored) {}
+            }
+
+            String arg = "0";
+            if (num != null) arg = translateExpression(num, instrs);
+
             instrs.add(new Param(arg));
             String temp = ir.newTemp();
             instrs.add(new Call(temp, "random", 1));
+            instrs.add(new Param(temp));              // <-- opcional, si querés imprimirlo
+            instrs.add(new Call(null, "println", 1)); // <-- opcional, para ver el resultado
             return temp;
         } else {
             // Unknown expression type
