@@ -1,0 +1,17 @@
+// Programa de prueba 3: Gráficos de tortuga - Cuadrado
+// Este programa dibuja un cuadrado usando comandos de tortuga
+
+inic lado = 100;
+
+centro;
+bajalapiz;
+colorlapiz negro;
+
+// Dibujar cuadrado usando repite
+repite 4 [
+  avanza lado;
+  gd 90;
+];
+
+subelapiz;
+escribe 1;

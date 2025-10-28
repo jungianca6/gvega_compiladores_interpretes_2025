@@ -1,18 +1,20 @@
-PARA cuadrado [lado]
-    AVANZA lado;
-    GD 90;
-    AVANZA lado;
-    GD 90;
-    AVANZA lado;
-    GD 90;
-    AVANZA lado;
-    GD 90;
-FIN
+// Este es un comentario de primera línea
 
 PARA figura []
-    cuadrado[50];
-    AVANZA 70;
-    cuadrado[30];
+    var x;
+    var y;
+    var contador;
+    haz x 2;
+    haz y 7;
+    escribe x;
+    escribe y;
+
+    haz contador 0;
+    MIENTRAS (contador < 3) [
+        escribe contador;
+        inc[contador];
+    ]
+
 FIN
 
 figura[];

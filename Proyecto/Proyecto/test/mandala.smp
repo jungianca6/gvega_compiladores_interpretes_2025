@@ -1,0 +1,52 @@
+// Mandala Geométrico: Dibujado de estrellas superpuestas
+inic lado = 150;
+inic rotacion = 72; // Ángulo simétrico para repeticiones (360 / 5)
+
+centro;
+bajalapiz;
+colorlapiz azul;
+repite 5 [
+  repite 5 [
+    avanza lado;
+    gd 144;
+  ];
+
+  gd rotacion;
+];
+subelapiz;
+
+
+inic ladoint = 100;
+centro;
+bajalapiz;
+colorlapiz verde;
+
+gd 36;
+
+repite 5 [
+  repite 5 [
+    avanza ladoint;
+    gd 144;
+  ];
+
+  gd 72;
+];
+subelapiz;
+
+inic ladocent = 50;
+
+centro;
+bajalapiz;
+colorlapiz rojo;
+gd 36;
+
+repite 5 [
+  repite 5 [
+    avanza ladocent;
+    gd 144;
+  ];
+
+  gd 72;
+];
+
+subelapiz;

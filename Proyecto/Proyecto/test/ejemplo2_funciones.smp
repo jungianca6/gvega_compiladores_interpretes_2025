@@ -1,0 +1,17 @@
+// Programa de prueba 2: Funciones
+// Este programa demuestra el uso de funciones con parámetros
+
+var z;
+haz z 17;
+
+para prod [x]
+  producto x z;
+fin
+
+para sumar [a b]
+  suma a b;
+fin
+
+// Llamadas a funciones
+prod[3];
+sumar[10 90];

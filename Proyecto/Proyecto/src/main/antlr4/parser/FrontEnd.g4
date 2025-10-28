@@ -12,28 +12,67 @@ grammar FrontEnd;
     import ast.Logicos.*;
     import ast.Instrucciones.*;
     import ast.Tortuga.*;
+    import semantic.*;
 }
 
 // Tabla de símbolos global al parser
 @parser::members {
     Map<String, Object> symbolTable = new HashMap<String, Object>();
-    // INICIALIZAR LA TORTUGA AL CREAR EL PARSER
     {
-        // Posición inicial (por ejemplo, centro de la pantalla)
-        Turtle turtle = new Turtle(0, 0, 0); // x=0, y=0, ángulo=0 (derecha)
+        Turtle turtle = new Turtle(0, 0, 0);
         symbolTable.put("turtle", turtle);
+    }
+
+    // ANALIZADOR SEMÁNTICO
+    private semantic.SemanticAnalyzer semanticAnalyzer;
+
+    public void setSemanticAnalyzer(semantic.SemanticAnalyzer analyzer) {
+        this.semanticAnalyzer = analyzer;
+    }
+
+    // COMPILACIÓN: captura del cuerpo del programa sin ejecutar
+    public boolean captureProgramBody = false;
+    public List<ASTNode> lastProgramBody = null;
+
+    // Métodos de ayuda para análisis semántico
+    private void semanticDeclareOrAssign(String name, Object value, boolean isHazAssignment) {
+        if (semanticAnalyzer != null) {
+            SemanticAnalyzer.ValueType type = semanticAnalyzer.inferExpressionType(value);
+            semanticAnalyzer.declareOrAssign(name, type, value, isHazAssignment);
+        }
+    }
+
+    private void semanticCheckVariable(String name) {
+        if (semanticAnalyzer != null && !semanticAnalyzer.variableExists(name)) {
+            semanticAnalyzer.addError("Variable no declarada: '" + name + "'");
+        }
+    }
+
+    // MÉTODO PARA VERIFICAR COMENTARIOS EN PRIMERA LÍNEA
+    private void checkFirstLineForComment(Token startToken) {
+        if (semanticAnalyzer != null && startToken != null) {
+            // Esta verificación se hará en el Visitor, pero podemos hacer una básica aquí
+            // El visitor hará la verificación completa
+        }
     }
 }
 
 program
     :
         {
+            checkFirstLineForComment(_input.LT(1)); // Verificar primer token
             List<ASTNode> body = new ArrayList<ASTNode>();
         }
         (i=instrucciones { body.add($i.node); })*
         {
-            for (ASTNode n : body) {
-                n.execute(symbolTable);
+            if (captureProgramBody) {
+                // Modo compilación: capturar el AST sin ejecutar
+                lastProgramBody = body;
+            } else {
+                // Modo interpretación: ejecutar directamente
+                for (ASTNode n : body) {
+                    n.execute(symbolTable);
+                }
             }
         }
     ;
@@ -206,7 +245,10 @@ comment returns [ASTNode node]:
 
 inic returns [ASTNode node]
     : INIC ID ASSIGN e=expression SEMICOLON
-      { $node = new Inic($ID.text, $e.node); }
+      {
+        semanticDeclareOrAssign($ID.text, $e.node,true);
+        $node = new Inic($ID.text, $e.node);
+      }
     ;
 
 inc returns [ASTNode node]
@@ -240,13 +282,19 @@ conditional returns [ASTNode node]
 
 var_decl returns [ASTNode node]
     : VAR ID SEMICOLON
-        { $node = new VarDecl($ID.text); }
+        {
+            semanticDeclareOrAssign($ID.text, null, false);
+            $node = new VarDecl($ID.text);
+        }
     ;
 
 
  var_assign returns [ASTNode node]
      : HAZ ID expression SEMICOLON
-         { $node = new VarAssign($ID.text, $expression.node); }
+         {
+            semanticDeclareOrAssign($ID.text, $expression.node, true);
+            $node = new VarAssign($ID.text, $expression.node);
+         }
      ;
 
 ejecuta returns [ASTNode node]
@@ -296,8 +344,6 @@ haz_mientras returns [ASTNode node]
       $node = new HazMientras(body, $condition.node);
     }
   ;
-
-
 
 hasta returns [ASTNode node]
     : HASTA PAR_OPEN expression PAR_CLOSE
@@ -386,7 +432,7 @@ random  returns [ASTNode node]
     ;
 
 // ---------------- Lógicas -----------------//
-menor  returns [ASTNode node]
+menor returns [ASTNode node]
     : MENOR
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -398,7 +444,7 @@ menor  returns [ASTNode node]
         }
     ;
 
-mayor  returns [ASTNode node]
+mayor returns [ASTNode node]
     : MAYOR
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -410,7 +456,7 @@ mayor  returns [ASTNode node]
         }
     ;
 
-and  returns [ASTNode node]
+and returns [ASTNode node]
     : Y
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -422,7 +468,7 @@ and  returns [ASTNode node]
         }
     ;
 
-or  returns [ASTNode node]
+or returns [ASTNode node]
     : O
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -434,7 +480,7 @@ or  returns [ASTNode node]
         }
     ;
 
-iguales  returns [ASTNode node]
+iguales returns [ASTNode node]
     : IGUALES
         {
             List<ASTNode> args = new ArrayList<ASTNode>();
@@ -446,10 +492,11 @@ iguales  returns [ASTNode node]
         }
     ;
 
+// ---------------- Expressions -----------------//
 expression returns [ASTNode node]
-    : t1=factor { $node = $t1.node; }
-      (PLUS t2=factor { $node = new Addition($node, $t2.node); })*
-      (MINUS t3=factor { $node = new Substraction($node, $t3.node); })*
+    : t1=term { $node = $t1.node; }
+      (PLUS t2=term { $node = new Addition($node, $t2.node); })*
+      (MINUS t2=term { $node = new Substraction($node, $t2.node); })*
       (GT t4=factor { $node = new GreaterThan($node, $t4.node); })*
       (LT t5=factor { $node = new LessThan($node, $t5.node); })*
       (EQ t6=factor { $node = new EqualThan($node, $t6.node); })*
@@ -460,67 +507,90 @@ expression returns [ASTNode node]
       (OR t9=factor  { $node = new Or($node, $t9.node); })*
     ;
 
-factor returns [ASTNode node]
-    : t1=term { $node = $t1.node; }
-      (MULT t2=term { $node = new Multiplication($node, $t2.node); })*
-      (DIV t3=term { $node = new Divide($node, $t3.node); })*
-    ;
-
 term returns [ASTNode node]
-    : NUMBER  { $node = new Constant(Integer.parseInt($NUMBER.text)); }
-    | BOOLEAN { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
-    | ID      { $node = new VarRef($ID.text); }
-    | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
+    : f1=factor { $node = $f1.node; }
+      (TIMES f2=factor { $node = new Multiplication($node, $f2.node); })*
     ;
 
+factor returns [ASTNode node]
+    : NUMBER { $node = new Constant(Integer.parseInt($NUMBER.text)); }
+    | BOOLEAN { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
+    | ID { semanticCheckVariable($ID.text); $node = new VarRef($ID.text); }
+    | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
+    | suma_expr { $node = $suma_expr.node; }
+    | resta_expr { $node = $resta_expr.node; }
+    | mult_expr { $node = $mult_expr.node; }
+    | div_expr { $node = $div_expr.node; }
+    | pot_expr { $node = $pot_expr.node; }
+    | random { $node = $random.node; }
+    | menor { $node = $menor.node; }
+    | mayor { $node = $mayor.node; }
+    | and { $node = $and.node; }
+    | or { $node = $or.node; }
+    | iguales { $node = $iguales.node; }
+    ;
 
+// ---------- TOKENS ----------
 
-// ---------- TOKENS BASICOS ----------
+// Palabras reservadas
+PRINTLN: 'escribe' | 'ESCRIBE'| 'println';
+VAR: 'var' | 'VAR';
+SI: 'si' | 'SI';
+PARA: 'para' | 'PARA';
+FIN: 'fin' | 'FIN';
+HAZ: 'haz' | 'HAZ';
+INIC: 'inic' | 'INIC';
+INC: 'inc' | 'INC';
+MIENTRAS: 'mientras' | 'MIENTRAS';
+HAZ_MIENTRAS: 'hazmientras' | 'HAZMIENTRAS';
+HASTA: 'hasta' | 'HASTA';
+EJECUTA: 'ejecuta' | 'EJECUTA';
+REPITE: 'repite' | 'REPITE';
 
-PROGRAM: 'program';
-PARA: 'PARA';
-FIN: 'FIN';
-VAR: 'var';
-HAZ: 'haz';
-PRINTLN: 'println';
-EJECUTA: 'Ejecuta';
-REPITE: 'Repite';
-INIC: 'INIC';
-INC: 'INC';
-ASSIGN: '=';
+// Operadores aritméticos
+SUMA: 'suma' | 'SUMA';
+RESTA: 'diferencia' | 'DIFERENCIA';
+PROD: 'producto' | 'PRODUCTO';
+DIVISION: 'division' | 'DIVISION';
+POTENCIA: 'potencia' | 'POTENCIA';
+AZAR: 'azar' | 'AZAR';
 
-// ---------- TOKENS CONTROL FLOW ----------
-SI: 'SI';
-MIENTRAS: 'MIENTRAS';
-HAZ_MIENTRAS : 'HAZ.MIENTRAS';
-HASTA: 'HAZ.HASTA';
+// Operadores lógicos
+MENOR: 'menorque' | 'MENORQUE'| 'menorque?';
+MAYOR: 'mayorque' | 'MAYORQUE' | 'mayorque?' ;
+Y: 'Y';
+O: 'o' | 'O';
+IGUALES: 'iguales' | 'IGUALES'| 'iguales?';
 
+// Comandos de tortuga
+AVANZA: 'avanza' | 'AVANZA';
+RE: 'retrocede' | 'RETROCEDE';
+GD: 'giraderecha' | 'GIRADERECHA' | 'gd' | 'GD';
+GI: 'giraizquierda' | 'GIRAIZQUIERDA' | 'gi' | 'GI';
+OT: 'ocultatortuga' | 'OCULTATORTUGA' | 'ot' | 'OT';
+PONPOS: 'ponpos' | 'PONPOS';
+PONX: 'ponx' | 'PONX';
+PONY: 'pony' | 'PONY';
+PONRUMBO: 'ponrumbo' | 'PONRUMBO';
+RUMBO: 'rumbo' | 'RUMBO';
+BAJALAPIZ: 'bajalapiz' | 'BAJALAPIZ';
+SUBELAPIZ: 'subelapiz' | 'SUBELAPIZ';
+COLOR: 'colorlapiz' | 'COLORLAPIZ';
+CENTRO: 'centro' | 'CENTRO';
+ESPERA: 'espera' | 'ESPERA';
 
+// Colores
+COLORES: 'negro' | 'azul' | 'rojo' | 'verde' | 'amarillo' | 'naranja'
+        | 'morado' | 'cyan' | 'rosa' | 'celeste' | 'gris'
+        | 'NEGRO' | 'AZUL' | 'ROJO' | 'VERDE' | 'AMARILLO' | 'NARANJA'
+        | 'MORADO' | 'CYAN' | 'ROSA' | 'CELESTE' | 'GRIS';
 
-// ---------- TOKENS ARITMETICOS ----------
-
-ARITMETICAS: SUMA | RESTA | PROD | DIVISION | POTENCIA | AZAR ;
-SUMA: 'suma';
-RESTA: 'diferencia';
-PROD: 'producto';
-DIVISION: 'division';
-POTENCIA: 'potencia';
-AZAR: 'azar';
-
+// Operadores simples
 PLUS: '+';
 MINUS: '-';
-MULT: '*';
-DIV: '/';
-
-
-// ---------- TOKENS LOGICOS----------
-
-MENOR: 'menorque?';
-MAYOR: 'mayorque?';
-Y: 'Y';
-O: 'O';
-IGUALES: 'iguales?';
-BOOLEAN: 'true' | 'false';
+TIMES: '*';
+DIVIDE: '/';
+ASSIGN: '=';
 
 AND: '&&';
 OR: '||';
@@ -533,55 +603,23 @@ LEQ: '<=';
 EQ: '==';
 NEQ: '!=';
 
-
-
-// ---------- TOKENS TORTUGA ----------
-AVANZA: 'AVANZA' | 'AV';
-RE: 'RETROCEDE' | 'RE';
-GD: 'GIRADERECHA' | 'GD';
-GI: 'GIRAIzquierda' | 'GI';
-OT: 'OCULTATORTUGA' | 'OT';
-PONPOS: 'PONPOS' | 'PONXY';
-PONX: 'PONX';
-PONY: 'PONY';
-PONRUMBO: 'PONRUMBO';
-RUMBO: 'Muestra RUMBO';
-BAJALAPIZ: 'BajaLapiz'|'BL';
-SUBELAPIZ: 'SubeLapiz'|'SB';
-COLOR: 'PonCL' | 'PonColorLapiz';
-CENTRO: 'centro';
-ESPERA: 'espera';
-COLORES: 'azul' | 'negro' | 'rojo';
-
-
-// ---------- TOKENS ESTRUCTURA ----------
-
-BRACKET_OPEN: '{';
-BRACKET_CLOSE: '}';
-
+// Paréntesis y corchetes
 PAR_OPEN: '(';
 PAR_CLOSE: ')';
-
-
 SQUARE_PAR_OPEN: '[';
 SQUARE_PAR_CLOSE: ']';
 
+// Punto y coma
 SEMICOLON: ';';
 
-// ---------- TOKENS IDENTIFICADORES Y VALORES ----------
-
+// Literales
+BOOLEAN: 'verdadero' | 'falso' | 'true' | 'false';
+NUMBER: [0-9]+;
 ID: [a-zA-Z_][a-zA-Z0-9_]*;
 
-NUMBER: [0-9]+;
+// Comentarios
+COMMENT: '/*' .*? '*/';
+LINE_COMMENT: '//' ~[\r\n]*;
 
-// ---------- TOKENS COMENTARIOS ----------
-COMMENT
-: '/*' .*? '*/'
-;
-LINE_COMMENT
-: '//' ~[\r\n]*
-;
-
-WS: [ \t\n\r]+ -> skip;
-
-//(ARITMETICAS)* (e=expression)+
+// Espacios en blanco
+WS: [ \t\r\n]+ -> skip;

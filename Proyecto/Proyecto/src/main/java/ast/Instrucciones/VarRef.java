@@ -16,9 +16,9 @@ public class VarRef implements ASTNode {
     }
 
     public VarRef(String name) {
-        super();
         this.name = name;
     }
+
 
     @Override
     public Object execute(Map<String, Object> symbolTable) {
