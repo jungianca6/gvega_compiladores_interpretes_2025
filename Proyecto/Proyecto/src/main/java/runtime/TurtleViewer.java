@@ -130,8 +130,14 @@ public class TurtleViewer extends JFrame {
                 case "verde": return Color.GREEN;
                 case "amarillo": return Color.YELLOW;
                 case "naranja": return Color.ORANGE;
+                case "morado": return new Color(128, 0, 128);   // púrpura
+                case "cyan": return Color.CYAN;
+                case "rosa": return Color.PINK;
+                case "celeste": return new Color(135, 206, 235);
+                case "gris": return Color.GRAY;
                 default: return Color.BLACK;
             }
         }
+
     }
 }

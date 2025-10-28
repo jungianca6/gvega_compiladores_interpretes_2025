@@ -170,7 +170,7 @@ public class SemanticAnalyzer {
     // ========== VALIDACIÓN DE IDENTIFICADORES ==========
 
     public boolean isValidVarName(String id) {
-        if (id == null || id.length() == 0 || id.length() > 10) return false;
+        if (id == null || id.length() == 0 || id.length() > 20) return false;
         if (!Character.isLowerCase(id.charAt(0))) return false;
         for (char c : id.toCharArray()) {
             if (!(Character.isLetterOrDigit(c) || c == '_' || c == '&' || c == '@')) return false;
