@@ -429,6 +429,14 @@ mkdir target
 
 ### Problema: Errores de sintaxis al compilar archivos .smp
 
-Solucion: Verificar que el archivo use la sintaxis correcta del lenguaje. Revisa los ejemplos en test/ como referencia.
+Solucion: Verificar que el archivo use la sintaxis correcta del lenguaje. Revisa los ejemplos en test/ como referencia
 
+### Ejemplos
 
+java -cp "target/classes;C:\Users\Ayudapls\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" Compiler test\espiral.smp target   
+
+java -cp "target/classes;C:\Users\Ayudapls\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" Compiler test\estrella.smp target
+
+java -cp "target/classes;C:\Users\Ayudapls\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" Compiler test\mandala.smp target
+
+java -cp "target/classes;C:\Users\Ayudapls\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" runtime.RuntimePlayer target\out.lobj  
