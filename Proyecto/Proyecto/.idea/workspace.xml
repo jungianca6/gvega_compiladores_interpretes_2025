@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b74fdeb3-9cd5-4aeb-8792-f827b65b4cc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/espiral.smp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/runtime/TurtleRuntime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/runtime/TurtleRuntime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/runtime/TurtleViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/runtime/TurtleViewer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/semantic/SemanticAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/semantic/SemanticAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mandala.smp" beforeDir="false" afterPath="$PROJECT_DIR$/test/mandala.smp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/REPORTE_PRUEBAS_SPRINT2.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/REPORTE_PRUEBAS_SPRINT2.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
