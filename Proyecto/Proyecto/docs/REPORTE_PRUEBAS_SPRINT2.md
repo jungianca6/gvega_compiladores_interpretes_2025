@@ -302,11 +302,11 @@ java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.
 
 Resultado esperado: Ejecucion sin excepciones ni errores
 
-### Requisito 7: Integracion en Main
+### Requisito 7: Integracion en FrontEnd
 
 Verificacion:
 - Confirmar que Compiler.java existe y funciona independientemente
-- Verificar que Main.java (interprete) sigue funcionando
+- Verificar que FrontEnd.java (interprete) sigue funcionando
 - Ejecutar ambos para confirmar que son independientes
 
 Comando para verificar el compilador:
@@ -316,7 +316,7 @@ java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.
 
 Comando para verificar el interprete:
 ```bash
-java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" Main dummy test\ejemplo3_tortuga.smp
+java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" FrontEnd dummy test\ejemplo3_tortuga.smp
 ```
 
 ### Requisito 8: Pruebas y artefactos
@@ -382,7 +382,7 @@ java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.
 
 ### Ejecutar interprete (para comparacion)
 ```bash
-java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" Main dummy test\ejemplo3_tortuga.smp
+java -cp "target/classes;C:\Users\Xpc\.m2\repository\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar" FrontEnd dummy test\ejemplo3_tortuga.smp
 ```
 
 ---
@@ -398,7 +398,7 @@ Marca cada item cuando lo hayas verificado:
 [ ] Se genera el archivo target/out.lobj con formato correcto
 [ ] Las 3 optimizaciones se ejecutan y reportan metricas
 [ ] El RuntimePlayer ejecuta archivos .lobj sin errores
-[ ] El interprete (Main.java) sigue funcionando independientemente
+[ ] El interprete (FrontEnd.java) sigue funcionando independientemente
 [ ] La documentacion en docs/sprint2_resumen.md es completa
 [ ] Los archivos de prueba en test/ funcionan correctamente
 

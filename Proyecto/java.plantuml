@@ -139,7 +139,7 @@ class LlamadaFuncion {
   - parametros: List<ASTNode>
   + execute(Map<String, Object>): Object
 }
-class Main {
+class FrontEnd {
   - EXTENSION: String
   + main(String[]): void
 }
