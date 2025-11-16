@@ -6,7 +6,7 @@ class CompiInterfaz extends JFrame {
     private JPanel panel;
     private JLabel etiqueta;
     private JTextField chatTexto;
-    private JButton boton;
+    private JButton subir,compilar;
     private JTextArea codigo;
 
     public CompiInterfaz(){
@@ -58,10 +58,15 @@ class CompiInterfaz extends JFrame {
     }
 
     private void colocarBoton(){
-        boton = new JButton("Subir código");
-        boton.setBounds(300,390,160,30);
-        panel.add(boton);
-        boton.setEnabled(true);
+        subir = new JButton("Subir código");
+        subir.setBounds(300,340,160,30);
+        panel.add(subir);
+        subir.setEnabled(true);
+
+        compilar = new JButton("Compilar");
+        compilar.setBounds(300,390,160,30);
+        panel.add(compilar);
+        compilar.setEnabled(true);
     }
 
 }
