@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class CompiInterfaz extends JFrame {
 
@@ -67,6 +69,33 @@ class CompiInterfaz extends JFrame {
         compilar.setBounds(300,390,160,30);
         panel.add(compilar);
         compilar.setEnabled(true);
+
+
+        ActionListener subirCodigo = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                subeCodigo();
+            }
+        };
+        subir.addActionListener(subirCodigo);
+
+        ActionListener compilarCodigo = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                compilacion();
+            }
+        };
+        compilar.addActionListener(compilarCodigo);
+
+
+    }
+
+    private void subeCodigo() {
+        System.out.println("Se subio codigo");
+    }
+
+    private void compilacion() {
+        System.out.println("Se compiló el código");
     }
 
 }
