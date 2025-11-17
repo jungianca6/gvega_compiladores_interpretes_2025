@@ -54,6 +54,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Compiler.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FrontEnd.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Interfaz.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.RuntimePlayer.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
