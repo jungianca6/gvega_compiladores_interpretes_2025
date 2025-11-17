@@ -13,6 +13,7 @@ grammar FrontEnd;
     import ast.Instrucciones.*;
     import ast.Tortuga.*;
     import semantic.*;
+    import java.util.Set;
 }
 
 // Tabla de símbolos global al parser
