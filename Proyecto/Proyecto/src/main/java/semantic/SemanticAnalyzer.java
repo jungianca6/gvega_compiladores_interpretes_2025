@@ -36,7 +36,7 @@ public class SemanticAnalyzer {
 
     // ========== MÉTODOS PÚBLICOS PRINCIPALES ==========
 
-    public void analyzeProgram() {  // ← QUITA el parámetro List<Object> instructions
+    public void analyzeProgram() {
         // Verificar restricciones del programa
         ensureProgramConstraints();
 
