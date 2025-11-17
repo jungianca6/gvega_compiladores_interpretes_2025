@@ -2,6 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+import parser.*;
+import semantic.*;
+import ir.*;
+import optimizer.*;
+import codegen.*;
+import backend.*;
+import ast.ASTNode;
+
 
 class CompiInterfaz extends JFrame {
 
@@ -10,13 +24,12 @@ class CompiInterfaz extends JFrame {
     private JTextField chatTexto;
     private JButton subir,compilar;
     private JTextArea codigo;
+    private File archivoSeleccionado;
 
     public CompiInterfaz(){
         this.setBounds(500,200,600,600);
         setTitle("Interfaz");
-
         ComponentesCliente();
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     private void ComponentesCliente(){
@@ -24,7 +37,7 @@ class CompiInterfaz extends JFrame {
         colocarAreaCodigo();
         etiquetaGUI();
         //colocarCajadeTexto();
-        colocarBoton();
+        colocarBotones();
     }
 
     private void panelGUI(){
@@ -36,12 +49,12 @@ class CompiInterfaz extends JFrame {
 
     private void etiquetaGUI(){
         etiqueta = new JLabel("Interfaz del compilador",SwingConstants.CENTER);
-        panel.add(etiqueta);
         etiqueta.setBounds(200,20,200,25);
         etiqueta.setForeground(Color.WHITE);
         etiqueta.setBackground(Color.BLACK);
         etiqueta.setFont(new Font("times new roman", Font.PLAIN,20));
         etiqueta.setOpaque(true);
+        panel.add(etiqueta);
     }
 
     private void colocarAreaCodigo(){
@@ -59,7 +72,7 @@ class CompiInterfaz extends JFrame {
         panel.add(scroll);
     }
 
-    private void colocarBoton(){
+    private void colocarBotones(){
         subir = new JButton("Subir código");
         subir.setBounds(300,340,160,30);
         panel.add(subir);
@@ -91,11 +104,57 @@ class CompiInterfaz extends JFrame {
     }
 
     private void subeCodigo() {
-        System.out.println("Se subio codigo");
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int seleccion = fc.showOpenDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            archivoSeleccionado = fc.getSelectedFile();
+
+            if (!archivoSeleccionado.getName().endsWith(".smp")) {
+                JOptionPane.showMessageDialog(this,
+                        "Seleccione un archivo con extensión .smp",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                archivoSeleccionado = null;
+                return;
+            }
+
+            try {
+                // Leer contenido del archivo y mostrarlo
+                String contenido = new String(java.nio.file.Files.readAllBytes(
+                        archivoSeleccionado.toPath()
+                ));
+
+                codigo.setText(contenido); // mostrar solo código, no la ruta
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Error al leer el archivo:\n" + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void compilacion() {
-        System.out.println("Se compiló el código");
+
+        if (archivoSeleccionado == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe subir primero un archivo .smp",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String proyectoRoot = new File("").getAbsolutePath();
+            String outputDir = proyectoRoot + "/Proyecto/Proyecto/target";
+
+            Compiler.compile(archivoSeleccionado.getAbsolutePath(), outputDir);
+
+
+        } catch (Exception ex) {
+            System.out.println("❌ Error al compilar por medio de la interfaz:\n");
+        }
     }
 
 }
