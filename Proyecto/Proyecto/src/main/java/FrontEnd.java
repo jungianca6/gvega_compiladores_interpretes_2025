@@ -11,7 +11,7 @@ public class FrontEnd {
 
     public static void main(String[] args) throws IOException {
 
-        String program = args.length > 1 ? args[1] : "./Proyecto/Proyecto/test/test." + EXTENSION;
+        String program = args.length > 1 ? args[1] : "./Proyecto/Proyecto/test/espiral." + EXTENSION;
 
         System.out.println("Interpretando archivo " + program);
 
@@ -59,10 +59,14 @@ public class FrontEnd {
         }
 
         semanticAnalyzer.printDebugInfo();
+
+
         // 4. EJECUCIÓN (solo si pasa el análisis semántico)
         System.out.println("\n=== EJECUCIÓN ===");
         FrontEndBaseVisitor visitor = new FrontEndBaseVisitor();
         visitor.visit(tree);
+
+
 
         System.out.println("\nInterpretacion terminada");
 

@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="Modificaciones minimas en el FrontEnd.g4">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/antlr4/parser/FrontEnd.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/FrontEnd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Tortuga/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Tortuga/Turtle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/Inc.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ast/Instrucciones/Inc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/semantic/SemanticAnalyzerVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +54,7 @@
     "Application.RuntimePlayer.executor": "Run",
     "Maven.Proyecto [clean].executor": "Run",
     "Maven.Proyecto [compile].executor": "Run",
+    "Maven.Proyecto [install].executor": "Run",
     "Maven.Proyecto [validate].executor": "Run",
     "Maven.TallerANTLR [clean].executor": "Run",
     "Maven.TallerANTLR [compile].executor": "Run",
@@ -96,8 +100,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.26775.15" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.26775.15" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
@@ -139,6 +143,7 @@
       <workItem from="1762912744939" duration="588000" />
       <workItem from="1763321253158" duration="3631000" />
       <workItem from="1763328286241" duration="166000" />
+      <workItem from="1763397308670" duration="6334000" />
     </task>
     <task id="LOCAL-00001" summary="Se agrega el Enunciado Proyecto II Sem 2025.pdf al proyecto">
       <option name="closed" value="true" />

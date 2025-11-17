@@ -32,11 +32,9 @@ public class Inc implements ASTNode {
     public Object execute(Map<String, Object> symbolTable) {
         // Verificar que la variable exista y sea numérica
         Object currentValue = symbolTable.get(varName);
-        if (currentValue == null) {
-            throw new RuntimeException("La variable '" + varName + "' no existe.");
-        }
+
         if (!(currentValue instanceof Number)) {
-            throw new RuntimeException("La variable '" + varName + "' no es numérica.");
+            return null;
         }
 
         int increment = 1; // valor por defecto
@@ -45,7 +43,7 @@ public class Inc implements ASTNode {
             if (t instanceof Number) {
                 increment = ((Number) t).intValue();
             } else {
-                throw new RuntimeException("El valor de incremento debe ser numérico.");
+                return currentValue;
             }
         }
 

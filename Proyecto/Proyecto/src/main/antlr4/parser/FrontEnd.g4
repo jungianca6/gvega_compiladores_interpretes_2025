@@ -67,10 +67,18 @@ program
         (i=instrucciones { body.add($i.node); })*
         {
             if (captureProgramBody) {
-                // Modo compilación: capturar el AST sin ejecutar
+                // MODO COMPILACIÓN → solo capturar el cuerpo
                 lastProgramBody = body;
+
             } else {
-                // Modo interpretación: ejecutar directamente
+                // MODO INTERPRETACIÓN → ejecutar
+                if (semanticAnalyzer != null && semanticAnalyzer.hasErrors()) {
+                    throw new RuntimeException(
+                        "Errores semánticos:\n" +
+                        String.join("\n", semanticAnalyzer.getErrors())
+                    );
+                }
+
                 for (ASTNode n : body) {
                     n.execute(symbolTable);
                 }

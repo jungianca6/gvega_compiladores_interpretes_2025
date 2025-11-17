@@ -178,6 +178,7 @@ public class SemanticAnalyzer {
         return true;
     }
 
+
     // ========== MANEJO DE ERRORES ==========
 
     public void addError(String error) {
