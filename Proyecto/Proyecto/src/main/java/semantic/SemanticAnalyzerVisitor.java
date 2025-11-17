@@ -172,4 +172,58 @@ public class SemanticAnalyzerVisitor extends FrontEndBaseVisitor<Void> {
 
         return visitChildren(ctx);
     }
+    @Override
+    public Void visitConditional(FrontEndParser.ConditionalContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.expression().node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'si' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitMientras(FrontEndParser.MientrasContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.condition.node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'mientras' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitHaz_mientras(FrontEndParser.Haz_mientrasContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.condition.node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'hazmientras' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitHasta(FrontEndParser.HastaContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.expression().node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'hasta' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+
+
 }

@@ -20,7 +20,7 @@ public class Mientras implements ASTNode {
         while (true) {
             Object condVal = condition.execute(symbolTable);
             if (!(condVal instanceof Boolean)) {
-                throw new RuntimeException("Condición del MIENTRAS debe ser booleana.");
+                return null;
             }
             if (!((Boolean) condVal)) {
                 break; // Termina el bucle

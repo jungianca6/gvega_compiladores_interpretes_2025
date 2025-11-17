@@ -137,6 +137,28 @@ public class SemanticAnalyzer {
             }
         }
 
+        // =====================
+        // OPERADORES RELACIONALES
+        // =====================
+
+        if (expressionNode instanceof ast.Logicos.LessThan ||
+                expressionNode instanceof ast.Logicos.LessEqualThan ||
+                expressionNode instanceof ast.Logicos.GreaterThan ||
+                expressionNode instanceof ast.Logicos.GreaterEqualThan ||
+                expressionNode instanceof ast.Logicos.EqualThan ||
+                expressionNode instanceof ast.Logicos.NotEqual) {
+            return ValueType.BOOLEAN;
+        }
+
+        // =====================
+        // OPERADORES LÓGICOS
+        // =====================
+        if (expressionNode instanceof ast.Logicos.And ||
+                expressionNode instanceof ast.Logicos.Or) {
+
+            return ValueType.BOOLEAN;
+        }
+
         // Lógica de respaldo basada en el tipo de nodo AST
         String className = expressionNode.getClass().getSimpleName();
         switch (className) {
@@ -152,6 +174,7 @@ public class SemanticAnalyzer {
             default:
                 return ValueType.ANY;
         }
+
     }
 
     public void updateVariableType(String name, ValueType newType) {
