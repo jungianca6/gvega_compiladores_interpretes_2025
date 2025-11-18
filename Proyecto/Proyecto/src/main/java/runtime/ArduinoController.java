@@ -1,201 +1,89 @@
 package runtime;
 
-import java.io.OutputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Controlador para comunicación serial con Arduino.
- * Envía comandos de tortuga al Arduino para que un carrito los ejecute.
- */
 public class ArduinoController {
-    private OutputStream output;
-    private InputStream input;
+
+    private Socket socket;
+    private PrintWriter out;
     private boolean connected = false;
-    private List<String> commandBuffer;
+    private List<String> buffer;
 
     public ArduinoController() {
-        this.commandBuffer = new ArrayList<>();
+        buffer = new ArrayList<>();
     }
 
-    /**
-     * Conecta al puerto serial de Arduino
-     * @param portName Nombre del puerto (ej: "COM3" en Windows, "/dev/ttyUSB0" en Linux)
-     * @return true si la conexión fue exitosa
-     */
-    public boolean connect(String portName) {
+    // -----------------------------
+    // CONEXIÓN WIFI
+    // -----------------------------
+    public boolean connectWiFi(String host, int port) {
         try {
-            // Intentar cargar la librería jSerialComm
-            Class<?> serialPortClass = Class.forName("com.fazecast.jSerialComm.SerialPort");
-            Object serialPort = serialPortClass.getMethod("getCommPort", String.class)
-                .invoke(null, portName);
-
-            // Configurar el puerto: 9600 baud, 8 bits, 1 stop bit, sin paridad
-            serialPortClass.getMethod("setComPortParameters", int.class, int.class, int.class, int.class)
-                .invoke(serialPort, 9600, 8, 1, 0);
-
-            // Abrir el puerto
-            boolean opened = (boolean) serialPortClass.getMethod("openPort").invoke(serialPort);
-
-            if (opened) {
-                output = (OutputStream) serialPortClass.getMethod("getOutputStream").invoke(serialPort);
-                input = (InputStream) serialPortClass.getMethod("getInputStream").invoke(serialPort);
-                connected = true;
-
-                // Esperar a que Arduino se inicialice
-                Thread.sleep(2000);
-
-                System.out.println("✓ Conectado a Arduino en " + portName);
-                return true;
-            } else {
-                System.err.println("✗ No se pudo abrir el puerto " + portName);
-                return false;
-            }
-
-        } catch (ClassNotFoundException e) {
-            System.err.println("✗ Error: Librería jSerialComm no encontrada.");
-            System.err.println("  Para usar Arduino, agrega esta dependencia al pom.xml:");
-            System.err.println("  <dependency>");
-            System.err.println("    <groupId>com.fazecast</groupId>");
-            System.err.println("    <artifactId>jSerialComm</artifactId>");
-            System.err.println("    <version>2.10.4</version>");
-            System.err.println("  </dependency>");
-            return false;
+            socket = new Socket(host, port);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            connected = true;
+            System.out.println("✓ Conectado al ESP32 en " + host + ":" + port);
+            return true;
         } catch (Exception e) {
-            System.err.println("✗ Error al conectar con Arduino: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("✗ No se pudo conectar al ESP32: " + e.getMessage());
             return false;
         }
     }
 
-    /**
-     * Envía un comando al Arduino
-     */
-    private void sendCommand(String command) {
-        commandBuffer.add(command);
-
-        if (connected && output != null) {
-            try {
-                String cmd = command + "\n";
-                output.write(cmd.getBytes());
-                output.flush();
-                System.out.println("→ Arduino: " + command);
-
-                // Pequeña pausa para evitar sobrecarga
-                Thread.sleep(50);
-            } catch (Exception e) {
-                System.err.println("✗ Error al enviar comando: " + e.getMessage());
-            }
+    // -----------------------------
+    // ENVÍO DE COMANDOS
+    // -----------------------------
+    private void sendCommand(String cmd) {
+        buffer.add(cmd);
+        if (connected && out != null) {
+            out.println(cmd);
+            System.out.println("→ ESP32: " + cmd);
         } else {
-            System.out.println("📝 Buffer: " + command + " (no conectado)");
+            System.out.println("📝 Buffer: " + cmd + " (no conectado)");
         }
     }
 
-    /**
-     * Comandos específicos para el carrito
-     */
+    public void iniciar()       { sendCommand("INICIO"); }
+    public void finalizar()     { sendCommand("FIN"); }
+    public void avanzar(int d)  { sendCommand("AVANZAR:" + d); }
+    public void retroceder(int d) { sendCommand("RETROCEDER:" + d); }
+    public void girarDerecha(int g) { sendCommand("GIRAR_DERECHA:" + g); }
+    public void girarIzquierda(int g) { sendCommand("GIRAR_IZQUIERDA:" + g); }
+    public void bajarLapiz()    { sendCommand("BAJAR_LAPIZ"); }
+    public void subirLapiz()    { sendCommand("SUBIR_LAPIZ"); }
+    public void cambiarColor(String c) { sendCommand("COLOR:" + c); }
+    public void centro()        { sendCommand("CENTRO"); }
+    public void esperar(int ms) { sendCommand("ESPERAR:" + ms); }
 
-    public void avanzar(int distancia) {
-        sendCommand("AVANZAR:" + distancia);
-    }
+    public List<String> getCommandBuffer() { return buffer; }
 
-    public void retroceder(int distancia) {
-        sendCommand("RETROCEDER:" + distancia);
-    }
-
-    public void girarDerecha(int grados) {
-        sendCommand("GIRAR_DERECHA:" + grados);
-    }
-
-    public void girarIzquierda(int grados) {
-        sendCommand("GIRAR_IZQUIERDA:" + grados);
-    }
-
-    public void bajarLapiz() {
-        sendCommand("BAJAR_LAPIZ");
-    }
-
-    public void subirLapiz() {
-        sendCommand("SUBIR_LAPIZ");
-    }
-
-    public void cambiarColor(String color) {
-        sendCommand("COLOR:" + color);
-    }
-
-    public void centro() {
-        sendCommand("CENTRO");
-    }
-
-    public void esperar(int milisegundos) {
-        sendCommand("ESPERAR:" + milisegundos);
-    }
-
-    public void iniciar() {
-        sendCommand("INICIO");
-    }
-
-    public void finalizar() {
-        sendCommand("FIN");
-        System.out.println("✓ Secuencia de comandos enviada al Arduino");
-    }
-
-    /**
-     * Obtiene todos los comandos del buffer (útil para debugging)
-     */
-    public List<String> getCommandBuffer() {
-        return new ArrayList<>(commandBuffer);
-    }
-
-    /**
-     * Limpia el buffer de comandos
-     */
-    public void clearBuffer() {
-        commandBuffer.clear();
-    }
-
-    /**
-     * Cierra la conexión con Arduino
-     */
-    public void disconnect() {
-        if (connected) {
-            try {
-                if (output != null) {
-                    output.close();
-                }
-                if (input != null) {
-                    input.close();
-                }
-                connected = false;
-                System.out.println("✓ Desconectado de Arduino");
-            } catch (Exception e) {
-                System.err.println("✗ Error al desconectar: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Verifica si está conectado
-     */
+    // -----------------------------
+    // NUEVOS MÉTODOS NECESARIOS
+    // -----------------------------
     public boolean isConnected() {
         return connected;
     }
 
-    /**
-     * Imprime resumen de comandos enviados
-     */
     public void printSummary() {
-        System.out.println("\n========================================");
-        System.out.println("RESUMEN DE COMANDOS ENVIADOS AL ARDUINO");
-        System.out.println("========================================");
-        System.out.println("Total de comandos: " + commandBuffer.size());
-        System.out.println("Estado: " + (connected ? "Conectado" : "No conectado"));
-        System.out.println("\nComandos:");
-        for (int i = 0; i < commandBuffer.size(); i++) {
-            System.out.println("  " + (i + 1) + ". " + commandBuffer.get(i));
+        System.out.println("\n=== RESUMEN DE COMANDOS ENVIADOS AL ESP32 ===");
+        for (String cmd : buffer) {
+            System.out.println(" → " + cmd);
         }
-        System.out.println("========================================\n");
+        System.out.println("Total: " + buffer.size() + " comandos\n");
+    }
+
+    // -----------------------------
+    // DESCONECTAR
+    // -----------------------------
+    public void disconnect() {
+        try {
+            if (socket != null) socket.close();
+            connected = false;
+            System.out.println("✓ Desconectado del ESP32");
+        } catch (Exception e) {}
     }
 }
+
 

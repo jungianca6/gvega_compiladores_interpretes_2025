@@ -24,15 +24,11 @@ public class TurtleRuntime {
     /**
      * Conecta con el Arduino en el puerto especificado
      */
-    public boolean conectarArduino(String puerto) {
-        if (arduino == null) {
-            arduino = new ArduinoController();
-        }
-        boolean connected = arduino.connect(puerto);
-        if (connected) {
-            arduino.iniciar();
-        }
-        return connected;
+    public boolean conectarArduino(String host) {
+        if (arduino == null) arduino = new ArduinoController();
+        boolean ok = arduino.connectWiFi(host, 5000);
+        if (ok) arduino.iniciar();
+        return ok;
     }
 
     /**
