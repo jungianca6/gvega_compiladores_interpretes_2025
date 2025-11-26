@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="Modificaciones minimas en el FrontEnd.g4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/EjecucionESP32.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/EjecucionESP32.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/esp32_servo/esp32_servo.ino" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/esp32_servo/esp32_servo.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/Interfaz.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +143,8 @@
       <workItem from="1763503536278" duration="1584000" />
       <workItem from="1763754970793" duration="1039000" />
       <workItem from="1763756206940" duration="1559000" />
-      <workItem from="1763757960251" duration="5908000" />
+      <workItem from="1763757960251" duration="6941000" />
+      <workItem from="1764128810377" duration="1026000" />
     </task>
     <task id="LOCAL-00001" summary="Se agrega el Enunciado Proyecto II Sem 2025.pdf al proyecto">
       <option name="closed" value="true" />

@@ -21,8 +21,7 @@ class CompiInterfaz extends JFrame {
 
     private JPanel panel;
     private JLabel etiqueta;
-    private JTextField chatTexto;
-    private JButton subir,compilar;
+    private JButton subir,compilar,guardar;
     private JTextArea codigo;
     private File archivoSeleccionado;
 
@@ -83,6 +82,11 @@ class CompiInterfaz extends JFrame {
         panel.add(compilar);
         compilar.setEnabled(true);
 
+        guardar = new JButton("Guardar");
+        guardar.setBounds(50,450,160,30);
+        panel.add(guardar);
+        guardar.setEnabled(true);
+
 
         ActionListener subirCodigo = new ActionListener() {
             @Override
@@ -100,7 +104,13 @@ class CompiInterfaz extends JFrame {
         };
         compilar.addActionListener(compilarCodigo);
 
-
+        ActionListener guardaCodigo = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarCodigo();
+            }
+        };
+        guardar.addActionListener(guardaCodigo);
     }
 
     private void subeCodigo() {
@@ -157,6 +167,42 @@ class CompiInterfaz extends JFrame {
         }
     }
 
+    private void guardarCodigo() {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Guardar archivo .smp");
+
+        // Si ya hay archivo cargado, lo propone por defecto
+        if (archivoSeleccionado != null) {
+            fc.setSelectedFile(archivoSeleccionado);
+        }
+
+        int seleccion = fc.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fc.getSelectedFile();
+
+            // Asegurar extensión .smp
+            if (!archivo.getName().endsWith(".smp")) {
+                archivo = new File(archivo.getAbsolutePath() + ".smp");
+            }
+
+            try {
+                String contenido = codigo.getText();
+                java.nio.file.Files.write(archivo.toPath(), contenido.getBytes());
+
+                archivoSeleccionado = archivo;  // ahora este será el archivo del proyecto
+
+                JOptionPane.showMessageDialog(this,
+                        "Archivo guardado correctamente:\n" + archivo.getName(),
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Error al guardar:\n" + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }
 
 public class Interfaz {
