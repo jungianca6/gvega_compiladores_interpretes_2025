@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b74fdeb3-9cd5-4aeb-8792-f827b65b4cc5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/visualizer/ASTVisualizer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/visualizer/ParseTreeVisualizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/REPORTE_PRUEBAS_SPRINT2.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/REPORTE_PRUEBAS_SPRINT2.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Compiler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +45,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Sprint2-Dibujo&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Ayudapls/Documents/GitHub/gvega_compiladores_interpretes_2025/Proyecto/Proyecto&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
