@@ -1,0 +1,70 @@
+// CINCO ESPIRALES ROTATIVAS - VERSION FINAL CORREGIDA
+PARA espiral []
+    // Variables de control de la espiral
+    inic distancia = 1;
+    inic giros_total = 1500;
+    inic angulo_giro = 9;
+    inic color_index = 0;
+    inic num_espirales = 5;
+    inic angulo_separacion = 72;
+
+    // Preparación inicial
+    centro;
+    bajalapiz;
+
+    // Bucle principal para dibujar las 5 espirales
+    repite num_espirales [
+
+        // 1. Reiniciar las variables de la espiral
+        HAZ distancia 1;
+        HAZ color_index 0;
+
+        // Bucle interno para dibujar los segmentos de la espiral
+        repite giros_total [
+
+            // Lógica de color
+            si (color_index == 0) [ colorlapiz azul; ]
+            si (color_index == 1) [ colorlapiz cyan; ]
+            si (color_index == 2) [ colorlapiz verde; ]
+            si (color_index == 3) [ colorlapiz amarillo; ]
+            si (color_index == 4) [ colorlapiz naranja; ]
+
+            // Incrementa el índice de color
+            si (color_index < 4) [
+                INC [color_index];
+            ]
+
+            // Reinicia el índice de color
+            si (color_index == 4) [
+                HAZ color_index 0;
+            ]
+
+            // Movimiento y expansión de la espiral
+            avanza distancia;
+            gd angulo_giro;
+
+            // Actualización de distancia (Incrementa la distancia por 1)
+            INC [distancia];
+        ];
+
+        // 2. PREPARACIÓN CLAVE PARA LA SIGUIENTE ESPIRAL (CORRECCIÓN)
+
+        // Levanta lápiz antes de moverse
+        subelapiz;
+
+        // Regresar al centro (posición y ángulo 0)
+        centro;
+
+        // Girar la tortuga para empezar la siguiente espiral (72 grados)
+        gd angulo_separacion;
+
+        // Bajar lápiz para empezar a dibujar el nuevo brazo
+        bajalapiz;
+    ];
+
+    // Finalizar programa
+    subelapiz;
+
+FIN
+
+espiral[];

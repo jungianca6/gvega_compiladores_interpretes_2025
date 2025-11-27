@@ -1,0 +1,19 @@
+// Dibuja una estrella de 5 puntas usando bucle 'repite'
+
+PARA estrella []
+    inic lado = 200;
+    inic angulo = 144; // El giro para la estrella de 5 puntas
+
+    centro;
+    bajalapiz;
+    colorlapiz rojo;
+
+    repite 5 [
+      avanza lado;
+      gd angulo; // gd es la abreviatura de giraderecha, común en estos lenguajes
+    ];
+
+    subelapiz;
+FIN
+
+estrella[];
