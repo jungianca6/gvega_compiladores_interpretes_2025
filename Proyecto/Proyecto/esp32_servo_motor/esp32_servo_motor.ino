@@ -111,7 +111,7 @@ void loop() {
 
     comandoBuffer = "";
 
-    while (client.connected()) {
+    while (client.connected() || client.available()) {
       if (client.available()) {
         char c = client.read();
 
