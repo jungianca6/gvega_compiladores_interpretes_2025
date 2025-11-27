@@ -1,0 +1,55 @@
+// Estrellas coloreadas en círculo
+
+PARA estrellaColores []
+    // Parámetros
+    inic puntas = 5;
+    inic lado = 120;
+    inic rotacion = 144;      // ángulo para estrella de 5 puntas
+    inic estrellas = 20;
+    inic angulo = 360;
+    inic angulo2 = angulo / estrellas;  // rotación entre estrellas (entero)
+
+    inic i = 0;
+
+    bajalapiz;
+    colorlapiz verde;
+
+    MIENTRAS (i < estrellas) [
+        // Dibujar una estrella
+        repite puntas [
+            avanza lado;
+            gd rotacion;
+        ];
+
+        // Girar para la siguiente estrella
+        gd angulo2;
+
+        // calcular tmp = i % 4 (sin usar %)
+        inic tmp = i;
+        MIENTRAS (tmp >= 4) [
+            haz tmp tmp - 4;
+        ]
+
+        // elegir color según tmp (0..3)
+        SI (tmp == 0) [
+            colorlapiz azul;
+        ]
+        SI (tmp == 1) [
+            colorlapiz rojo;
+        ]
+        SI (tmp == 2) [
+            colorlapiz amarillo;
+        ]
+        SI (tmp == 3) [
+            colorlapiz verde;
+        ]
+
+        // incrementar i
+        inc [i 1];
+    ]
+
+    subelapiz;
+    centro;
+FIN
+
+estrellaColores[];

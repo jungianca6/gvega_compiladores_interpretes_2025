@@ -1,0 +1,81 @@
+// Estrellas coloreadas en círculo
+
+PARA estrellaColores []
+    // Parámetros
+    inic ae = 144;
+    inic l1 = 200;
+    inic l2 = 190;
+    centro;
+    colorlapiz negro;
+    ponrumbo 90;
+    bajalapiz;
+
+
+
+    avanza l1;
+    giraderecha ae;
+    avanza l1;
+    giraderecha ae;
+    avanza l1;
+    giraderecha ae;
+    avanza l1;
+    giraderecha ae;
+    avanza l2;
+
+
+
+    inic l3 = 175;
+    gd ae;
+    avanza l3;
+    gd ae;
+    avanza 170;
+    gd ae;
+    avanza l3;
+    gd ae;
+    avanza 170;
+    gd ae;
+    avanza 150;
+
+
+    gd ae;
+    avanza 130;
+    gd ae;
+    avanza 120;
+    gd ae;
+    avanza 110;
+    gd ae;
+    avanza 100;
+    gd ae;
+    avanza 90;
+
+
+    gd ae;
+    avanza 80;
+    gd ae;
+    avanza 70;
+    gd ae;
+    avanza 60;
+    gd ae;
+    avanza 50;
+    gd ae;
+    avanza 40;
+
+
+
+    gd ae;
+    avanza 35;
+    gd ae;
+    avanza 30;
+    gd ae;
+    avanza 25;
+    gd ae;
+    avanza 20;
+    gd ae;
+    avanza 15;
+
+    subelapiz;
+FIN
+
+estrellaColores[];
+
+

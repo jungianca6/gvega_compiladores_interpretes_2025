@@ -519,6 +519,7 @@ expression returns [ASTNode node]
 term returns [ASTNode node]
     : f1=factor { $node = $f1.node; }
       (TIMES f2=factor { $node = new Multiplication($node, $f2.node); })*
+      (DIVIDE f3=factor { $node = new Divide($node, $f3.node); })*
     ;
 
 factor returns [ASTNode node]

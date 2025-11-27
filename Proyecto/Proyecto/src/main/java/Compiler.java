@@ -42,21 +42,40 @@ public class Compiler {
         // 3. ANÁLISIS SEMÁNTICO
         System.out.println("[3/9] Análisis Semántico...");
         SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-        parser.setSemanticAnalyzer(semanticAnalyzer);
 
-        SemanticAnalyzerVisitor semanticVisitor = new SemanticAnalyzerVisitor(semanticAnalyzer, tokens);
-        semanticVisitor.visit(tree);
+        try {
+            // CONFIGURAR el analyzer en el parser
+            parser.setSemanticAnalyzer(semanticAnalyzer);
 
-        if (semanticAnalyzer.hasErrors()) {
-            System.out.println("❌ Errores semánticos encontrados:");
-            for (String error : semanticAnalyzer.getErrors()) {
-                System.out.println("   - " + error);
+            // REALIZAR análisis semántico con el token stream
+            SemanticAnalyzerVisitor semanticVisitor = new SemanticAnalyzerVisitor(semanticAnalyzer, tokens);
+            semanticVisitor.visit(tree);
+
+            if (semanticAnalyzer.hasErrors()) {
+                System.out.println("❌ Se encontraron errores semánticos:");
+                for (String error : semanticAnalyzer.getErrors()) {
+                    System.out.println("   - " + error);
+                }
+                System.out.println("Compilación abortada.");
+                System.out.println("Ejecución detenida debido a errores semánticos");
+                semanticAnalyzer.printDebugInfo();
+                return;
+
+            } else {
+                System.out.println("✅ Análisis semántico pasado sin errores");
+                System.out.println("✅ Variables declaradas: " + semanticAnalyzer.getSymbolCount());
+                System.out.println("✅ Comentario en primera línea: ✓");
+                System.out.println("✅ Al menos una variable: " + (semanticAnalyzer.getSymbolCount() > 0 ? "✓" : "✗"));
             }
-            System.out.println("Compilación abortada.");
+
+        } catch (RuntimeException e) {
+            System.out.println("❌ Error durante análisis semántico: " + e.getMessage());
+
             return;
         }
-
         System.out.println("✅ Análisis semántico completado sin errores");
+        semanticAnalyzer.printDebugInfo();
+        
 
         // Get captured AST
         List<ASTNode> programBody = parser.lastProgramBody;

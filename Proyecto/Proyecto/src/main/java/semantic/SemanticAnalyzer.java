@@ -2,6 +2,8 @@ package semantic;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import ast.ASTNode;
 import ast.Instrucciones.*;
 import ast.Aritmeticos.*;
 import ast.Logicos.*;
@@ -157,6 +159,36 @@ public class SemanticAnalyzer {
                 expressionNode instanceof ast.Logicos.Or) {
 
             return ValueType.BOOLEAN;
+        }
+
+        if (expressionNode instanceof ast.Aritmeticos.Addition ||
+                expressionNode instanceof ast.Aritmeticos.Substraction ||
+                expressionNode instanceof ast.Aritmeticos.Multiplication ||
+                expressionNode instanceof ast.Aritmeticos.Divide) {
+
+            // Obtener operandos reflejando los atributos
+            try {
+                java.lang.reflect.Field f1 = expressionNode.getClass().getDeclaredField("operand1");
+                java.lang.reflect.Field f2 = expressionNode.getClass().getDeclaredField("operand2");
+                f1.setAccessible(true);
+                f2.setAccessible(true);
+
+                ASTNode left = (ASTNode) f1.get(expressionNode);
+                ASTNode right = (ASTNode) f2.get(expressionNode);
+
+                ValueType tLeft = inferExpressionType(left);
+                ValueType tRight = inferExpressionType(right);
+
+                // Ambas partes deben ser NUMBER
+                if (tLeft == ValueType.NUMBER && tRight == ValueType.NUMBER) {
+                    return ValueType.NUMBER;
+                } else {
+                    return ValueType.ANY; // cualquier mezcla inválida
+                }
+
+            } catch (Exception e) {
+                return ValueType.ANY;
+            }
         }
 
         // Lógica de respaldo basada en el tipo de nodo AST
