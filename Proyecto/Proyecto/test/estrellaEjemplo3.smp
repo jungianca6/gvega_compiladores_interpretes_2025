@@ -1,0 +1,84 @@
+// Estrellas coloreadas en círculo
+PARA estrella []
+    inic ae = 144;
+    // estrella con tus medidas
+    avanza 200;
+    gd ae;
+    avanza 200;
+    gd ae;
+    avanza 200;
+    gd ae;
+    avanza 200;
+    gd ae;
+    avanza 190;
+
+    gd ae;
+    avanza 175;
+    gd ae;
+    avanza 170;
+    gd ae;
+    avanza 175;
+    gd ae;
+    avanza 170;
+    gd ae;
+    avanza 150;
+
+    gd ae;
+    avanza 130;
+    gd ae;
+    avanza 120;
+    gd ae;
+    avanza 110;
+    gd ae;
+    avanza 100;
+    gd ae;
+    avanza 90;
+
+    gd ae;
+    avanza 80;
+    gd ae;
+    avanza 70;
+    gd ae;
+    avanza 60;
+    gd ae;
+    avanza 50;
+    gd ae;
+    avanza 40;
+
+    gd ae;
+    avanza 35;
+    gd ae;
+    avanza 30;
+    gd ae;
+    avanza 25;
+    gd ae;
+    avanza 20;
+    gd ae;
+    avanza 15;
+FIN
+
+
+PARA estrellasRotadas []
+    inic total = 5;          // cuántas estrellas
+    inic giro = 360 / total;  // ángulo entre cada estrella
+    inic i = 0;
+
+    centro;
+    bajalapiz;
+    colorlapiz negro;
+    ponrumbo 90;
+
+    MIENTRAS (i < total) [
+
+        estrella[];
+
+        // rotamos la tortuga para la siguiente estrella
+        gd giro;
+
+        inc [i];
+    ]
+
+    subelapiz;
+FIN
+
+estrellasRotadas[];

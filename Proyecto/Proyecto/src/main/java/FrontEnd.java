@@ -1,14 +1,12 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
 import parser.*;
 import semantic.*;
 
 import java.io.IOException;
 
 
-public class Main {
+public class FrontEnd {
     private static final String EXTENSION = "smp";
 
     public static void main(String[] args) throws IOException {
@@ -61,10 +59,14 @@ public class Main {
         }
 
         semanticAnalyzer.printDebugInfo();
+
+
         // 4. EJECUCIÓN (solo si pasa el análisis semántico)
         System.out.println("\n=== EJECUCIÓN ===");
         FrontEndBaseVisitor visitor = new FrontEndBaseVisitor();
         visitor.visit(tree);
+
+
 
         System.out.println("\nInterpretacion terminada");
 

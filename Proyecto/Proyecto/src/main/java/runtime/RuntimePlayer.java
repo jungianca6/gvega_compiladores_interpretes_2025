@@ -340,31 +340,31 @@ public class RuntimePlayer {
     private Object executeBuiltinFunction(String f, List<Object> args) {
         switch (f) {
             case "println":
-                if (!args.isEmpty()) System.out.println(args.get(0));
+                if (!args.isEmpty()) System.out.println(args.getFirst());
                 return null;
             case "random":
-                if (!args.isEmpty()) return new Random().nextInt(toInt(args.get(0)));
+                if (!args.isEmpty()) return new Random().nextInt(toInt(args.getFirst()));
                 return 0;
             case "turtle_avanza":
-                if (!args.isEmpty()) turtle.avanza(toInt(args.get(0)));
+                if (!args.isEmpty()) turtle.avanza(toInt(args.getFirst()));
                 return null;
             case "turtle_retrocede":
-                if (!args.isEmpty()) turtle.retrocede(toInt(args.get(0)));
+                if (!args.isEmpty()) turtle.retrocede(toInt(args.getFirst()));
                 return null;
             case "turtle_giraderecha":
-                if (!args.isEmpty()) turtle.giraDerecha(toInt(args.get(0)));
+                if (!args.isEmpty()) turtle.giraDerecha(toInt(args.getFirst()));
                 return null;
             case "turtle_giraizquierda":
-                if (!args.isEmpty()) turtle.giraIzquierda(toInt(args.get(0)));
+                if (!args.isEmpty()) turtle.giraIzquierda(toInt(args.getFirst()));
                 return null;
             case "turtle_bajalapiz": turtle.bajaLapiz(); return null;
             case "turtle_subelapiz": turtle.subeLapiz(); return null;
             case "turtle_colorlapiz":
-                if (!args.isEmpty()) turtle.setColor(args.get(0).toString());
+                if (!args.isEmpty()) turtle.setColor(args.getFirst().toString());
                 return null;
             case "turtle_centro": turtle.centro(); return null;
             case "turtle_espera":
-                if (!args.isEmpty()) turtle.espera(toInt(args.get(0)));
+                if (!args.isEmpty()) turtle.espera(toInt(args.getFirst()));
                 return null;
             default: return null;
         }
@@ -375,23 +375,48 @@ public class RuntimePlayer {
         return 0;
     }
 
-    public TurtleRuntime getTurtle() { return turtle; }
+    // ===========================================================
+    // Acceso al TurtleRuntime
+    // ===========================================================
+    public TurtleRuntime getTurtle() {
+        return turtle;
+    }
 
     // ===========================================================
-    // MAIN
+    // Main
     // ===========================================================
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Usage: java runtime.RuntimePlayer <object-file>");
+            System.out.println("Usage: java runtime.RuntimePlayer <object-file> [arduino-port]");
+            System.out.println("  arduino-port: Optional. Ej: COM3 (Windows) o /dev/ttyUSB0 (Linux)");
             return;
         }
+
+        String arduinoPort = args.length > 1 ? args[1] : null;
 
         try {
             RuntimePlayer player = new RuntimePlayer();
             player.loadFromFile(args[0]);
+
+            // Conectar con Arduino si se especificó un puerto
+            if (arduinoPort != null) {
+                System.out.println("=== CONECTANDO CON ARDUINO ===");
+                boolean connected = player.getTurtle().conectarArduino(arduinoPort);
+                if (!connected) {
+                    System.out.println("NOTA: Continuando sin Arduino (modo simulación)");
+                }
+                System.out.println();
+            }
+
             System.out.println("=== EXECUTING COMPILED PROGRAM ===");
             player.execute();
             System.out.println("\n=== EXECUTION COMPLETE ===");
+
+            // Desconectar Arduino y mostrar resumen
+            if (arduinoPort != null) {
+                player.getTurtle().mostrarResumenArduino();
+                player.getTurtle().desconectarArduino();
+            }
 
             if (player.getTurtle().hasDrawn()) {
                 TurtleViewer viewer = new TurtleViewer(player.getTurtle());

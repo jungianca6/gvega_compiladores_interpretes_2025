@@ -129,4 +129,101 @@ public class SemanticAnalyzerVisitor extends FrontEndBaseVisitor<Void> {
         // Los comentarios ya se manejan en checkFirstLineComment
         return null;
     }
+
+    @Override
+    public Void visitInc(FrontEndParser.IncContext ctx) {
+        String varName = ctx.id.getText();
+
+        // (1) Verificar que la variable exista
+        if (!analyzer.variableExists(varName)) {
+            analyzer.addError("Error semántico: variable '" + varName + "' usada en inc no está declarada.");
+            return null;
+        }
+
+        // Obtener tipo actual de la variable
+        SemanticAnalyzer.ValueType varType = analyzer.getVariableType(varName);
+
+        // (2) Debe ser numérica
+        if (varType != SemanticAnalyzer.ValueType.NUMBER &&
+                varType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la variable '" + varName +
+                    "' usada en inc debe ser numérica.");
+            return null;
+        }
+
+        // (3) Si la variable era UNDEFINED, actualizarla a NUMBER
+        if (varType == SemanticAnalyzer.ValueType.UNDEFINED) {
+            analyzer.updateVariableType(varName, SemanticAnalyzer.ValueType.NUMBER);
+        }
+
+        // (4) Si existe segundo parámetro, verificar su tipo
+        if (ctx.val != null) {
+            SemanticAnalyzer.ValueType valType = analyzer.inferExpressionType(ctx.val.node);
+
+            if (valType == SemanticAnalyzer.ValueType.UNDEFINED) {
+                analyzer.addError("Error semántico: no se puede usar una expresión sin tipo definido "
+                        + "como incremento en inc[" + varName + " N2].");
+            } else if (valType != SemanticAnalyzer.ValueType.NUMBER) {
+                analyzer.addError("Error semántico: el valor en inc[" + varName +
+                        " N2] debe ser numérico.");
+            }
+        }
+
+        return visitChildren(ctx);
+    }
+    @Override
+    public Void visitConditional(FrontEndParser.ConditionalContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.expression().node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'si' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitMientras(FrontEndParser.MientrasContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.condition.node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'mientras' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitHaz_mientras(FrontEndParser.Haz_mientrasContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.condition.node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'hazmientras' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitHasta(FrontEndParser.HastaContext ctx) {
+        SemanticAnalyzer.ValueType condType = analyzer.inferExpressionType(ctx.expression().node);
+
+        if (condType != SemanticAnalyzer.ValueType.BOOLEAN &&
+                condType != SemanticAnalyzer.ValueType.UNDEFINED) {
+
+            analyzer.addError("Error semántico: la condición en 'hasta' debe ser de tipo booleano.");
+        }
+
+        return visitChildren(ctx);
+    }
+
+
+
 }

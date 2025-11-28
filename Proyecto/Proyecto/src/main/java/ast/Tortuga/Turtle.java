@@ -1,5 +1,7 @@
 package ast.Tortuga;
 
+import java.util.Set;
+
 public class Turtle {
     private int x, y;
     private int angle; // 0 = derecha, 90 = arriba, etc.
@@ -55,14 +57,17 @@ public class Turtle {
         this.lapizAbajo = false;
     }
 
-    public void setColorLapiz(String color) {
-        if (color.equals("negro") || color.equals("azul") || color.equals("rojo")) {
-            this.colorLapiz = color;
-        } else {
-            throw new RuntimeException("Color no válido. Use: negro, azul o rojo");
-        }
-    }
+    private static final Set<String> COLORES_VALIDOS = Set.of(
+            "negro", "azul", "rojo", "verde", "amarillo",
+            "naranja", "morado", "cyan", "rosa", "celeste", "gris"
+    );
 
+    public void setColorLapiz(String color) {
+        if (!COLORES_VALIDOS.contains(color)) {
+            throw new RuntimeException("Color no válido. Colores permitidos: " + COLORES_VALIDOS);
+        }
+        this.colorLapiz = color;
+    }
     public void moverCentro() {
         this.x = 400;
         this.y = 300;

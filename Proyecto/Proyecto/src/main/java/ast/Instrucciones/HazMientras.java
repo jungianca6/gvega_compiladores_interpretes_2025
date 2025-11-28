@@ -27,7 +27,7 @@ public class HazMientras implements ASTNode {
 
             Object condVal = condition.execute(symbolTable);
             if (!(condVal instanceof Boolean)) {
-                throw new RuntimeException("HAZ.MIENTRAS: la condicion debe ser booleana.");
+                return last;
             }
             if (!((Boolean) condVal)) break;
             // si es true, se repite (do-while)

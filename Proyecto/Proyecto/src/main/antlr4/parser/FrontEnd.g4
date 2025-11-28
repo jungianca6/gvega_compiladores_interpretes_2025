@@ -13,6 +13,7 @@ grammar FrontEnd;
     import ast.Instrucciones.*;
     import ast.Tortuga.*;
     import semantic.*;
+    import java.util.Set;
 }
 
 // Tabla de símbolos global al parser
@@ -66,10 +67,18 @@ program
         (i=instrucciones { body.add($i.node); })*
         {
             if (captureProgramBody) {
-                // Modo compilación: capturar el AST sin ejecutar
+                // MODO COMPILACIÓN → solo capturar el cuerpo
                 lastProgramBody = body;
+
             } else {
-                // Modo interpretación: ejecutar directamente
+                // MODO INTERPRETACIÓN → ejecutar
+                if (semanticAnalyzer != null && semanticAnalyzer.hasErrors()) {
+                    throw new RuntimeException(
+                        "Errores semánticos:\n" +
+                        String.join("\n", semanticAnalyzer.getErrors())
+                    );
+                }
+
                 for (ASTNode n : body) {
                     n.execute(symbolTable);
                 }
@@ -497,39 +506,41 @@ expression returns [ASTNode node]
     : t1=term { $node = $t1.node; }
       (PLUS t2=term { $node = new Addition($node, $t2.node); })*
       (MINUS t2=term { $node = new Substraction($node, $t2.node); })*
-      (GT t4=factor { $node = new GreaterThan($node, $t4.node); })*
-      (LT t5=factor { $node = new LessThan($node, $t5.node); })*
-      (EQ t6=factor { $node = new EqualThan($node, $t6.node); })*
-      (GEQ t7=factor { $node = new GreaterEqualThan($node, $t7.node); })*
-      (LEQ t8=factor { $node = new LessEqualThan($node, $t8.node); })*
-      (NEQ t9=factor { $node = new NotEqual($node, $t9.node); })*
-      (AND t9=factor { $node = new And($node, $t9.node); })*
-      (OR t9=factor  { $node = new Or($node, $t9.node); })*
+      (GT t4=term { $node = new GreaterThan($node, $t4.node); })*
+      (LT t5=term { $node = new LessThan($node, $t5.node); })*
+      (EQ t6=term { $node = new EqualThan($node, $t6.node); })*
+      (GEQ t7=term { $node = new GreaterEqualThan($node, $t7.node); })*
+      (LEQ t8=term { $node = new LessEqualThan($node, $t8.node); })*
+      (NEQ t9=term { $node = new NotEqual($node, $t9.node); })*
+      (AND tA=term { $node = new And($node, $tA.node); })*
+      (OR tB=term  { $node = new Or($node, $tB.node); })*
     ;
 
 term returns [ASTNode node]
     : f1=factor { $node = $f1.node; }
       (TIMES f2=factor { $node = new Multiplication($node, $f2.node); })*
+      (DIVIDE f3=factor { $node = new Divide($node, $f3.node); })*
     ;
 
 factor returns [ASTNode node]
-    : NUMBER { $node = new Constant(Integer.parseInt($NUMBER.text)); }
-    | BOOLEAN { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
-    | ID { semanticCheckVariable($ID.text); $node = new VarRef($ID.text); }
+    : NUMBER   { $node = new Constant(Integer.parseInt($NUMBER.text)); }
+    | BOOLEAN  { $node = new Constant(Boolean.parseBoolean($BOOLEAN.text)); }
+    | ID       { semanticCheckVariable($ID.text); $node = new VarRef($ID.text); }
     | PAR_OPEN e=expression PAR_CLOSE { $node = $e.node; }
-    | suma_expr { $node = $suma_expr.node; }
-    | resta_expr { $node = $resta_expr.node; }
-    | mult_expr { $node = $mult_expr.node; }
-    | div_expr { $node = $div_expr.node; }
-    | pot_expr { $node = $pot_expr.node; }
-    | random { $node = $random.node; }
-    | menor { $node = $menor.node; }
-    | mayor { $node = $mayor.node; }
-    | and { $node = $and.node; }
-    | or { $node = $or.node; }
-    | iguales { $node = $iguales.node; }
-    ;
 
+    // operaciones explícitas
+    | suma_expr      { $node = $suma_expr.node; }
+    | resta_expr     { $node = $resta_expr.node; }
+    | mult_expr      { $node = $mult_expr.node; }
+    | div_expr       { $node = $div_expr.node; }
+    | pot_expr       { $node = $pot_expr.node; }
+    | random         { $node = $random.node; }
+    | menor          { $node = $menor.node; }
+    | mayor          { $node = $mayor.node; }
+    | and            { $node = $and.node; }
+    | or             { $node = $or.node; }
+    | iguales        { $node = $iguales.node; }
+    ;
 // ---------- TOKENS ----------
 
 // Palabras reservadas

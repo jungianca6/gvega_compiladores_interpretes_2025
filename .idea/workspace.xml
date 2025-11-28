@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae2c94d9-592c-4947-81fc-03d2c44ce60f" name="Changes" comment="Modificaciones minimas en el FrontEnd.g4">
+      <change afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/codigo2.smp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/error1.smp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ir/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/ir/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/test.smp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/src/main/java/FrontEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto/Proyecto/test/mandala2.smp" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto/Proyecto/test/mandala2.smp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +46,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Compiler.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FrontEnd.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Interfaz.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RuntimePlayer.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Proyecto [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Proyecto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Proyecto [install].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Proyecto [validate].executor&quot;: &quot;Run&quot;,
     &quot;Maven.TallerANTLR [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.TallerANTLR [compile].executor&quot;: &quot;Run&quot;,
@@ -56,7 +62,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Sprint2-Test&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Xpc/Documents/GitHub/Compi/proyecto1/gvega_compiladores_interpretes_2025&quot;,
@@ -92,8 +98,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
       </set>
     </attachedChunks>
   </component>
@@ -131,6 +137,21 @@
       <workItem from="1761432021360" duration="17725000" />
       <workItem from="1761511495811" duration="1067000" />
       <workItem from="1761512962342" duration="17167000" />
+      <workItem from="1762902772364" duration="483000" />
+      <workItem from="1762912744939" duration="588000" />
+      <workItem from="1763321253158" duration="3631000" />
+      <workItem from="1763328286241" duration="166000" />
+      <workItem from="1763397308670" duration="9094000" />
+      <workItem from="1763503536278" duration="1584000" />
+      <workItem from="1763754970793" duration="1039000" />
+      <workItem from="1763756206940" duration="1559000" />
+      <workItem from="1763757960251" duration="6941000" />
+      <workItem from="1764128810377" duration="1026000" />
+      <workItem from="1764211487721" duration="568000" />
+      <workItem from="1764212180360" duration="7670000" />
+      <workItem from="1764267454405" duration="60000" />
+      <workItem from="1764267541799" duration="29000" />
+      <workItem from="1764267594729" duration="10702000" />
     </task>
     <task id="LOCAL-00001" summary="Se agrega el Enunciado Proyecto II Sem 2025.pdf al proyecto">
       <option name="closed" value="true" />

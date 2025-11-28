@@ -7,9 +7,12 @@ import optimizer.*;
 import codegen.*;
 import backend.*;
 import ast.ASTNode;
+import visualizer.ASTVisualizer;
+import visualizer.ParseTreeVisualizer;
 
 import java.io.IOException;
 import java.util.List;
+import java.io.File;
 
 public class Compiler {
 
@@ -18,12 +21,12 @@ public class Compiler {
         System.out.println("Archivo de entrada: " + inputFile);
 
         // 1. ANÁLISIS LÉXICO
-        System.out.println("\n[1/7] Análisis Léxico...");
+        System.out.println("\n[1/9] Análisis Léxico...");
         FrontEndLexer lexer = new FrontEndLexer(new ANTLRFileStream(inputFile));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         // 2. ANÁLISIS SINTÁCTICO
-        System.out.println("[2/7] Análisis Sintáctico...");
+        System.out.println("[2/9] Análisis Sintáctico...");
         FrontEndParser parser = new FrontEndParser(tokens);
 
         // Enable program body capture mode
@@ -37,23 +40,42 @@ public class Compiler {
         }
 
         // 3. ANÁLISIS SEMÁNTICO
-        System.out.println("[3/7] Análisis Semántico...");
+        System.out.println("[3/9] Análisis Semántico...");
         SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-        parser.setSemanticAnalyzer(semanticAnalyzer);
 
-        SemanticAnalyzerVisitor semanticVisitor = new SemanticAnalyzerVisitor(semanticAnalyzer, tokens);
-        semanticVisitor.visit(tree);
+        try {
+            // CONFIGURAR el analyzer en el parser
+            parser.setSemanticAnalyzer(semanticAnalyzer);
 
-        if (semanticAnalyzer.hasErrors()) {
-            System.out.println("❌ Errores semánticos encontrados:");
-            for (String error : semanticAnalyzer.getErrors()) {
-                System.out.println("   - " + error);
+            // REALIZAR análisis semántico con el token stream
+            SemanticAnalyzerVisitor semanticVisitor = new SemanticAnalyzerVisitor(semanticAnalyzer, tokens);
+            semanticVisitor.visit(tree);
+
+            if (semanticAnalyzer.hasErrors()) {
+                System.out.println("❌ Se encontraron errores semánticos:");
+                for (String error : semanticAnalyzer.getErrors()) {
+                    System.out.println("   - " + error);
+                }
+                System.out.println("Compilación abortada.");
+                System.out.println("Ejecución detenida debido a errores semánticos");
+                semanticAnalyzer.printDebugInfo();
+                return;
+
+            } else {
+                System.out.println("✅ Análisis semántico pasado sin errores");
+                System.out.println("✅ Variables declaradas: " + semanticAnalyzer.getSymbolCount());
+                System.out.println("✅ Comentario en primera línea: ✓");
+                System.out.println("✅ Al menos una variable: " + (semanticAnalyzer.getSymbolCount() > 0 ? "✓" : "✗"));
             }
-            System.out.println("Compilación abortada.");
+
+        } catch (RuntimeException e) {
+            System.out.println("❌ Error durante análisis semántico: " + e.getMessage());
+
             return;
         }
-
         System.out.println("✅ Análisis semántico completado sin errores");
+        semanticAnalyzer.printDebugInfo();
+        
 
         // Get captured AST
         List<ASTNode> programBody = parser.lastProgramBody;
@@ -62,8 +84,55 @@ public class Compiler {
             return;
         }
 
-        // 4. GENERACIÓN DE IR (TAC)
-        System.out.println("[4/7] Generando Representación Intermedia (TAC)...");
+        // Obtener nombre base del archivo
+        String sourceFileName = new File(inputFile).getName();
+        String baseFileName = sourceFileName.lastIndexOf('.') > 0
+                ? sourceFileName.substring(0, sourceFileName.lastIndexOf('.'))
+                : sourceFileName;
+
+        // ============================================================
+        // *** GENERACIÓN DE PARSE TREE (ÁRBOL DE PARSEO COMPLETO) ***
+        // ============================================================
+        System.out.println("[4/9] Generando Parse Tree completo...");
+        try {
+            ParseTreeVisualizer parseTreeViz = new ParseTreeVisualizer();
+            String parseTreePath = outputDir + "/ParseTree_" + baseFileName + ".png";
+
+            boolean parseTreeGenerated = parseTreeViz.generateParseTreeImage(tree, parseTreePath);
+
+            if (parseTreeGenerated) {
+                System.out.println("✅ Parse Tree visualizado exitosamente");
+            } else {
+                System.out.println("⚠️  No se pudo generar el Parse Tree (continuando compilación)");
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️  Error al visualizar Parse Tree: " + e.getMessage());
+            System.out.println("   (Continuando con la compilación...)");
+        }
+
+        // ============================================================
+        // *** GENERACIÓN DE AST (ÁRBOL SINTÁCTICO ABSTRACTO) ***
+        // ============================================================
+        System.out.println("[5/9] Generando AST (Abstract Syntax Tree)...");
+        try {
+            ASTVisualizer astViz = new ASTVisualizer();
+            String astImagePath = outputDir + "/AST_" + baseFileName + ".png";
+
+            boolean astGenerated = astViz.generateASTImage(programBody, astImagePath);
+
+            if (astGenerated) {
+                System.out.println("✅ AST visualizado exitosamente");
+            } else {
+                System.out.println("⚠️  No se pudo generar la visualización del AST (continuando compilación)");
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️  Error al visualizar AST: " + e.getMessage());
+            System.out.println("   (Continuando con la compilación...)");
+        }
+        // ============================================================
+
+        // 6. GENERACIÓN DE IR (TAC)
+        System.out.println("[6/9] Generando Representación Intermedia (TAC)...");
         IRBuilder irBuilder = new IRBuilder();
         IR ir = irBuilder.build(programBody);
 
@@ -75,8 +144,8 @@ public class Compiler {
         writer.writeIR(ir.toString(), outputDir + "/out.ir");
         System.out.println("   → Guardado en: " + outputDir + "/out.ir");
 
-        // 5. OPTIMIZACIÓN
-        System.out.println("[5/7] Aplicando optimizaciones...");
+        // 7. OPTIMIZACIÓN
+        System.out.println("[7/9] Aplicando optimizaciones...");
 
         // Pass 1: Constant Folding
         ConstantFolder folder = new ConstantFolder();
@@ -104,16 +173,16 @@ public class Compiler {
 
         int totalReduction = instrCountBefore - instrAfterDCE;
         double reductionPercent = instrCountBefore > 0 ?
-            (totalReduction * 100.0 / instrCountBefore) : 0;
+                (totalReduction * 100.0 / instrCountBefore) : 0;
 
         System.out.println("\n   📊 Resumen de optimización:");
         System.out.println("     • Instrucciones originales: " + instrCountBefore);
         System.out.println("     • Instrucciones optimizadas: " + instrAfterDCE);
         System.out.println("     • Reducción: " + totalReduction + " instrucciones (" +
-                          String.format("%.1f%%", reductionPercent) + ")");
+                String.format("%.1f%%", reductionPercent) + ")");
 
-        // 6. GENERACIÓN DE CÓDIGO ASM
-        System.out.println("\n[6/7] Generando código ensamblador...");
+        // 8. GENERACIÓN DE CÓDIGO ASM
+        System.out.println("\n[8/9] Generando código ensamblador...");
         SimpleAsmGenerator asmGen = new SimpleAsmGenerator();
         List<String> asmCode = asmGen.generate(ir);
 
@@ -121,15 +190,21 @@ public class Compiler {
         System.out.println("✅ Código ASM generado: " + asmCode.size() + " líneas");
         System.out.println("   → Guardado en: " + outputDir + "/out.asm");
 
-        // 7. GENERACIÓN DE ARCHIVO OBJETO
-        System.out.println("[7/7] Generando archivo objeto...");
+        // 9. GENERACIÓN DE ARCHIVO OBJETO
+        System.out.println("[9/9] Generando archivo objeto...");
         writer.writeObject(asmCode, outputDir + "/out.lobj");
         System.out.println("✅ Archivo objeto generado");
         System.out.println("   → Guardado en: " + outputDir + "/out.lobj");
 
         System.out.println("\n=== COMPILACIÓN EXITOSA ===");
+        System.out.println("\n📁 Archivos generados:");
+        System.out.println("   • Parse Tree: " + outputDir + "/ParseTree_" + baseFileName + ".png");
+        System.out.println("   • AST Visual: " + outputDir + "/AST_" + baseFileName + ".png");
+        System.out.println("   • IR Code:    " + outputDir + "/out.ir");
+        System.out.println("   • Assembly:   " + outputDir + "/out.asm");
+        System.out.println("   • Object:     " + outputDir + "/out.lobj");
         System.out.println("\nPara ejecutar el programa compilado:");
-        System.out.println("  java -cp target/classes runtime.RuntimePlayer " + outputDir + "/out.lobj");
+        System.out.println("  java -cp \"target/classes;C:\\Users\\Ayudapls\\.m2\\repository\\org\\antlr\\antlr4-runtime\\4.13.2\\antlr4-runtime-4.13.2.jar\" runtime.RuntimePlayer " + outputDir + "/out.lobj");
     }
 
     public static void main(String[] args) {
@@ -153,4 +228,3 @@ public class Compiler {
         }
     }
 }
-

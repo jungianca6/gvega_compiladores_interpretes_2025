@@ -27,9 +27,11 @@ public class Hasta implements ASTNode {
         // Execute the loop while condition is true
         while (true) {
             Object conditionResult = condition.execute(symbolTable);
-            if (conditionResult instanceof Boolean && !(Boolean) conditionResult) {
-                break;
+            if (!(conditionResult instanceof Boolean)) {
+                return null;
             }
+
+            if (!((Boolean) conditionResult)) break;
 
             // Execute all instructions in the body
             for (ASTNode instruction : body) {

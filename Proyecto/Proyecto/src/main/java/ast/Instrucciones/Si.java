@@ -23,7 +23,7 @@ public class Si implements ASTNode {
 
         // Verificar que la condición sea booleana
         if (!(conditionResult instanceof Boolean)) {
-            throw new RuntimeException("La condición en SI debe evaluar a un valor booleano");
+            return null;
         }
 
         boolean conditionValue = (Boolean) conditionResult;
