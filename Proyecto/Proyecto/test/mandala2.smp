@@ -1,7 +1,7 @@
 // Mandala Geométrico: Dibujado de estrellas superpuestas
 
 PARA mandala []
-    inic lado = 150;
+    inic lado = 250;
     inic rotacion = 72; // Ángulo simétrico para repeticiones (360 / 5)
 
     centro;

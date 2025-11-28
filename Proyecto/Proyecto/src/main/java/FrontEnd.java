@@ -11,7 +11,7 @@ public class FrontEnd {
 
     public static void main(String[] args) throws IOException {
 
-        String program = args.length > 1 ? args[1] : "./Proyecto/Proyecto/test/estrellaEjemplo3." + EXTENSION;
+        String program = args.length > 1 ? args[1] : "./Proyecto/Proyecto/test/test." + EXTENSION;
 
         System.out.println("Interpretando archivo " + program);
 

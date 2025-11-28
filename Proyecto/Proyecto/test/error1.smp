@@ -1,0 +1,227 @@
+PARA principal[]
+// Error1: Comentario al inicio
+
+//Error2: Variable inicia con mayuscula
+inic Variable1 = 5;
+
+//Error3: Variable mayor a 10 posiciones
+inic variableErronea = 5;
+
+//Error4: Variable con simbolo invalido
+inic var_1 = 5;
+
+//Error5: Simbolo del comentario incorrecto
+
+
+inic variable1 = 5;
+inic variable2 = “Hola”;
+inic variable3 = TRUE;
+
+//Error6: Una variable numerica inicializada con booleano
+INIC variable1 = TRUE;
+
+//Error7: Una variable numerica inicializada con un string
+INIC variable1 = "Hola";
+
+//Error8: Una variable string inicializada con un booleano
+INIC variable2 = TRUE;
+
+//Error9: Una variable string inicializada con un booleano
+INIC variable2 = TRUE;
+
+//Error10: Una variable string inicializada con un numero
+INIC variable2 = 5;
+
+//Error11: Una variable booleana inicializada con un numero
+INIC variable3 = 5;
+
+//Error11: Una variable booleana inicializada con un string
+INIC variable3 = "Hola";
+
+
+//Error12: Inicializa una variable no declarada
+INIC mivarXYZ = 100;
+
+
+//Error13 Incrementa una variable no declarada;
+INC [varXYZ];
+
+//Error14: Incrementa una variable booleana
+INC [variable3 var_1];
+
+//Error15: Incrementa una variable String
+INC [variable2];
+
+
+//Error16: Incrementa una variable numerico con un string
+INC[variable1 "UNO"];
+
+
+//Error16: Incrementa una variable numerico con un booleano
+INC[variable1 True];
+
+
+//Error17: Incrementa una variable numerico usando una variable string
+INC[variable1 variable2 ];
+
+//Error18: Incrementa una variable numerico usando una variable booleana
+INC[variable1 variable3 ];
+
+//Error18: Avanza usando un string
+AVANZA [10];
+
+//Error19: Avanza usando un boolean
+AV [TRUE];
+
+//Error20: Retrocede usando un string
+Retrocede [10];
+
+//Error21: Retrocede usando un booleano
+RE [True];
+
+//Error22: Gira Derecha usando un string
+GiraDerecha [90];
+
+//Error23: Gira Derecha usando un booleano
+GD False;
+
+//Erro24: Gira Izquierda usando un string
+GiraIzquierda [90];
+
+//Error25: Gira Izquierda usando un booleano
+GI True;
+
+//Error26: Posiciones usando un string
+PonPOS [ 100 0 ];
+
+//Error27: Posiciones usando un booleano
+PonXY [True 0];
+
+//Error28:En angulo con string
+PonRumbo [90];
+
+//Error28:En angulo con booleano
+PonRumbo [True];
+
+//Error29: CoordenadaX usando un String
+PonX [100];
+
+//Error30: CoordenadaY usando un booleano
+PonY [True];
+
+//Error31: Coloca color usando un String
+colorlapiz azul;
+
+//Error32: Coloca color usando un booleano
+colorlapiz True;
+
+
+//Error33: Repite sin cantidad de veces
+REPITE  [Avanza 10 GiraDerecha 90];
+
+
+//Error34: Bifurca usando un string
+SI ("hola") [RE 10 GD 20];
+
+
+//Error35: Bifurca usando un numero
+SI (10) [RE 10 GD 20];
+
+
+//Error36: Bifurca con Else dos veces
+SI (var1=1)
+[retrocede 10 GD 20];
+[retrocede 25 GD 10];
+[retrocede 15 GD 7];
+
+
+//Error37: Hasta sin ningun SI
+HAZ.HASTA [
+       ]
+(bucle=1);
+
+
+// Error38 Hasta sin condicion
+HAZ.HASTA [
+SI [numero=3] [salida 1];
+SI [var1=5] [salida 0];
+]
+
+
+
+//Error39 Hasta con instrucción incompleta
+HAZ.HASTA []
+
+
+//Error40: While sin condicion
+HAZ.HASTA
+[
+SI [numero=3] [salida 1];
+SI [var1=5] [salida 0];
+]
+
+
+//Error41: While sin cuerpo
+HAZ.HASTA (bucle=1);
+
+
+
+//Error42: Mientras con la condición al inicio
+HAZ.MIENTRAS [
+SI [var==3] [salida 1];
+SI [var1==5] [salida 0];
+]
+(bucle=1)
+
+
+//Error43: Mientras con dos condiciones
+HAZ.MIENTRAS [
+SI [var==3] [salida = 1];
+SI [var1==5] [salida = 0];
+]
+(bucle=1) (bucle=1)
+
+
+
+
+//Error44: Igual con solo un parametro
+INIC variable3 = iguales? 10;
+
+
+//Error45: Igual devolviendo un boolean en una variable numerica
+INIC variable1 = iguales? 10 10;
+
+
+//Error46: Igual devolviendo un boolean en una variable String
+INIC variable2 = iguales 10 10;
+
+
+
+//Error46: Devuelve AND con un solo parametro
+INIC variable3 = Y (10>2);
+
+
+//Error47: Devuelve OR en una variable numerica
+INIC variable1 = O (10>2) (2>5);
+
+//Error48: Devuelve Mayor usando String
+INIC variable1 =  mayorque? 10 2*5;
+
+
+//Error49: Resta de caracteres
+GiraIzquierda diferencia 100 45;
+
+//Error 50: Numero aleatorio con semilla booleana
+GiraIzquierda Azar True
+
+
+FIN
+
+
+//Error51:  Dos procedimientos llamados ingual
+PARA principal[]
+INIC variable1 = suma 1 2 3 4 5
+FIN
+
+
+principal[]

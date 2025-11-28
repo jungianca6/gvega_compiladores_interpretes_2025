@@ -1,0 +1,163 @@
+//Mi primer Comentario
+
+
+Para principal
+// Crea variables
+Haz variable1 5
+Haz variable2 “Hola”
+Haz variable3 TRUE
+Haz mivar 0
+Haz var 0
+Haz var3 0
+
+
+//Inicializa variables
+INIC mivar = 100
+INIC mivar = 100 + 45
+
+
+//Incremento
+INC [var]
+INC [var 5]
+INC [var var3]
+
+
+//Avanza
+AVANZA 10
+AV 5*3
+
+//Retrocede
+Retrocede 10
+RE 5*3
+
+
+//Gira Derecha
+GiraDerecha 90
+GD 45
+
+
+//Gira Izquierda
+GiraIzquierda 90
+GI 45
+
+//Oculta tortuga
+OT
+OcultaTortuga
+
+
+//Posiciones
+PonPOS [ 100 0 ]
+PonXY 0 0
+
+
+//En angulo
+PonRumbo 90
+
+//Orientacion
+Muestra RUMBO
+
+//CoordenadaX
+PonX 100
+
+//CoordenadaY
+PonY 100
+
+//Baja lapiz
+BajaLapiz
+
+//Sube lapiz
+SubeLapiz
+
+//Coloca color
+PonCL azul
+PonColoLapiz azul
+
+//En el Centro
+centro
+
+//En Espera
+Espera 10
+
+//Ejecuta
+Ejecuta [AV 10 GD 90]
+
+
+
+//Repite
+REPITE 4 [Avanza 10 GiraDerecha 90]
+
+//Bifurca
+SI (10>2) [RE 10 GD 20]
+
+//Bifurca con Else
+SI (var1=1)
+[RE 10 GD 20]
+[RE 25 GD 10]
+
+
+//Hasta
+HAZ.HASTA [
+SI [numero=3] [salida 1]
+SI [var1=5] [salida 0]
+]
+(bucle=1)
+
+
+//While
+HAZ.HASTA (bucle=1)
+[
+SI [numero=3] [salida 1]
+SI [var1=5] [salida 0]
+]
+
+
+
+//Mientras
+HAZ.MIENTRAS [
+SI [var=3] [salida 1]
+SI [var1=5] [salida 0]
+]
+(bucle=1)
+
+curva aprendizaje  cerp
+impacto regulartorio  arquitectura dedato  para generar gobierno y privacidad
+
+//Devuelve Boolean
+Iguales? 10 2*5
+
+//Devuelve AND
+Y (10>2) (2>5)
+
+//Devuelve OR
+O (10>2) (2>5)
+
+//Devuelve Mayor
+MayorQue? 10 2*5
+
+//Devuelve Menor
+MenorQue? 10 2*5
+
+//Resta numeros
+GiraIzquierda Diferencia 100 45
+
+//Numero aleatorio
+GiraIzquierda Azar 360
+
+//Multiplica numeros
+INIC variable1 =  Producto 1 2 3 4 5
+
+//Potencia
+INIC variable1 = Potencia 2 3
+
+
+//Division
+INIC variable1 = división 12 4
+
+//Suma
+INIC variable1 = Suma 1 2 3 4 5
+
+
+FIN
+
+
+principal
